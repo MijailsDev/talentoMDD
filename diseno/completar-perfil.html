@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Completa tu perfil | TalentoMDD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body data-pagina="perfil" class="pagina-perfil">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado encabezado--simple">
+    <div class="contenedor encabezado__fila">
+      <a class="logo" href="index.html" aria-label="TalentoMDD, ir al inicio">
+        <span class="logo__marca" aria-hidden="true">T</span>
+        <span class="logo__texto" aria-hidden="true">Talento<span>MDD</span></span>
+      </a>
+      <a class="enlace" href="index.html">Guardar y continuar después</a>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor perfil">
+    <div>
+      <h1>Completa tu perfil</h1>
+      <p class="perfil__bajada">Con tu perfil completo podrás postular, contactar empresas y recibir vacantes recomendadas según tu Match.</p>
+    </div>
+
+    <div>
+      <ol class="indicador-pasos" aria-label="Pasos">
+        <li aria-current="step"><span class="indicador-pasos__numero" aria-hidden="true">1</span>Datos</li>
+        <li><span class="indicador-pasos__numero" aria-hidden="true">2</span>Habilidades</li>
+        <li><span class="indicador-pasos__numero" aria-hidden="true">3</span><span>Micro&shy;certificaciones</span></li>
+      </ol>
+      <div id="barra-progreso" class="barra-progreso" role="progressbar" aria-label="Avance del perfil" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33">
+        <div class="barra-progreso__relleno"></div>
+      </div>
+    </div>
+
+    <form id="form-perfil" class="tarjeta-paso" novalidate>
+      <!-- Paso 1: información personal y profesional (RF-1.4) -->
+      <section class="paso" aria-labelledby="t-paso1">
+        <h2 id="t-paso1" tabindex="-1">Información personal y profesional</h2>
+        <div class="rejilla-campos">
+          <div class="campo">
+            <label for="p-carrera">Carrera</label>
+            <select id="p-carrera" data-validar="requerido" aria-describedby="p-carrera-error">
+              <option value="">Selecciona</option>
+              <option selected>Ingeniería de Sistemas</option>
+              <option>Administración</option>
+            </select>
+            <span id="p-carrera-error" class="campo__error">Selecciona tu carrera.</span>
+          </div>
+          <div class="campo">
+            <label for="p-ciclo">Ciclo actual</label>
+            <select id="p-ciclo" data-validar="requerido" aria-describedby="p-ciclo-error">
+              <option value="">Selecciona</option>
+              <option>1.º ciclo</option><option>2.º ciclo</option><option>3.º ciclo</option>
+              <option>4.º ciclo</option><option>5.º ciclo</option><option>6.º ciclo</option>
+              <option>7.º ciclo</option><option>8.º ciclo</option><option>9.º ciclo</option>
+              <option>10.º ciclo</option><option>Egresado</option>
+            </select>
+            <span id="p-ciclo-error" class="campo__error">Selecciona tu ciclo.</span>
+          </div>
+        </div>
+        <div class="grupo-filtro">
+          <span id="t-disp" class="grupo-filtro__titulo">Disponibilidad</span>
+          <div id="filtro-disponibilidad" class="filtros-fila" role="group" aria-labelledby="t-disp">
+            <button class="filtro" type="button" data-valor="Tiempo completo" aria-pressed="false">Tiempo completo</button>
+            <button class="filtro" type="button" data-valor="Medio tiempo" aria-pressed="false">Medio tiempo</button>
+            <button class="filtro" type="button" data-valor="Prácticas" aria-pressed="true">Prácticas</button>
+          </div>
+        </div>
+        <div class="grupo-filtro">
+          <span id="t-mod" class="grupo-filtro__titulo">Modalidad preferida</span>
+          <div id="filtro-modalidad-pref" class="filtros-fila" role="group" aria-labelledby="t-mod">
+            <button class="filtro" type="button" data-valor="Presencial" aria-pressed="false">Presencial</button>
+            <button class="filtro" type="button" data-valor="Híbrido" aria-pressed="true">Híbrido</button>
+            <button class="filtro" type="button" data-valor="Remoto" aria-pressed="false">Remoto</button>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="p-portafolio">Portafolio o GitHub <span class="campo__opcional">(opcional)</span></label>
+          <input id="p-portafolio" type="url" placeholder="https://github.com/tu-usuario" data-validar="url" aria-describedby="p-portafolio-error">
+          <span id="p-portafolio-error" class="campo__error">El enlace debe empezar con https://</span>
+        </div>
+        <div class="campo">
+          <label for="p-sobre">Sobre ti <span class="campo__opcional">(opcional)</span></label>
+          <textarea id="p-sobre" rows="3" placeholder="Cuéntale a las empresas qué te interesa y en qué proyectos has trabajado."></textarea>
+        </div>
+      </section>
+
+      <!-- Paso 2: habilidades del catálogo con nivel 1–5 (RF-1.5) -->
+      <section class="paso" aria-labelledby="t-paso2" hidden>
+        <div>
+          <h2 id="t-paso2" tabindex="-1">Tus habilidades</h2>
+          <p class="paso__bajada">Elige del catálogo e indica tu nivel: 1 = básico, 5 = avanzado.</p>
+        </div>
+        <div class="campo">
+          <label for="nueva-habilidad">Buscar en el catálogo</label>
+          <div style="display: flex; gap: 8px;">
+            <input id="nueva-habilidad" type="text" list="catalogo-habilidades" placeholder="Por ejemplo: SQL, Excel" autocomplete="off" aria-describedby="nueva-habilidad-error">
+            <button id="agregar-habilidad" class="btn btn--secundario" type="button">Agregar</button>
+          </div>
+          <datalist id="catalogo-habilidades"></datalist>
+          <span id="nueva-habilidad-error" class="campo__error" role="alert"></span>
+        </div>
+        <div class="grupo-filtro">
+          <span class="grupo-filtro__titulo">Sugeridas para tu carrera</span>
+          <div id="sugerencias" class="filtros-fila"></div>
+        </div>
+        <ul id="lista-habilidades" class="lista-habilidades" aria-label="Habilidades de tu perfil"></ul>
+      </section>
+
+      <!-- Paso 3: microcertificaciones -->
+      <section class="paso" aria-labelledby="t-paso3" hidden>
+        <div>
+          <h2 id="t-paso3" tabindex="-1">Microcertificaciones</h2>
+          <p class="paso__bajada">Cursos cortos que respaldan tus habilidades. Puedes agregarlas ahora o después.</p>
+        </div>
+        <ul id="lista-micros" class="micros" style="list-style: none; margin: 0; padding: 0;" aria-label="Microcertificaciones agregadas"></ul>
+        <div id="bloque-micro" class="rejilla-campos">
+          <div class="campo">
+            <label for="m-nombre">Nombre del curso</label>
+            <input id="m-nombre" type="text" placeholder="SQL básico" data-validar="requerido" aria-describedby="m-nombre-error">
+            <span id="m-nombre-error" class="campo__error">Escribe el nombre del curso.</span>
+          </div>
+          <div class="campo">
+            <label for="m-habilidad">Habilidad que respalda</label>
+            <select id="m-habilidad" data-validar="requerido" aria-describedby="m-habilidad-error"></select>
+            <span id="m-habilidad-error" class="campo__error">Elige una habilidad de tu perfil.</span>
+          </div>
+          <div class="campo">
+            <label for="m-entidad">Entidad emisora</label>
+            <input id="m-entidad" type="text" data-validar="requerido" aria-describedby="m-entidad-error">
+            <span id="m-entidad-error" class="campo__error">Indica quién emitió la certificación.</span>
+          </div>
+          <div class="campo">
+            <label for="m-fecha">Fecha de emisión</label>
+            <input id="m-fecha" type="date" data-validar="requerido" aria-describedby="m-fecha-error">
+            <span id="m-fecha-error" class="campo__error">Indica la fecha de emisión.</span>
+          </div>
+          <div class="campo" style="grid-column: 1 / -1;">
+            <label for="m-evidencia">Enlace a la evidencia <span class="campo__opcional">(certificado o insignia)</span></label>
+            <input id="m-evidencia" type="url" placeholder="https://" data-validar="url" aria-describedby="m-evidencia-error">
+            <span id="m-evidencia-error" class="campo__error">El enlace debe empezar con https://</span>
+          </div>
+        </div>
+        <button id="agregar-micro" class="btn btn--punteado" type="button" style="align-self: flex-start;">+ Agregar microcertificación</button>
+      </section>
+
+      <div class="acciones-paso">
+        <button id="paso-atras" class="btn btn--secundario" type="button" hidden>Atrás</button>
+        <div class="acciones-paso__derecha">
+          <button id="paso-siguiente" class="btn btn--primario" type="button">Siguiente</button>
+          <div id="acciones-finales" class="acciones-paso__derecha" hidden>
+            <a id="omitir" class="enlace" href="explorar.html">Omitir por ahora</a>
+            <a id="finalizar" class="btn btn--primario" href="explorar.html">Finalizar</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <script src="js/datos-mock.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

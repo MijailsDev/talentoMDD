@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crear cuenta o iniciar sesión | TalentoMDD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body data-pagina="acceso">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor encabezado__fila">
+      <a class="logo" href="index.html" aria-label="TalentoMDD, ir al inicio">
+        <span class="logo__marca" aria-hidden="true">T</span>
+        <span class="logo__texto" aria-hidden="true">Talento<span>MDD</span></span>
+      </a>
+      <div class="encabezado__movil">
+        <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú">
+          <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <nav id="menu-principal" class="menu" aria-label="Principal">
+        <ul class="menu__enlaces">
+          <li><a href="index.html#buscar">Buscar empleo</a></li>
+          <li><a href="explorar.html">Explorar oportunidades</a></li>
+          <li><a href="acceso.html?rol=empresa">Para empresas</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor acceso">
+    <!-- Contexto: por qué registrarse (RF-6.9) y a qué vacante se vuelve (RF-6.7) -->
+    <section class="acceso__contexto" aria-labelledby="titulo-contexto">
+      <div id="ctx-vacante" style="display: flex; flex-direction: column; gap: 10px;">
+        <span id="ctx-etiqueta" class="acceso__etiqueta">Estás postulando a</span>
+        <div class="vacante-mini">
+          <span id="ctx-iniciales" class="avatar-empresa" aria-hidden="true"></span>
+          <p><strong id="ctx-titulo"></strong><small id="ctx-detalle"></small></p>
+        </div>
+      </div>
+      <h1 id="titulo-contexto">Crea tu perfil y postula en minutos</h1>
+      <p id="ctx-volver" hidden>Al terminar volverás a esta vacante.</p>
+      <p>Con tu perfil podrás:</p>
+      <ul class="lista-check">
+        <li><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Completar tu información personal y profesional</li>
+        <li><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Agregar tus habilidades y su nivel</li>
+        <li><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Registrar tus microcertificaciones</li>
+        <li><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Postular y contactar con empresas</li>
+        <li><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Recibir vacantes recomendadas según tu Match</li>
+      </ul>
+    </section>
+
+    <section class="acceso__formularios" aria-label="Formularios de acceso">
+      <div class="pestanas" role="tablist" aria-label="Tipo de acceso">
+        <button id="tab-registro" class="pestana" type="button" role="tab" aria-selected="true" aria-controls="panel-registro">Crear cuenta</button>
+        <button id="tab-login" class="pestana" type="button" role="tab" aria-selected="false" aria-controls="panel-login" tabindex="-1">Iniciar sesión</button>
+      </div>
+
+      <!-- Registro -->
+      <div id="panel-registro" role="tabpanel" aria-labelledby="tab-registro">
+        <form id="form-registro" class="formulario" novalidate>
+          <fieldset>
+            <legend class="sr-only">Me registro como</legend>
+            <div class="opciones-rol">
+              <div class="opcion-rol">
+                <input id="rol-estudiante" type="radio" name="rol" value="estudiante" checked>
+                <label for="rol-estudiante"><strong>Estudiante o egresado</strong><small>Busco prácticas o empleo</small></label>
+              </div>
+              <div class="opcion-rol">
+                <input id="rol-empresa" type="radio" name="rol" value="empresa">
+                <label for="rol-empresa"><strong>Empresa</strong><small>Quiero publicar vacantes</small></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <div data-panel-rol="estudiante" class="formulario">
+            <div class="campo">
+              <label for="r-nombre">Nombres y apellidos</label>
+              <input id="r-nombre" type="text" autocomplete="name" data-validar="requerido" aria-describedby="r-nombre-error">
+              <span id="r-nombre-error" class="campo__error">Escribe tu nombre completo.</span>
+            </div>
+            <div class="campo">
+              <label for="r-correo">Correo electrónico</label>
+              <input id="r-correo" type="email" autocomplete="email" placeholder="tu.nombre@correo.com" data-validar="correo" aria-describedby="r-correo-error">
+              <span id="r-correo-error" class="campo__error">Ingresa un correo válido, por ejemplo nombre@correo.com</span>
+            </div>
+            <div class="campo">
+              <label for="r-carrera">Carrera (UNAMAD)</label>
+              <select id="r-carrera" data-validar="requerido" aria-describedby="r-carrera-error">
+                <option value="">Selecciona tu carrera</option>
+                <option>Ingeniería de Sistemas</option>
+                <option>Administración</option>
+              </select>
+              <span id="r-carrera-error" class="campo__error">Selecciona tu carrera.</span>
+            </div>
+            <div class="campo">
+              <label for="r-clave">Contraseña</label>
+              <input id="r-clave" type="password" autocomplete="new-password" data-validar="clave" aria-describedby="r-clave-ayuda r-clave-error">
+              <span id="r-clave-ayuda" class="campo__ayuda">Mínimo 8 caracteres.</span>
+              <span id="r-clave-error" class="campo__error">La contraseña debe tener al menos 8 caracteres.</span>
+            </div>
+            <div class="casilla" style="flex-wrap: wrap;">
+              <input id="r-terminos" type="checkbox" data-validar="casilla" aria-describedby="r-terminos-error">
+              <label for="r-terminos">Acepto los términos de uso y la política de privacidad.</label>
+              <span id="r-terminos-error" class="campo__error" style="flex-basis: 100%;">Debes aceptar los términos para continuar.</span>
+            </div>
+            <button class="btn btn--primario btn--grande btn--bloque" type="submit">Crear cuenta y completar perfil</button>
+            <p class="nota">En esta etapa, solo para estudiantes y egresados de la UNAMAD.</p>
+          </div>
+
+          <div data-panel-rol="empresa" class="formulario" hidden>
+            <div class="campo">
+              <label for="e-razon">Razón social</label>
+              <input id="e-razon" type="text" autocomplete="organization" data-validar="requerido" aria-describedby="e-razon-error">
+              <span id="e-razon-error" class="campo__error">Escribe la razón social de tu empresa.</span>
+            </div>
+            <div class="rejilla-campos">
+              <div class="campo">
+                <label for="e-ruc">RUC</label>
+                <input id="e-ruc" type="text" inputmode="numeric" maxlength="11" data-validar="ruc" aria-describedby="e-ruc-error">
+                <span id="e-ruc-error" class="campo__error">El RUC tiene 11 dígitos.</span>
+              </div>
+              <div class="campo">
+                <label for="e-ciudad">Ciudad</label>
+                <input id="e-ciudad" type="text" placeholder="Lima, Arequipa, Puerto Maldonado…" data-validar="requerido" aria-describedby="e-ciudad-error">
+                <span id="e-ciudad-error" class="campo__error">Indica la ciudad de tu empresa.</span>
+              </div>
+            </div>
+            <div class="campo">
+              <label for="e-correo">Correo de contacto</label>
+              <input id="e-correo" type="email" autocomplete="email" data-validar="correo" aria-describedby="e-correo-error">
+              <span id="e-correo-error" class="campo__error">Ingresa un correo válido.</span>
+            </div>
+            <div class="campo">
+              <label for="e-clave">Contraseña</label>
+              <input id="e-clave" type="password" autocomplete="new-password" data-validar="clave" aria-describedby="e-clave-error">
+              <span id="e-clave-error" class="campo__error">La contraseña debe tener al menos 8 caracteres.</span>
+            </div>
+            <p class="aviso aviso--info">Tu empresa quedará pendiente de verificación hasta que el equipo de TalentoMDD la valide.</p>
+            <button class="btn btn--primario btn--grande btn--bloque" type="submit">Registrar empresa</button>
+          </div>
+        </form>
+
+        <div id="exito-empresa" class="estado-vacio" tabindex="-1" hidden>
+          <p class="estado-vacio__titulo">¡Solicitud enviada!</p>
+          <p>Revisaremos los datos de tu empresa. Te avisaremos por correo cuando esté verificada y puedas publicar vacantes.</p>
+          <a class="btn btn--primario" href="index.html">Volver al inicio</a>
+        </div>
+      </div>
+
+      <!-- Inicio de sesión -->
+      <div id="panel-login" role="tabpanel" aria-labelledby="tab-login" hidden>
+        <form id="form-login" class="formulario" novalidate>
+          <div class="campo">
+            <label for="l-correo">Correo electrónico</label>
+            <input id="l-correo" type="email" autocomplete="email" data-validar="correo" aria-describedby="l-correo-error">
+            <span id="l-correo-error" class="campo__error">Ingresa un correo válido.</span>
+          </div>
+          <div class="campo">
+            <label for="l-clave">Contraseña</label>
+            <input id="l-clave" type="password" autocomplete="current-password" data-validar="requerido" aria-describedby="l-clave-error">
+            <span id="l-clave-error" class="campo__error">Escribe tu contraseña.</span>
+          </div>
+          <div class="fila-entre">
+            <label class="casilla" style="align-items: center;"><input type="checkbox" style="margin: 0;">Recordarme</label>
+            <a class="enlace" href="#">¿Olvidaste tu contraseña?</a>
+          </div>
+          <button class="btn btn--primario btn--grande btn--bloque" type="submit">Iniciar sesión</button>
+          <p class="nota">¿Aún no tienes cuenta? <button id="ir-registro" class="boton-texto" type="button">Crear cuenta</button></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/datos-mock.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

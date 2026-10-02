@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TalentoMDD — Encuentra tu próxima oportunidad laboral</title>
+  <meta name="description" content="Plataforma de empleabilidad que conecta a estudiantes y egresados de la UNAMAD con empresas de todo el Perú mediante habilidades y microcertificaciones.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body data-pagina="inicio">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor encabezado__fila">
+      <a class="logo" href="index.html" aria-label="TalentoMDD, ir al inicio">
+        <span class="logo__marca" aria-hidden="true">T</span>
+        <span class="logo__texto" aria-hidden="true">Talento<span>MDD</span></span>
+      </a>
+      <div class="encabezado__movil">
+        <a class="btn btn--primario" href="acceso.html">Registrarse</a>
+        <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú">
+          <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <nav id="menu-principal" class="menu" aria-label="Principal">
+        <ul class="menu__enlaces">
+          <li><a href="index.html#buscar">Buscar empleo</a></li>
+          <li><a href="explorar.html">Explorar oportunidades</a></li>
+          <li><a href="acceso.html?rol=empresa">Para empresas</a></li>
+        </ul>
+        <div class="menu__acciones">
+          <a class="btn btn--secundario" href="acceso.html?tab=login">Iniciar sesión</a>
+          <a class="btn btn--primario" href="acceso.html">Registrarse</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- Portada con buscador destacado (RF-6.2) -->
+    <section class="portada" aria-labelledby="titulo-portada">
+      <div class="contenedor portada__contenido">
+        <span class="portada__sello">Estudiantes y egresados UNAMAD · Empresas de todo el Perú</span>
+        <!-- Texto pendiente de decisión del equipo (requirements.md §1.4, C-3) -->
+        <h1 id="titulo-portada">Encuentra tu próxima oportunidad laboral en <span>Madre de Dios</span></h1>
+        <p class="portada__bajada">Busca por puesto, habilidad, empresa o ciudad. Postula con tu perfil de habilidades y microcertificaciones.</p>
+
+        <form id="buscar" class="buscador" action="explorar.html" method="get" role="search" aria-label="Buscar vacantes">
+          <div class="buscador__campo buscador__campo--que">
+            <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <div class="buscador__textos">
+              <label for="q">¿Qué buscas?</label>
+              <input id="q" name="q" type="search" placeholder="Puesto, habilidad o empresa" autocomplete="off">
+            </div>
+          </div>
+          <div class="buscador__campo buscador__campo--donde">
+            <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            <div class="buscador__textos">
+              <label for="donde">¿Dónde?</label>
+              <input id="donde" name="donde" type="text" placeholder="Ciudad o Remoto" autocomplete="off">
+            </div>
+          </div>
+          <div class="buscador__campo buscador__campo--tipo">
+            <div class="buscador__textos">
+              <label for="tipo">Tipo de oportunidad</label>
+              <select id="tipo" name="tipo">
+                <option>Todas</option>
+                <option>Prácticas</option>
+                <option>Medio tiempo</option>
+                <option>Tiempo completo</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn--primario" type="submit">Buscar empleo</button>
+        </form>
+
+        <div class="populares">
+          <span class="populares__titulo">Búsquedas populares:</span>
+          <a href="explorar.html?tipo=Prácticas">Prácticas</a>
+          <a href="explorar.html?q=SQL">SQL</a>
+          <a href="explorar.html?q=Excel">Excel</a>
+          <a href="explorar.html?modalidad=Remoto">Remoto</a>
+          <a href="explorar.html?q=Atención%20al%20cliente">Atención al cliente</a>
+          <a href="explorar.html?q=Marketing">Marketing digital</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tarjetas de vacantes (RF-6.4) -->
+    <section class="seccion" aria-labelledby="titulo-recientes">
+      <div class="contenedor">
+        <div class="seccion__cabecera">
+          <div>
+            <h2 id="titulo-recientes">Oportunidades recientes</h2>
+            <p class="seccion__bajada">Vacantes activas de empresas verificadas.</p>
+          </div>
+          <a class="enlace" href="explorar.html">Ver todas las oportunidades
+            <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="barra-filtros">
+          <div id="filtro-modalidad" class="filtros-fila" role="group" aria-label="Filtrar por modalidad">
+            <button class="filtro" type="button" data-valor="todas" aria-pressed="true">Todas</button>
+            <button class="filtro" type="button" data-valor="Presencial" aria-pressed="false">Presencial</button>
+            <button class="filtro" type="button" data-valor="Híbrido" aria-pressed="false">Híbrido</button>
+            <button class="filtro" type="button" data-valor="Remoto" aria-pressed="false">Remoto</button>
+          </div>
+          <span class="etiqueta-mock">Datos de ejemplo</span>
+        </div>
+        <div id="lista-recientes" class="grilla-vacantes" aria-live="polite"></div>
+        <div id="vacio-recientes" class="estado-vacio" hidden>
+          <p class="estado-vacio__titulo">No hay vacantes con esta modalidad por ahora.</p>
+          <a class="enlace" href="explorar.html">Explorar todas las oportunidades</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion seccion--superficie" aria-labelledby="titulo-como">
+      <div class="contenedor">
+        <div class="centrado-columna">
+          <h2 id="titulo-como" class="titulo-seccion">Tu perfil vale más que un CV</h2>
+          <p class="seccion__bajada">Las empresas te encuentran por lo que sabes hacer. Así funciona:</p>
+        </div>
+        <ol class="pasos-inicio">
+          <li>
+            <span class="numero" aria-hidden="true">1</span>
+            <h3>Crea tu perfil</h3>
+            <p>Registra tu carrera, ciclo, disponibilidad y portafolio.</p>
+          </li>
+          <li>
+            <span class="numero" aria-hidden="true">2</span>
+            <h3>Muestra lo que sabes</h3>
+            <p>Agrega tus habilidades con su nivel y tus microcertificaciones.</p>
+          </li>
+          <li>
+            <span class="numero" aria-hidden="true">3</span>
+            <h3>Postula con tu Match</h3>
+            <p>Conoce tu porcentaje de compatibilidad con cada vacante antes de postular.</p>
+          </li>
+        </ol>
+        <div class="centrado">
+          <a class="btn btn--primario btn--grande" href="acceso.html">Crear mi perfil gratis</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="empresas" class="seccion" aria-labelledby="titulo-empresas">
+      <div class="contenedor">
+        <div class="bloque-empresas">
+          <div class="bloque-empresas__texto">
+            <span class="sobretitulo">Para empresas</span>
+            <h2 id="titulo-empresas" class="titulo-seccion">¿Tu empresa busca talento joven?</h2>
+            <p class="seccion__bajada">Publica vacantes con habilidades estructuradas y recibe candidatos de la UNAMAD ordenados por compatibilidad.</p>
+            <ul class="lista-check">
+              <li><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Publica tus primeras vacantes sin costo</li>
+              <li><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Candidatos ordenados por porcentaje de Match</li>
+              <li><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Empresas de cualquier región del Perú</li>
+            </ul>
+          </div>
+          <div class="bloque-empresas__acciones">
+            <a class="btn btn--primario btn--grande" href="acceso.html?rol=empresa">Registrar mi empresa</a>
+            <a class="btn btn--secundario btn--grande" href="acceso.html?tab=login">Iniciar sesión como empresa</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <div class="pie__columnas">
+        <div>
+          <p class="pie__marca">Talento<span>MDD</span></p>
+          <p>Conectamos el talento joven de Madre de Dios con empresas de todo el Perú.</p>
+        </div>
+        <nav aria-label="Estudiantes">
+          <p class="pie__titulo">Estudiantes</p>
+          <a href="explorar.html">Buscar empleo</a>
+          <a href="acceso.html">Crear perfil</a>
+        </nav>
+        <nav aria-label="Empresas">
+          <p class="pie__titulo">Empresas</p>
+          <a href="acceso.html?rol=empresa">Publicar una vacante</a>
+          <a href="acceso.html?tab=login">Iniciar sesión</a>
+        </nav>
+      </div>
+      <p class="pie__legal">© 2026 TalentoMDD · Puerto Maldonado, Madre de Dios · <a href="guia-estilos.html">Guía de estilos</a></p>
+    </div>
+  </footer>
+
+  <script src="js/datos-mock.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

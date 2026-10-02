@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guía de estilos | TalentoMDD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <main class="contenedor guia">
+    <div>
+      <a class="enlace" href="index.html">← Volver al inicio</a>
+      <h1>Guía de estilos</h1>
+      <p class="seccion__bajada">Colores, tipografía, botones, campos y etiquetas de TalentoMDD. Reglas completas en design.md §7.1.</p>
+    </div>
+
+    <section aria-labelledby="g-paleta">
+      <h2 id="g-paleta">Paleta</h2>
+      <div class="muestras">
+        <div class="muestra">
+          <div class="muestra__color" style="background: var(--espresso); color: var(--blanco);">Texto blanco · 11.6:1</div>
+          <div class="muestra__datos"><strong>Espresso</strong><code>#4A342A</code><span>Texto principal, portada, pie de página.</span></div>
+        </div>
+        <div class="muestra">
+          <div class="muestra__color" style="background: var(--cocoa); color: var(--blanco);">Texto blanco · 6.1:1</div>
+          <div class="muestra__datos"><strong>Cocoa</strong><code>#7D5A44</code><span>Botones principales y enlaces.</span></div>
+        </div>
+        <div class="muestra">
+          <div class="muestra__color" style="background: var(--camel); color: var(--espresso); font-size: 24px; font-weight: 800;">Solo acentos</div>
+          <div class="muestra__datos"><strong>Camel</strong><code>#B2967D</code><span>Bordes, iconos y detalles. No usar como color de texto sobre blanco (2.8:1).</span></div>
+        </div>
+      </div>
+      <div class="fila-muestras" style="margin-top: 16px;">
+        <span class="etiqueta-mock">Superficie #F7F3EF</span>
+        <span class="chip">Etiqueta #EFE6DD</span>
+        <span class="chip chip--mas">Borde #E3D8CD</span>
+        <span style="color: var(--texto-secundario); font-weight: 600;">Texto secundario #6F6259</span>
+        <span style="color: var(--alerta); font-weight: 600;">Alerta #9A3412</span>
+      </div>
+    </section>
+
+    <div class="guia-columnas">
+      <section class="guia-columna" aria-labelledby="g-tipo">
+        <h2 id="g-tipo">Tipografía</h2>
+        <p style="font-family: var(--fuente-titulos); font-weight: 800; font-size: 44px; letter-spacing: -0.03em; line-height: 1.05;">Títulos · Bricolage Grotesque</p>
+        <p style="font-family: var(--fuente-titulos); font-weight: 700; font-size: 26px;">Subtítulo de sección 26 px</p>
+        <p style="font-family: var(--fuente-titulos); font-weight: 700; font-size: 21px;">Puesto en tarjeta 21 px</p>
+        <p style="font-size: 17px;">Texto de lectura · Figtree 17 px. Las empresas te encuentran por lo que sabes hacer.</p>
+        <p style="font-size: 14px; color: var(--texto-secundario);">Texto secundario 14 px · Publicado hace 3 días</p>
+      </section>
+
+      <section class="guia-columna" aria-labelledby="g-botones">
+        <h2 id="g-botones">Botones</h2>
+        <div class="fila-muestras">
+          <button class="btn btn--primario btn--grande" type="button">Postular</button>
+          <button class="btn btn--secundario btn--grande" type="button">Contactar</button>
+          <a class="enlace" href="#g-botones">Ver todas →</a>
+          <button class="btn btn--grande" type="button" disabled>Deshabilitado</button>
+        </div>
+        <p class="campo__ayuda">Pasa el mouse o usa Tab para ver los estados hover y foco.</p>
+        <div class="fila-muestras panel-oscuro">
+          <button class="btn btn--claro btn--grande" type="button">Sobre fondo oscuro</button>
+        </div>
+        <div class="fila-muestras">
+          <button class="btn btn--punteado" type="button">+ Agregar</button>
+          <button class="filtro" type="button" aria-pressed="true">Filtro activo</button>
+          <button class="filtro" type="button" aria-pressed="false">Filtro inactivo</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="guia-columnas">
+      <section class="guia-columna" aria-labelledby="g-campos">
+        <h2 id="g-campos">Campos</h2>
+        <div class="campo">
+          <label for="g1">Correo electrónico</label>
+          <input id="g1" type="email" placeholder="tu.nombre@correo.com">
+        </div>
+        <div class="campo campo--error">
+          <label for="g2">Con error</label>
+          <input id="g2" type="email" value="correo@" aria-invalid="true" aria-describedby="g2-error">
+          <span id="g2-error" class="campo__error">Ingresa un correo válido, por ejemplo nombre@correo.com</span>
+        </div>
+        <div class="campo">
+          <label for="g3">Selector</label>
+          <select id="g3"><option>Ingeniería de Sistemas</option><option>Administración</option></select>
+        </div>
+      </section>
+
+      <section class="guia-columna" aria-labelledby="g-etiquetas">
+        <h2 id="g-etiquetas">Etiquetas y Match</h2>
+        <div class="fila-muestras">
+          <span class="chip">Habilidad</span>
+          <span class="chip chip--obligatoria">Obligatoria</span>
+          <span class="chip chip--deseable">Deseable</span>
+          <span class="insignia-verificada">
+            <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+            Empresa verificada
+          </span>
+          <span class="etiqueta-mock">Datos de ejemplo</span>
+        </div>
+        <div class="fila-muestras">
+          <span class="match match--alto">85% · Match alto</span>
+          <span class="match match--medio">62% · Match medio</span>
+          <span class="match match--bajo">30% · Match bajo</span>
+        </div>
+        <p class="aviso aviso--bloqueado">Regístrate para ver tu Match (visitante)</p>
+        <p class="aviso aviso--alerta" role="note">Te falta una habilidad obligatoria: React</p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
