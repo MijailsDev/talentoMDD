@@ -8,6 +8,7 @@
 - [ ] 1.2 Validar los módulos, historias de usuario y criterios de aceptación (Yeremi presenta, el equipo confirma) — [requirements.md §5](requirements.md)
 - [ ] 1.3 Validar las entidades y la arquitectura general — [design.md §2, §4](design.md)
 - [ ] 1.4 Validar el flujo general estudiante/empresa — [design.md §7](design.md)
+- [ ] 1.5 Resolver los conflictos C-1 a C-9 del documento de interfaz (texto del buscador, alcance de "Contactar", tipo de contrato, etc.) — [requirements.md §1.4](requirements.md)
 
 ## FASE 2 — Trabajo en paralelo por rol
 
@@ -39,6 +40,9 @@
 - [ ] 2.18 Usar mocks claramente identificados mientras la API de JuanG no esté lista; reemplazarlos cuando exista
 - [ ] 2.19 Implementar estados de carga/error/éxito y validaciones visuales en cada formulario
 - [ ] 2.20 Verificar Mobile-First en cada pantalla (probar primero en viewport de celular)
+- [ ] 2.32 Definir los tokens de la paleta Camel/Cocoa/Espresso y respetar las reglas de contraste — [design.md §7.1](design.md)
+- [ ] 2.33 Construir el panel público: Inicio (buscador destacado + tarjetas), Explorar, DetalleVacante a pantalla completa y Acceso con regreso a la vacante — [requirements.md RF-6](requirements.md), [design.md §7.2–§7.5](design.md)
+- [ ] 2.34 Construir el onboarding posterior al registro (datos → habilidades → microcertificaciones) — [requirements.md RF-6.9](requirements.md)
 
 ### Mijail — Base de datos + Ciberseguridad
 
@@ -48,6 +52,8 @@
 - [ ] 2.24 Revisar y, si es necesario, endurecer: hashing de contraseñas, protección contra SQL Injection, CORS, variables de entorno — [tech.md §5](tech.md)
 - [ ] 2.25 Ejecutar pruebas de seguridad básicas antes de que cada módulo se fusione a `develop`
 - [ ] 2.26 Entregar un informe de problemas encontrados y soluciones aplicadas
+- [ ] 2.35 Decidir con JuanG las brechas del detalle de vacante (responsabilidades, requisitos adicionales, `tipo_contrato`, logotipo, contacto de empresa) — [design.md §7.4](design.md)
+- [ ] 2.36 Revisar que los endpoints públicos (`GET /vacantes`, `GET /vacantes/:id`) no expongan datos sensibles y que la ruta de retorno del login no permita redirecciones abiertas — [design.md §5.2, §7.5](design.md)
 
 ### Yeremi — Producto + Requisitos + Validación
 
@@ -56,6 +62,7 @@
 - [ ] 2.29 Revisar que el Match de Antony realmente responda al problema (no solo que funcione técnicamente)
 - [ ] 2.30 Preparar los criterios de aceptación y casos de prueba de aceptación para la Fase 6
 - [ ] 2.31 Vigilar que el producto no se convierta en una bolsa de trabajo genérica ni en una red social — [requirements.md §1.3](requirements.md)
+- [ ] 2.37 Proponer al equipo la resolución de los conflictos C-1 a C-9 y actualizar [requirements.md §1.4](requirements.md) con lo decidido
 
 ## FASE 3 — Primera integración
 

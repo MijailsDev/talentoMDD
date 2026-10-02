@@ -230,8 +230,8 @@ Base de referencia de JuanG (Coordinador/Backend), ampliada con lo necesario par
 | POST | `/auth/refresh` | Renovar el access token |
 | GET | `/estudiantes/:id` | Consultar un estudiante |
 | PUT | `/estudiantes/:id` | Actualizar un estudiante (incluye habilidades, ciclo, disponibilidad, portafolio) |
-| GET | `/vacantes` | Listar / buscar vacantes |
-| GET | `/vacantes/:id` | Detalle de una vacante |
+| GET | `/vacantes` | Listar / buscar vacantes — **público**. Parámetros: `q` (puesto, habilidad, empresa o ubicación), `modalidad`, `jornada`, `carrera` (RF-3.2, RF-6.3) |
+| GET | `/vacantes/:id` | Detalle de una vacante — **público**; incluye `porcentaje_match` solo si quien consulta es un estudiante con sesión (RF-6.8) |
 | POST | `/vacantes` | Crear vacante (con requisitos) |
 | PUT | `/vacantes/:id` | Editar vacante |
 | GET | `/vacantes/:id/matches` | Candidatos de una vacante ordenados por Match |
@@ -243,7 +243,7 @@ Base de referencia de JuanG (Coordinador/Backend), ampliada con lo necesario par
 | GET/POST | `/admin/habilidades` | Gestionar catálogo de habilidades |
 | GET | `/admin/reportes` | Estadísticas básicas |
 
-**[Equipo — los endpoints base son los que definió JuanG; se añadieron los de habilidades/admin/reportes necesarios para cubrir RF-4/RF-5.]**
+**[Equipo — los endpoints base son los que definió JuanG; se añadieron los de habilidades/admin/reportes necesarios para cubrir RF-4/RF-5.]** Solo `/auth/*` y `GET /vacantes`, `GET /vacantes/:id` son públicos (panel público, RF-6.6); todo lo demás exige sesión.
 
 ## 6. Motor de Matching
 
@@ -307,6 +307,11 @@ El equipo es explícito: "no uses IA compleja si no aporta valor al MVP". El alg
 frontend/
 ├── src/
 │   ├── pages/
+│   │   ├── publico/
+│   │   │   ├── Inicio (buscador destacado + tarjetas de vacantes)
+│   │   │   ├── Explorar (resultados de búsqueda)
+│   │   │   ├── DetalleVacante (pantalla completa, sin Match)
+│   │   │   └── Acceso (Login / Registro, con regreso a la vacante)
 │   │   ├── estudiante/
 │   │   │   ├── Login, Registro, Dashboard
 │   │   │   ├── Perfil (carrera, ciclo, disponibilidad, habilidades, portafolio)
@@ -319,13 +324,98 @@ frontend/
 │   │   └── admin/
 │   │       └── Usuarios, Empresas, Reportes
 │   ├── components/
-│   │   ├── Navbar, CardVacante, CardEstudiante, MatchBadge, Button
+│   │   ├── Navbar, SearchBar, CardVacante, CardEstudiante, MatchBadge, Button
 │   ├── services/
 │   │   └── api.js
 │   └── App
 ```
 
-**[Equipo, con nomenclatura alineada a §2 de requirements.md]**
+**[Equipo, con nomenclatura alineada a §2 de requirements.md; `publico/` y `SearchBar` agregados por el documento de interfaz]**
+
+### 7.1. Identidad visual
+
+| Token | Color | Uso |
+|---|---|---|
+| `--color-espresso` | `#4A342A` | Texto principal, encabezados, Navbar, fondo de la sección principal (con texto blanco) |
+| `--color-cocoa` | `#7D5A44` | Botones primarios ("Buscar", "Postular") con texto blanco, enlaces |
+| `--color-camel` | `#B2967D` | Acentos: bordes, chips de habilidades, iconos, separadores, fondos decorativos |
+
+**[Equipo — interfaz (paleta)]**
+
+Contraste medido (WCAG 2.1; AA exige ≥ 4.5:1 para texto normal y ≥ 3:1 para texto grande):
+
+| Combinación | Contraste | Uso permitido |
+|---|---|---|
+| Blanco sobre Espresso | 11.57:1 | Cualquier texto |
+| Blanco sobre Cocoa | 6.14:1 | Cualquier texto (botones) |
+| Espresso sobre Camel | 4.16:1 | Solo texto grande o en negrita (≥ 18.66 px negrita / 24 px) |
+| Blanco sobre Camel | 2.78:1 | **No usar para texto** |
+| Cocoa sobre Camel / Espresso sobre Cocoa | 2.21:1 / 1.88:1 | **No usar para texto** |
+
+Para fondos de página y tarjetas se recomienda blanco o un tono claro derivado de Camel (p. ej. `#F7F3EF`), dejando las tres tonalidades para jerarquía y acentos. **[Recomendación]**
+
+### 7.2. Página de inicio (panel público)
+
+Orden de arriba hacia abajo, pensado primero para celular:
+
+1. **Navbar:** logo · Explorar oportunidades · Para empresas · Iniciar sesión · **Registrarse** (botón destacado). En celular, menú colapsable con "Registrarse" siempre visible.
+2. **Sección principal:** texto referencial (pendiente C-3 de [requirements.md §1.4](requirements.md)) y **buscador grande** de un solo campo (puesto, habilidad, empresa o ubicación) con filtros rápidos de modalidad y jornada. Botón "Buscar empleo".
+3. **Vacantes recientes:** grilla de `CardVacante` (1 columna en celular, 2–3 en escritorio) y enlace "Ver todas" → Explorar.
+4. **Para empresas:** bloque breve con acceso a registro de empresa.
+
+**[Equipo — interfaz (contenido) + Recomendación (orden y comportamiento responsive)]**
+
+### 7.3. Tarjeta de vacante (`CardVacante`)
+
+| Campo pedido | Origen en el modelo (§4) |
+|---|---|
+| Nombre o logotipo de la empresa | `empresas.nombre`; logotipo → ver brecha en §7.4 |
+| Puesto | `vacantes.titulo` |
+| Ubicación | `vacantes.ciudad` (o "Remoto" si `modalidad = remoto`) |
+| Tipo de trabajo | `vacantes.jornada` + `vacantes.modalidad` |
+| Habilidades requeridas | `vacante_requisitos` → `habilidades.nombre` (máx. 3–4 chips + "+N") |
+| Breve descripción | `vacantes.descripcion`, truncada a ~2 líneas |
+| Fecha de publicación | `vacantes.fecha_publicacion` (formato relativo: "hace 3 días") |
+| Botón "Ver detalles" | Navega a `DetalleVacante` |
+
+Para un estudiante con sesión, la tarjeta añade `MatchBadge`. **[Equipo — interfaz]**
+
+### 7.4. Detalle de vacante (pantalla completa) y brechas con el modelo de datos
+
+| Campo pedido | Origen en el modelo | Estado |
+|---|---|---|
+| Puesto, empresa, descripción | `vacantes.titulo`, `empresas.nombre`, `vacantes.descripcion` | Cubierto |
+| Habilidades solicitadas | `vacante_requisitos` (obligatoria / deseable) | Cubierto |
+| Ubicación, modalidad | `vacantes.ciudad`, `vacantes.modalidad` | Cubierto |
+| Información de la empresa | `empresas.descripcion`, `empresas.ciudad` | Cubierto (básico) |
+| Microcertificaciones relacionadas | Derivadas de las habilidades requeridas ([requirements.md §6](requirements.md)) | Cubierto sin tabla nueva |
+| Responsabilidades | — | **Brecha:** texto descriptivo, no entra al Match (C-5) |
+| Requisitos adicionales (no habilidades) | — | **Brecha:** texto descriptivo, no entra al Match (C-5) |
+| Tipo de contrato | `vacantes.jornada` cubre parcialmente | **Brecha / Pendiente** (C-6) |
+| Logotipo de la empresa | `usuarios.foto_url` del usuario empresa podría reutilizarse | **Brecha menor** |
+| Contacto / sitio web de la empresa | — | **Brecha**, depende de C-4 |
+
+Las brechas son propuestas: **no se modificó [database/schema.sql](database/schema.sql)**. Cualquier cambio al esquema lo deciden Mijail y JuanG (regla 3 del equipo). **[Recomendación]**
+
+Acciones en el detalle: **Postular** (botón principal) y **Contactar** (secundario, según C-4). Un visitante ve "Regístrate para ver tu compatibilidad" en lugar del Match (RF-6.8).
+
+### 7.5. Flujo del visitante
+
+```
+Inicio
+  ├── Buscar empleo / Explorar oportunidades
+  │       └── Resultados (tarjetas)
+  │               └── Ver detalles (pantalla completa)
+  │                       ├── Postular  ─┐
+  │                       └── Contactar ─┴─► ¿Tiene sesión?
+  │                                            ├── Sí → acción
+  │                                            └── No → Registro / Inicio de sesión
+  │                                                      └── regresa a la vacante (RF-6.7)
+  ├── Iniciar sesión
+  └── Registrarse → completar perfil: datos → habilidades → microcertificaciones (RF-6.9)
+```
+
+Para no perder la vacante, la pantalla de acceso recibe la ruta de retorno (p. ej. `/acceso?volver=/vacantes/42`), validando que sea una ruta interna para evitar redirecciones abiertas. **[Equipo — interfaz (flujo) + Recomendación (regreso y validación)]**
 
 ## 8. Diagramas a elaborar antes de programar
 
@@ -340,6 +430,8 @@ frontend/
 | Limitar el MVP a empresas de Madre de Dios y generar sobreoferta de estudiantes | Mantener el alcance nacional de empresas (§1.2 de requirements.md) |
 | Convertir TalentoMDD en una bolsa de trabajo genérica o red social | Mantener el concepto central: talento + habilidades + vacantes + matching + postulación |
 | Sobre-diseñar el matching con IA antes de validar la fórmula simple | Empezar con la fórmula ponderada explicable (§6) y solo evolucionar si el equipo lo decide |
+| Que el mensaje público ("…en Madre de Dios") haga creer que solo hay empleo local, aunque las empresas son nacionales | Resolver el texto del buscador (C-3 de requirements.md §1.4) antes de construir la página de inicio |
+| Que "Contactar" termine convirtiéndose en un chat (fuera del MVP) | Limitarlo a mostrar el contacto público de la empresa (C-4) |
 | Hardcodear "UNAMAD" o las dos carreras del MVP en la lógica | Tratarlas como datos parametrizables, pensando en la Fase 2 (§9 de requirements.md) |
 | Trabajar de forma secuencial (BD → backend → matching → frontend → pruebas) | Trabajar en paralelo por rol, con la separación en capas de §2.1 |
 

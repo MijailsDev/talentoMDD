@@ -31,6 +31,24 @@ Esto reemplaza la sección "Análisis competitivo" y el supuesto de "empresas lo
 
 > No convertir TalentoMDD en una bolsa de trabajo genérica, ni en una red social, ni en un sistema innecesariamente grande. El concepto central es: **TALENTO UNIVERSITARIO + HABILIDADES + VACANTES + MATCHING + POSTULACIÓN.** **[Equipo]**
 
+### 1.4. Documento de requisitos de interfaz y conflictos detectados
+
+El equipo agregó un documento de **requisitos de interfaz** (`TalentoMDD_requisitos.md`: identidad visual, panel público, página de inicio, tarjetas y detalle de vacante, flujo de registro). Su contenido se integra en §3, RF-6 de este documento y en [design.md §7](design.md); se etiqueta como **[Equipo — interfaz]**.
+
+Al compararlo con lo ya acordado aparecen los siguientes conflictos. Mientras el equipo no decida otra cosa, **prevalece lo ya acordado** (columna "Resolución propuesta"), porque es más específico:
+
+| # | Documento de interfaz dice | Ya acordado | Resolución propuesta | Estado |
+|---|---|---|---|---|
+| C-1 | Talento de "estudiantes y egresados de Madre de Dios" | Solo UNAMAD, Ing. de Sistemas y Administración (§1.2) | Mantener §1.2. "Madre de Dios" puede usarse en la comunicación pública, pero el registro valida UNAMAD + carrera. | Propuesta |
+| C-2 | Conectar con "empresas e instituciones **locales**" | Empresas de alcance **nacional** (§1.2) | Mantener alcance nacional; "locales" se lee como prioridad de comunicación, no como restricción. | Propuesta |
+| C-3 | Texto del buscador: "Encuentra tu próxima oportunidad laboral **en** Madre de Dios" | Hay vacantes de todo el Perú y remotas | El equipo debe elegir el texto final (p. ej. "…**desde** Madre de Dios"), para no prometer solo empleo local. | Pendiente (Yeremi) |
+| C-4 | Botón **"Contactar"** con la empresa | Mensajería y chat fuera del MVP (§7) | "Contactar" muestra el canal de contacto público de la empresa (correo/sitio web) a usuarios con sesión; **no** se construye chat interno. | Pendiente |
+| C-5 | El detalle muestra "Responsabilidades" y "Requisitos" | Los requisitos se definen con etiquetas, nunca con texto libre (RF-2.2) | Las habilidades requeridas siguen siendo etiquetas (son las que usa el Match). Responsabilidades y requisitos adicionales son texto descriptivo complementario que **no** entra al cálculo del Match. | Propuesta |
+| C-6 | "Tipo de contrato" en el detalle | El modelo solo tiene `jornada` (tiempo completo / medio tiempo / prácticas) | Decidir con Mijail si se agrega `tipo_contrato` o si `jornada` basta para el MVP. | Pendiente (Mijail) |
+| C-7 | Empresas pueden "buscar candidatos" y "consultar perfiles" libremente | En el MVP la empresa ve los candidatos que **postularon** (RF-2.3); el acceso a toda la base es monetización post-MVP (§8) | Mantener RF-2.3 en el MVP; la búsqueda abierta de candidatos queda para después. | Propuesta |
+| C-8 | "Recibir recomendaciones de oportunidades compatibles" | Notificaciones fuera del MVP (§7) | Las recomendaciones se muestran como una lista ordenada por Match en el Dashboard del estudiante, sin notificaciones push ni correo. | Propuesta |
+| C-9 | Ecosistema con PYMES, academia, instituciones y organizaciones locales | Solo tres roles: estudiante, empresa, administrador (§4) | PYMES, instituciones y organizaciones se registran con el rol **Empresa**; no se crean roles nuevos en el MVP. | Propuesta |
+
 ## 2. Nomenclatura de entidades (actualizada)
 
 Para alinear el vocabulario de todos los documentos con el que usa el equipo en sus propios prompts (y con el código que generarán), se renombran las siguientes entidades respecto a la versión anterior de este spec:
@@ -46,7 +64,14 @@ Ver el modelo de datos actualizado en [design.md §4](design.md) y el script en 
 
 ## 3. Visión del producto
 
-- **Misión:** conectar a estudiantes y egresados de la UNAMAD con empresas de todo el Perú mediante un sistema de matching basado en habilidades y microcertificaciones, simplificando el reclutamiento juvenil. **[Equipo, ajustado de Definido]**
+- **Visión (2030):** convertirse en la red de talento joven y la plataforma de empleabilidad de referencia en Madre de Dios para el 2030, impulsando la competitividad empresarial, la retención del talento local y la modernización del mercado laboral regional mediante tecnología accesible. **[Equipo — interfaz]**
+- **Misión:** conectar a estudiantes y egresados de la UNAMAD con empresas de todo el Perú mediante un sistema de matching basado en habilidades y microcertificaciones, simplificando el reclutamiento juvenil, reduciendo costos para las empresas y acelerando la inserción laboral temprana con transparencia e innovación. **[Equipo, ajustado de Definido; el documento de interfaz dice "empresas locales" — ver C-2 en §1.4]**
+- **Valores:** **[Equipo — interfaz]**
+  - *Impacto local:* priorizar el talento regional para el desarrollo de las empresas e instituciones.
+  - *Meritocracia y transparencia:* perfiles basados en competencias reales y verificables, con procesos claros.
+  - *Conexión estratégica:* articular academia, empresas y estudiantes en un solo ecosistema.
+  - *Accesibilidad:* herramientas sencillas y asequibles para cualquier PYME o estudiante.
+  - *Innovación constante:* adaptar la plataforma y sus certificaciones a la evolución del mercado laboral.
 - **Propuesta de valor (estudiante):** perfil técnico estructurado, habilidades, microcertificaciones, portafolio, y el porcentaje de compatibilidad con cada vacante **antes de postular**. **[Equipo]**
 - **Propuesta de valor (empresa):** vacantes parametrizadas (no texto libre) y candidatos ordenados automáticamente por compatibilidad, ahorrando el tiempo de filtrar CVs sin criterio objetivo. **[Equipo]**
 - **El problema del CV tradicional:** las empresas pierden tiempo filtrando CVs sin experiencia; TalentoMDD filtra por habilidades técnicas reales, declaradas o certificadas. **[Equipo]**
@@ -98,7 +123,7 @@ Formato: historia de usuario + criterios de aceptación en notación EARS (WHEN/
 | ID | Criterio de aceptación |
 |---|---|
 | RF-3.1 | CUANDO una empresa crea una vacante con título, descripción, modalidad, jornada y habilidades, ENTONCES el sistema DEBERÁ publicarla con estado `activa` y fecha de publicación. |
-| RF-3.2 | CUANDO un usuario busca vacantes por palabra clave, carrera, habilidad o modalidad, ENTONCES el sistema DEBERÁ devolver únicamente las vacantes en estado `activa` que coincidan. |
+| RF-3.2 | CUANDO un usuario busca vacantes por palabra clave, carrera, habilidad, empresa, ubicación, modalidad o jornada, ENTONCES el sistema DEBERÁ devolver únicamente las vacantes en estado `activa` que coincidan. **[Ampliado con empresa, ubicación y jornada ("tipo de oportunidad") — Equipo — interfaz]** |
 | RF-3.3 | CUANDO un estudiante postula a una vacante, ENTONCES el sistema DEBERÁ crear la postulación con estado inicial `postulado` y no permitir una segunda postulación a la misma vacante. |
 | RF-3.4 | CUANDO una empresa cambia el estado de una postulación, ENTONCES el sistema DEBERÁ restringir la transición a los estados válidos de la máquina de estados de [design.md §5](design.md). **[Recomendación (investigación)]** |
 | RF-3.5 | CUANDO cambia el estado de una postulación, ENTONCES el sistema DEBERÁ registrar el cambio en un historial auditable. **[Recomendación (investigación)]** |
@@ -125,11 +150,31 @@ Formato: historia de usuario + criterios de aceptación en notación EARS (WHEN/
 | RF-5.3 | CUANDO una habilidad requerida está marcada como obligatoria y el candidato no la posee, ENTONCES el sistema DEBERÁ señalarlo explícitamente, no solo bajar el porcentaje. |
 | RF-5.4 | El cálculo del Match DEBE ser explicable y medible — **no es obligatorio usar IA compleja en el MVP**; un algoritmo de coincidencia claro es suficiente. **[Equipo — "Para el MVP no es obligatorio utilizar una IA compleja para el matching".]** |
 
+### RF-6 · Panel público y flujo de visitante
+
+**Historia:** Como visitante sin cuenta, quiero buscar y explorar vacantes y ver su detalle sin registrarme, para decidir si me interesa crear mi perfil y postular. **[Equipo — interfaz]**
+
+El objetivo de la interfaz es que el usuario **encuentre una oportunidad rápidamente**, entienda sus requisitos y pase de la búsqueda a la postulación con la menor cantidad de pasos posible. **[Equipo — interfaz]** Ver pantallas y flujo en [design.md §7](design.md).
+
+| ID | Criterio de aceptación |
+|---|---|
+| RF-6.1 | CUANDO un visitante abre la página de inicio, ENTONCES el sistema DEBERÁ mostrar accesos visibles a **Iniciar sesión**, **Registrarse**, **Buscar empleo**, **Explorar oportunidades** y un acceso diferenciado **para empresas**. **[Equipo — interfaz]** |
+| RF-6.2 | CUANDO un visitante abre la página de inicio, ENTONCES el sistema DEBERÁ mostrar un **buscador grande y destacado** en la parte principal, con un texto referencial (texto final pendiente — ver C-3 en §1.4). **[Equipo — interfaz]** |
+| RF-6.3 | CUANDO un visitante usa el buscador, ENTONCES el sistema DEBERÁ buscar en puesto/profesión, habilidades, empresa y ubicación con un solo campo de texto, y permitir filtrar por modalidad y jornada (RF-3.2). Los filtros combinados complejos siguen fuera de alcance (§7). **[Equipo — interfaz + alcance §7]** |
+| RF-6.4 | CUANDO un visitante hace scroll en la página de inicio, ENTONCES el sistema DEBERÁ listar vacantes activas en formato de **tarjetas** con, como mínimo: nombre o logotipo de la empresa, puesto, ubicación, jornada/modalidad, habilidades requeridas, descripción breve, fecha de publicación y un botón **"Ver detalles"**. **[Equipo — interfaz]** |
+| RF-6.5 | CUANDO un visitante presiona "Ver detalles", ENTONCES el sistema DEBERÁ abrir una **página completa** (no un modal) con: puesto, empresa, descripción, responsabilidades, requisitos, habilidades solicitadas, microcertificaciones relacionadas (cuando corresponda), ubicación, modalidad, tipo de contrato (ver C-6), información de la empresa y los botones **"Postular"** y **"Contactar"** (cuando corresponda, ver C-4). **[Equipo — interfaz]** |
+| RF-6.6 | El listado y el detalle de vacantes DEBEN poder verse sin iniciar sesión; el resto de endpoints sigue protegido por defecto ([tech.md §5](tech.md)). **[Equipo — interfaz, coherente con tech.md]** |
+| RF-6.7 | CUANDO un visitante sin sesión presiona "Postular" o "Contactar", ENTONCES el sistema DEBERÁ dirigirlo a **registro / inicio de sesión** y, al autenticarse, DEBERÁ devolverlo a la misma vacante. **[Equipo — interfaz (redirección) + Recomendación (regreso a la vacante, para no perder el paso)]** |
+| RF-6.8 | CUANDO un visitante ve el detalle de una vacante, ENTONCES en lugar del porcentaje de Match el sistema DEBERÁ mostrar una invitación a registrarse para conocer su compatibilidad; el porcentaje solo se calcula para estudiantes con sesión (RF-1.7). **[Recomendación]** |
+| RF-6.9 | CUANDO un estudiante termina de registrarse, ENTONCES el sistema DEBERÁ guiarlo para completar su perfil en este orden: información personal y profesional → habilidades → microcertificaciones, mostrando su avance, e informándole que con el perfil completo puede postular, contactar empresas y recibir recomendaciones (C-8). **[Equipo — interfaz]** |
+| RF-6.10 | El panel público DEBERÁ mostrar solo vacantes en estado `activa` de empresas `verificada` (RF-4.2). **[Recomendación]** |
+
 ## 6. Habilidades y microcertificaciones
 
 - Habilidades del catálogo con nivel (escala 1–5, no ranking comparativo entre usuarios). **[Definido, documento maestro]**
 - Microcertificaciones como evidencia complementaria (cursos cortos: Excel básico, SQL básico, atención al cliente, marketing digital). **[Definido]**
 - Portafolio/enlace a GitHub como evidencia adicional de habilidades técnicas. **[Equipo]**
+- En el detalle de una vacante, las **microcertificaciones relacionadas** se obtienen de las habilidades requeridas de la vacante (las que tienen microcertificación asociada); no se crea una relación nueva vacante–certificación en el MVP. **[Equipo — interfaz (mostrarlas) + Recomendación (cómo derivarlas)]**
 - Estructura de certificación inspirada en **Open Badges 3.0** (habilidad, entidad emisora, fecha, evidencia), sin implementar el estándar completo en el MVP. **[Recomendación (investigación)]**
 
 ## 7. Fuera de alcance del MVP (Fase 1)
@@ -180,6 +225,8 @@ Esto implica: usar Clean Architecture/capas para poder incorporar nuevas institu
 | CORS | Configurado correctamente, orígenes específicos. | Pedido explícitamente por el equipo. **[Equipo]** |
 | Secretos | Variables de entorno, manejo seguro de secretos, nunca hardcodeados. | Pedido explícitamente por el equipo. **[Equipo]** |
 | Diseño | **Mobile-First**, responsive — el 90% de los estudiantes accede desde el celular. | **[Equipo]** |
+| Identidad visual | Paleta **Camel `#B2967D`, Cocoa `#7D5A44`, Espresso `#4A342A`**; interfaz moderna, sencilla, fácil de navegar y orientada a estudiantes y jóvenes profesionales. Reglas de uso en [design.md §7.1](design.md). | **[Equipo — interfaz]** |
+| Accesibilidad | Contraste de texto WCAG 2.1 AA (≥ 4.5:1). Camel no cumple como color de texto sobre blanco (2.78:1); se usa solo como acento o fondo decorativo. | **[Recomendación]** |
 | Arquitectura | Frontend separado del backend, comunicación por API REST. | **[Equipo]** |
 
 ## 11. Equipo y distribución de responsabilidades
@@ -205,12 +252,15 @@ El proyecto se desarrolla con 5 integrantes trabajando **en paralelo** (no en ca
 | Software | Política formal de privacidad y retención de datos (CV, contraseñas, contacto) |
 | Negocio | Momento y forma exacta en que arranca cada vía de monetización post-MVP |
 | Producto | Criterios exactos para decidir cuándo abrir el MVP a otras universidades/carreras (Fase 2) |
+| Producto | Resolver los conflictos C-1 a C-9 del documento de interfaz ([§1.4](#14-documento-de-requisitos-de-interfaz-y-conflictos-detectados)), en especial el texto del buscador (C-3) y el alcance de "Contactar" (C-4) |
+| Software | Campos nuevos que pide el detalle de vacante: `tipo_contrato`, responsabilidades, logotipo y datos de contacto de la empresa — ver [design.md §7.4](design.md) |
 
 ## Fuentes
 
 - Prompt Maestro de Contexto: Proyecto TalentoMDD (Fase MVP) — documento del equipo, 2026.
 - TalentoMDD — Contexto General + Distribución del Equipo — documento del equipo, 2026.
 - `TalentoMDD_Documento_Maestro.docx` — documento maestro original del proyecto.
+- `TalentoMDD_requisitos.md` — requisitos de interfaz, visión, misión y valores del equipo, 2026.
 - [Applicant tracking system — Wikipedia](https://en.wikipedia.org/wiki/Applicant_tracking_system)
 - [Designing a Database for a Recruitment System — Red Gate](https://www.red-gate.com/blog/designing-a-database-for-a-recruitment-system/)
 - [How ATS Status Updates Work — Hireflow](https://hireflow.net/blog/how-ats-status-updates-work-us-platforms)
