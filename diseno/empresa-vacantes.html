@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mis vacantes | TalentoMDD para empresas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body data-pagina="empresa-vacantes">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor encabezado__fila">
+      <a class="logo" href="empresa-vacantes.html" aria-label="TalentoMDD, panel de empresa">
+        <span class="logo__marca" aria-hidden="true">T</span>
+        <span class="logo__texto" aria-hidden="true">Talento<span>MDD</span></span>
+      </a>
+      <div class="encabezado__movil">
+        <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú">
+          <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <nav id="menu-principal" class="menu" aria-label="Panel de empresa">
+        <ul class="menu__enlaces">
+          <li><a href="empresa-vacantes.html" aria-current="page">Mis vacantes</a></li>
+          <li><a href="empresa-publicar.html">Publicar vacante</a></li>
+        </ul>
+        <div class="menu__acciones">
+          <span class="cuenta-empresa"><span class="avatar-empresa avatar-mini" aria-hidden="true">SD</span>Selva Digital S.A.C.</span>
+          <a class="btn btn--secundario" href="index.html">Cerrar sesión</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor panel">
+    <div class="panel__cabecera">
+      <div>
+        <p class="sobretitulo">Panel de empresa</p>
+        <h1>Mis vacantes</h1>
+        <p class="detalle-empresa">Selva Digital S.A.C.
+          <span class="insignia-verificada">
+            <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+            Empresa verificada
+          </span>
+        </p>
+      </div>
+      <a class="btn btn--primario btn--grande" href="empresa-publicar.html">+ Publicar vacante</a>
+    </div>
+
+    <p id="aviso-publicada" class="aviso aviso--exito" role="status" hidden>Tu vacante se publicó y ya aparece en el panel público.</p>
+
+    <section class="estadisticas" aria-label="Resumen">
+      <div class="estadistica"><strong id="stat-activas">0</strong><span>Vacantes activas</span></div>
+      <div class="estadistica"><strong id="stat-postulaciones">0</strong><span>Postulaciones recibidas</span></div>
+      <div class="estadistica"><strong id="stat-nuevas">0</strong><span>Postulaciones por revisar</span></div>
+    </section>
+
+    <section aria-labelledby="t-lista">
+      <h2 id="t-lista" class="sr-only">Lista de vacantes</h2>
+      <div class="barra-filtros">
+        <div id="filtro-estado-vacante" class="filtros-fila" role="group" aria-label="Mostrar vacantes">
+          <button class="filtro" type="button" data-valor="activa" aria-pressed="true">Activas</button>
+          <button class="filtro" type="button" data-valor="cerrada" aria-pressed="false">Cerradas</button>
+          <button class="filtro" type="button" data-valor="todas" aria-pressed="false">Todas</button>
+        </div>
+        <span class="etiqueta-mock">Datos de ejemplo</span>
+      </div>
+      <div id="lista-mis-vacantes" class="lista-filas"></div>
+      <div id="vacio-mis-vacantes" class="estado-vacio" hidden>
+        <p class="estado-vacio__titulo">No hay vacantes en esta lista</p>
+        <a class="btn btn--primario" href="empresa-publicar.html">Publicar una vacante</a>
+      </div>
+    </section>
+
+    <p id="anuncio" class="sr-only" aria-live="polite"></p>
+  </main>
+
+  <script src="js/datos-mock.js"></script>
+  <script src="js/matching.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/empresa.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Candidatos | TalentoMDD para empresas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body data-pagina="empresa-candidatos">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor encabezado__fila">
+      <a class="logo" href="empresa-vacantes.html" aria-label="TalentoMDD, panel de empresa">
+        <span class="logo__marca" aria-hidden="true">T</span>
+        <span class="logo__texto" aria-hidden="true">Talento<span>MDD</span></span>
+      </a>
+      <div class="encabezado__movil">
+        <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú">
+          <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <nav id="menu-principal" class="menu" aria-label="Panel de empresa">
+        <ul class="menu__enlaces">
+          <li><a href="empresa-vacantes.html">Mis vacantes</a></li>
+          <li><a href="empresa-publicar.html">Publicar vacante</a></li>
+        </ul>
+        <div class="menu__acciones">
+          <span class="cuenta-empresa"><span class="avatar-empresa avatar-mini" aria-hidden="true">SD</span>Selva Digital S.A.C.</span>
+          <a class="btn btn--secundario" href="index.html">Cerrar sesión</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <div id="no-encontrada" class="contenedor" hidden>
+      <div class="estado-vacio" style="margin-block: 48px;">
+        <p class="estado-vacio__titulo">No encontramos esta vacante entre las de tu empresa</p>
+        <a class="btn btn--primario" href="empresa-vacantes.html">Volver a Mis vacantes</a>
+      </div>
+    </div>
+
+    <div id="candidatos">
+      <section class="detalle-cabecera">
+        <div class="contenedor">
+          <a class="enlace" href="empresa-vacantes.html">← Mis vacantes</a>
+          <div class="candidatos-cabecera">
+            <div>
+              <p class="sobretitulo">Candidatos</p>
+              <div class="fila-vacante__titulo">
+                <h1 id="c-titulo"></h1>
+                <span id="c-estado"></span>
+              </div>
+              <ul id="c-meta" class="meta" aria-label="Datos de la vacante"></ul>
+            </div>
+            <div class="requisitos-vacante">
+              <p class="subtitulo-chips">Habilidades obligatorias</p>
+              <ul id="c-obligatorias" class="chips"></ul>
+              <div id="c-bloque-deseables" style="display: flex; flex-direction: column; gap: 8px;">
+                <p class="subtitulo-chips">Deseables</p>
+                <ul id="c-deseables" class="chips"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="contenedor panel">
+        <div class="barra-candidatos">
+          <h2 id="c-conteo" aria-live="polite"></h2>
+          <div class="barra-candidatos__controles">
+            <div class="control">
+              <label for="filtro-estado">Estado</label>
+              <select id="filtro-estado">
+                <option value="todos">Todos</option>
+                <option value="postulado">Nuevos</option>
+                <option value="en_revision">En revisión</option>
+                <option value="entrevista">Entrevista</option>
+                <option value="oferta">Oferta</option>
+                <option value="contratado">Contratado</option>
+                <option value="rechazado">Rechazado</option>
+                <option value="retirado">Retirado</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="orden-candidatos">Ordenar por</label>
+              <select id="orden-candidatos">
+                <option value="match">Mayor Match</option>
+                <option value="recientes">Más recientes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <p class="aviso aviso--info">El Match compara las habilidades, su nivel, la disponibilidad y la modalidad de cada estudiante con esta vacante. Abre "Ver perfil" para ver el cálculo.</p>
+
+        <ol id="lista-candidatos" class="lista-candidatos" aria-label="Candidatos"></ol>
+        <div id="vacio-candidatos" class="estado-vacio" hidden>
+          <p id="vacio-titulo" class="estado-vacio__titulo">No hay candidatos en este estado</p>
+          <p id="vacio-ayuda">Cambia el filtro de estado para ver al resto.</p>
+        </div>
+        <span class="etiqueta-mock" style="align-self: flex-start;">Datos de ejemplo</span>
+      </div>
+    </div>
+
+    <p id="anuncio" class="sr-only" aria-live="polite"></p>
+  </main>
+
+  <script src="js/datos-mock.js"></script>
+  <script src="js/matching.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/empresa.js"></script>
+</body>
+</html>

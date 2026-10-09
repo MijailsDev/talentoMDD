@@ -9,7 +9,37 @@
 (function () {
   'use strict';
 
-  var VACANTES = window.VACANTES_MOCK || [];
+  /**
+   * Almacén de la sesión del navegador: guarda lo que la empresa hace en el
+   * prototipo (publicar, cerrar vacantes, cambiar estados) mientras no exista
+   * la API. Puede fallar (modo privado, almacenamiento bloqueado): en ese caso
+   * el prototipo sigue funcionando sin recordar los cambios.
+   */
+  var almacen = {
+    leer: function (clave, porDefecto) {
+      try {
+        var valor = sessionStorage.getItem(clave);
+        return valor ? JSON.parse(valor) : porDefecto;
+      } catch (e) {
+        return porDefecto;
+      }
+    },
+    guardar: function (clave, valor) {
+      try { sessionStorage.setItem(clave, JSON.stringify(valor)); } catch (e) { /* sin persistencia */ }
+    }
+  };
+  var CLAVE_VACANTES_PUBLICADAS = 'tmdd_vacantes_publicadas';
+  var CLAVE_ESTADO_VACANTES = 'tmdd_estado_vacantes';
+
+  /** Vacantes de ejemplo + las publicadas en esta sesión, con su estado actual. */
+  function todasLasVacantes() {
+    var estados = almacen.leer(CLAVE_ESTADO_VACANTES, {});
+    return (window.VACANTES_MOCK || []).concat(almacen.leer(CLAVE_VACANTES_PUBLICADAS, []))
+      .map(function (v) { return estados[v.id] ? Object.assign({}, v, { estado: estados[v.id] }) : v; });
+  }
+
+  // El panel público solo muestra vacantes activas (RF-6.10).
+  var VACANTES = todasLasVacantes().filter(function (v) { return v.estado === 'activa'; });
 
   // ------------------------------------------------------------------
   // Utilidades
@@ -22,7 +52,10 @@
     reloj: '<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>',
     flecha: '<path d="M5 12h14M13 6l6 6-6 6"></path>',
     medalla: '<circle cx="12" cy="9" r="6"></circle><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"></path>',
-    verificado: '<circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path>'
+    verificado: '<circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path>',
+    check: '<path d="m5 12 5 5L20 7"></path>',
+    alerta: '<path d="M12 3 2 20h20L12 3z"></path><path d="M12 10v4M12 17h.01"></path>',
+    chevron: '<path d="m6 9 6 6 6-6"></path>'
   };
 
   function icono(nombre) {
@@ -461,7 +494,8 @@
     formLogin.addEventListener('submit', function (e) {
       e.preventDefault();
       if (!validar(formLogin)) return;
-      location.href = volver || 'index.html';
+      var inicioPorRol = params.get('rol') === 'empresa' ? 'empresa-vacantes.html' : 'index.html';
+      location.href = volver || inicioPorRol;
     });
 
     formRegistro.addEventListener('submit', function (e) {
@@ -635,16 +669,34 @@
   // ------------------------------------------------------------------
   // Arranque
   // ------------------------------------------------------------------
-  document.addEventListener('DOMContentLoaded', function () {
-    iniciarMenu();
-    var paginas = {
+
+  // Utilidades compartidas con js/empresa.js, que registra sus propias páginas.
+  window.TMDD = {
+    el: el,
+    icono: icono,
+    textoFecha: textoFecha,
+    habilidadesDe: habilidadesDe,
+    normalizar: normalizar,
+    crearTarjeta: crearTarjeta,
+    grupoFiltros: grupoFiltros,
+    validar: validar,
+    limpiarErrorAlEscribir: limpiarErrorAlEscribir,
+    almacen: almacen,
+    todasLasVacantes: todasLasVacantes,
+    CLAVE_VACANTES_PUBLICADAS: CLAVE_VACANTES_PUBLICADAS,
+    CLAVE_ESTADO_VACANTES: CLAVE_ESTADO_VACANTES,
+    paginas: {
       inicio: paginaInicio,
       explorar: paginaExplorar,
       detalle: paginaDetalle,
       acceso: paginaAcceso,
       perfil: paginaPerfil
-    };
-    var pagina = paginas[document.body.dataset.pagina];
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    iniciarMenu();
+    var pagina = window.TMDD.paginas[document.body.dataset.pagina];
     if (pagina) pagina();
   });
 })();

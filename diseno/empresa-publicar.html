@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Publicar vacante | TalentoMDD para empresas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body data-pagina="empresa-publicar">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor encabezado__fila">
+      <a class="logo" href="empresa-vacantes.html" aria-label="TalentoMDD, panel de empresa">
+        <span class="logo__marca" aria-hidden="true">T</span>
+        <span class="logo__texto" aria-hidden="true">Talento<span>MDD</span></span>
+      </a>
+      <div class="encabezado__movil">
+        <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú">
+          <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <nav id="menu-principal" class="menu" aria-label="Panel de empresa">
+        <ul class="menu__enlaces">
+          <li><a href="empresa-vacantes.html">Mis vacantes</a></li>
+          <li><a href="empresa-publicar.html" aria-current="page">Publicar vacante</a></li>
+        </ul>
+        <div class="menu__acciones">
+          <span class="cuenta-empresa"><span class="avatar-empresa avatar-mini" aria-hidden="true">SD</span>Selva Digital S.A.C.</span>
+          <a class="btn btn--secundario" href="index.html">Cerrar sesión</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor panel">
+    <div>
+      <a class="enlace" href="empresa-vacantes.html">← Mis vacantes</a>
+      <h1>Publicar vacante</h1>
+      <p class="seccion__bajada">Los requisitos se eligen del catálogo de habilidades: así TalentoMDD calcula el Match de cada candidato.</p>
+    </div>
+
+    <div class="publicar">
+      <form id="form-publicar" class="publicar__formulario" novalidate>
+        <section class="bloque-form" aria-labelledby="pv-t1">
+          <h2 id="pv-t1">1. El puesto</h2>
+          <div class="campo">
+            <label for="pv-titulo">Nombre del puesto</label>
+            <input id="pv-titulo" type="text" maxlength="150" placeholder="Ej.: Practicante de Desarrollo Web" data-validar="requerido" aria-describedby="pv-titulo-error">
+            <span id="pv-titulo-error" class="campo__error">Escribe el nombre del puesto.</span>
+          </div>
+          <div class="campo">
+            <label for="pv-carrera">Carrera</label>
+            <select id="pv-carrera">
+              <option>Ingeniería de Sistemas</option>
+              <option>Administración</option>
+              <option>Ingeniería de Sistemas o Administración</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="pv-descripcion">Descripción del puesto</label>
+            <textarea id="pv-descripcion" rows="4" placeholder="¿Qué hará la persona y qué aprenderá?" data-validar="requerido" aria-describedby="pv-descripcion-error"></textarea>
+            <span id="pv-descripcion-error" class="campo__error">Escribe una descripción del puesto.</span>
+          </div>
+          <div class="campo">
+            <label for="pv-responsabilidades">Responsabilidades <span class="campo__opcional">(opcional)</span></label>
+            <textarea id="pv-responsabilidades" rows="4" aria-describedby="pv-responsabilidades-ayuda"></textarea>
+            <span id="pv-responsabilidades-ayuda" class="campo__ayuda">Una por línea.</span>
+          </div>
+          <div class="campo">
+            <label for="pv-requisitos">Otros requisitos <span class="campo__opcional">(opcional)</span></label>
+            <textarea id="pv-requisitos" rows="3" aria-describedby="pv-requisitos-ayuda"></textarea>
+            <span id="pv-requisitos-ayuda" class="campo__ayuda">Una por línea, por ejemplo el ciclo mínimo. Las habilidades van en la sección 3.</span>
+          </div>
+        </section>
+
+        <section class="bloque-form" aria-labelledby="pv-t2">
+          <h2 id="pv-t2">2. Condiciones</h2>
+          <div id="pv-bloque-modalidad" class="grupo-filtro">
+            <span id="pv-t-modalidad" class="grupo-filtro__titulo">Modalidad</span>
+            <div id="pv-modalidad" class="filtros-fila" role="group" aria-labelledby="pv-t-modalidad">
+              <button class="filtro" type="button" data-valor="Presencial" aria-pressed="false">Presencial</button>
+              <button class="filtro" type="button" data-valor="Híbrido" aria-pressed="false">Híbrido</button>
+              <button class="filtro" type="button" data-valor="Remoto" aria-pressed="false">Remoto</button>
+            </div>
+            <span class="campo__error">Elige la modalidad.</span>
+          </div>
+          <div id="pv-bloque-jornada" class="grupo-filtro">
+            <span id="pv-t-jornada" class="grupo-filtro__titulo">Tipo de oportunidad</span>
+            <div id="pv-jornada" class="filtros-fila" role="group" aria-labelledby="pv-t-jornada">
+              <button class="filtro" type="button" data-valor="Prácticas" aria-pressed="false">Prácticas</button>
+              <button class="filtro" type="button" data-valor="Medio tiempo" aria-pressed="false">Medio tiempo</button>
+              <button class="filtro" type="button" data-valor="Tiempo completo" aria-pressed="false">Tiempo completo</button>
+            </div>
+            <span class="campo__error">Elige el tipo de oportunidad.</span>
+          </div>
+          <div class="rejilla-campos">
+            <div class="campo">
+              <label for="pv-ciudad">Ciudad</label>
+              <input id="pv-ciudad" type="text" placeholder="Ej.: Puerto Maldonado" data-validar="requerido" aria-describedby="pv-ciudad-error">
+              <span id="pv-ciudad-error" class="campo__error">Indica la ciudad del puesto.</span>
+            </div>
+            <div class="campo">
+              <label for="pv-horas">Horas por semana <span class="campo__opcional">(opcional)</span></label>
+              <input id="pv-horas" type="number" min="1" max="48" inputmode="numeric">
+            </div>
+          </div>
+          <!-- [BRECHA] tipo de contrato aún no existe en schema.sql (requirements.md §1.4, C-6) -->
+          <div class="campo">
+            <label for="pv-contrato">Tipo de contrato</label>
+            <select id="pv-contrato">
+              <option>Convenio de prácticas preprofesionales</option>
+              <option>Convenio de prácticas profesionales</option>
+              <option>Contrato a plazo fijo</option>
+              <option>Contrato indefinido</option>
+              <option>Locación de servicios</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="bloque-form" aria-labelledby="pv-t3">
+          <div>
+            <h2 id="pv-t3">3. Habilidades requeridas</h2>
+            <p class="paso__bajada">Marca como <strong>obligatoria</strong> la que el candidato debe tener sí o sí: pesa el doble en el Match y avisamos si a alguien le falta.</p>
+          </div>
+          <div id="pv-bloque-habilidades" class="campo">
+            <label for="pv-habilidad">Buscar en el catálogo</label>
+            <div class="fila-campo">
+              <input id="pv-habilidad" type="text" list="pv-catalogo" placeholder="Ej.: React, Excel" autocomplete="off" aria-describedby="pv-habilidad-error">
+              <button id="pv-agregar" class="btn btn--secundario" type="button">Agregar</button>
+            </div>
+            <datalist id="pv-catalogo"></datalist>
+            <span id="pv-habilidad-error" class="campo__error" role="alert"></span>
+          </div>
+          <p id="pv-sin-habilidades" class="texto-secundario">Aún no agregaste habilidades.</p>
+          <ul id="pv-lista-habilidades" class="lista-habilidades" aria-label="Habilidades requeridas"></ul>
+        </section>
+
+        <div class="publicar__enviar">
+          <p class="aviso aviso--info">Tu empresa está verificada: la vacante se publicará como activa de inmediato.</p>
+          <button class="btn btn--primario btn--grande" type="submit">Publicar vacante</button>
+        </div>
+      </form>
+
+      <aside class="publicar__vista" aria-labelledby="pv-t-vista">
+        <h2 id="pv-t-vista">Vista previa</h2>
+        <p class="texto-secundario">Así verán los estudiantes tu vacante.</p>
+        <div id="pv-vista-previa"></div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="js/datos-mock.js"></script>
+  <script src="js/matching.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/empresa.js"></script>
+</body>
+</html>
