@@ -8,3 +8,7 @@
 [![Guía para Git & GitHub](https://img.shields.io/badge/📖_Ver_Guía-Git_%26_GitHub-orange?style=for-the-badge&logo=github)](https://github.com/MijailsDev/Guia-para-Git-Github)
 
 🔗 **Repositorio:** [MijailsDev/Guia-para-Git-Github](https://github.com/MijailsDev/Guia-para-Git-Github)
+
+## 👤 Autor
+
+sieesquennnnn
