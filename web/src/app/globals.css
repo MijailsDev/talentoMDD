@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* ===== Tokens de marca (los mismos del prototipo TalentoMDD) ===== */
+@theme {
+  --color-primary: #c80036;
+  --color-primary-hover: #a1002c;
+  --color-primary-soft: #fdece2;
+  --color-secondary: #a1002c;
+  --color-dark: #0c1844;
+  --color-cream: #fff5e1;
+  --color-peach: #f4c7b0;
+  --color-coral: #e88a72;
+  --color-bg: #fff9ef;
+  --color-surface: #ffffff;
+  --color-surface-2: #fffcf5;
+  --color-hover: #fbeee3;
+  --color-ink: #1f1f1f;
+  --color-ink-2: #4f4a5c;
+  --color-line: #efe0d6;
+  --color-line-strong: #d2b8aa;
+  --color-success: #2e7048;
+  --color-success-soft: #e6f3ea;
+  --color-warning: #8a5300;
+  --color-warning-soft: #fcf1df;
+  --color-error: #b3261e;
+  --color-error-soft: #fbeae8;
+
+  --font-sans: var(--font-hanken), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-bricolage), var(--font-hanken), system-ui, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+
+  --radius-card: 22px;
+  --shadow-card: 0 10px 30px rgba(200, 0, 54, 0.1);
+  --shadow-pop: 0 18px 50px rgba(12, 24, 68, 0.22);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(200, 0, 54, 0.45);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+/* Componentes base */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 h-11 text-[15px] font-semibold transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap;
+}
+@utility btn-primary {
+  @apply btn bg-primary text-white hover:bg-primary-hover hover:-translate-y-0.5 shadow-[0_8px_20px_rgba(200,0,54,.25)];
+}
+@utility btn-dark {
+  @apply btn bg-dark text-white hover:bg-[#16245c];
+}
+@utility btn-outline {
+  @apply btn border-[1.5px] border-line-strong bg-surface text-ink hover:border-primary hover:text-primary;
+}
+@utility btn-ghost {
+  @apply btn text-ink-2 hover:bg-hover hover:text-ink;
+}
+@utility btn-sm {
+  @apply h-9 px-4 text-sm;
+}
+@utility card {
+  @apply rounded-[var(--radius-card)] border border-line bg-surface;
+}
+@utility field {
+  @apply w-full rounded-xl border-[1.5px] border-line-strong bg-surface px-3.5 h-11 text-[15px] text-ink outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15 placeholder:text-ink-2/60;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-semibold text-ink;
+}
+@utility hint {
+  @apply mt-1 text-xs text-ink-2;
+}
+@utility chip {
+  @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+}
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility eyebrow {
+  @apply text-xs font-bold uppercase tracking-[0.14em] text-primary;
+}
+
+textarea.field {
+  height: auto;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  line-height: 1.625;
+}
+
+/* Aparición al hacer scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Carrusel continuo de empresas */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 45s linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Banda decorativa inspirada en textiles amazónicos */
+.band {
+  background:
+    radial-gradient(circle at 12px 12px, var(--color-primary) 4px, transparent 5px) 0 0 / 24px 24px,
+    linear-gradient(var(--color-peach), var(--color-peach));
+}
+
+.grad-text {
+  background: linear-gradient(100deg, #e0705a, #c80036 50%, #0c1844);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.leaflet-container {
+  font-family: var(--font-sans);
+  border-radius: 18px;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
