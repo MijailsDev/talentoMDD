@@ -6,6 +6,7 @@ import { login, register, requestPasswordReset, updatePassword } from "@/app/act
 import { createClient } from "@/lib/supabase/client";
 import { DOMAIN, GOOGLE_ENABLED } from "@/lib/constants";
 import { FieldError, FormMessage, SubmitButton, useFormAction } from "./form-ui";
+import type { FormState } from "@/lib/types";
 
 function PasswordInput({ id, name, autoComplete, invalid }: { id: string; name: string; autoComplete: string; invalid?: boolean }) {
   const [show, setShow] = useState(false);
@@ -46,11 +47,11 @@ export function GoogleButton({ next }: { next?: string }) {
   );
 }
 
-export function LoginForm({ next, notice }: { next?: string; notice?: string }) {
+export function LoginForm({ next, notice }: { next?: string; notice?: FormState }) {
   const { state, pending, onSubmit } = useFormAction(login);
   return (
     <form method="post" onSubmit={onSubmit} className="space-y-4" noValidate>
-      {notice && !state && <FormMessage state={{ error: notice }} />}
+      {notice && !state && <FormMessage state={notice} />}
       <FormMessage state={state} />
       <GoogleButton next={next} />
       <input type="hidden" name="next" value={next ?? ""} />

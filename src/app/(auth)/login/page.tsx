@@ -10,15 +10,22 @@ export const metadata: Metadata = { title: "Iniciar sesión" };
 const ERRORS: Record<string, string> = {
   dominio: `Solo se aceptan cuentas @${DOMAIN}. Si eres una empresa, regístrate con el rol «Empresa».`,
   enlace: "El enlace no es válido o ya expiró. Vuelve a intentarlo.",
+  "otro-navegador": "Abre el enlace de recuperación en el mismo navegador donde lo pediste, o solicita uno nuevo.",
 };
 
-export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; error?: string }> }) {
-  const { next, error } = await searchParams;
+const NOTICES: Record<string, string> = {
+  confirmado: "¡Correo confirmado! Ya puedes iniciar sesión con tu correo y contraseña.",
+};
+
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; error?: string; aviso?: string }> }) {
+  const { next, error, aviso } = await searchParams;
   const s = await getSession();
   if (s) redirect(next?.startsWith("/") ? next : homeFor(s.profile.role));
+  const errorText = error ? ERRORS[error] : aviso ? ERRORS[aviso] : undefined;
+  const notice = errorText ? { error: errorText } : aviso && NOTICES[aviso] ? { ok: NOTICES[aviso] } : undefined;
   return (
     <AuthShell title="Inicia sesión" subtitle={`Acceso exclusivo para la comunidad de la ${UNIVERSITY} y sus empresas aliadas.`}>
-      <LoginForm next={next} notice={error ? ERRORS[error] : undefined} />
+      <LoginForm next={next} notice={notice} />
     </AuthShell>
   );
 }
