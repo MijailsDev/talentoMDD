@@ -146,3 +146,31 @@ src/
   app/                    páginas (públicas, perfil, postulaciones, comunidad, empresa, admin)
   components/             UI reutilizable (tarjetas, mapa, formularios, subida de archivos…)
 ```
+
+## Equipo de desarrollo
+
+TalentoMDD fue desarrollado por un equipo de 5 integrantes bajo la metodología **Scrum**, trabajando por sprints durante varias semanas, con reuniones de planificación, seguimiento y revisión.
+
+| Integrante | Rol Scrum | Responsabilidades asumidas |
+| --- | --- | --- |
+| **Yeremi** | Product Owner | Definió los requisitos funcionales y la idea del producto. Identificó los actores y roles del sistema (visitante, estudiante, egresado, docente, empresa y administrador) y priorizó el Product Backlog. |
+| **Juan** | Scrum Master y desarrollador | Coordinó al equipo y las reuniones de trabajo, y ayudó a distribuir la carga de tareas y a eliminar bloqueos. Diseñó la interfaz en Figma, aportó en las primeras demos y pruebas, investigó repositorios de referencia en GitHub, desarrolló frontend junto a Antony, apoyó a sus compañeros y dirige las ideas del video publicitario. |
+| **Mijail** | Líder técnico y desarrollador | Diseñó la arquitectura y la base de datos en Supabase y PostgreSQL (tablas, políticas de seguridad por filas y triggers), implementó la seguridad y las pruebas de base de datos, y mantiene el repositorio. |
+| **Antony** | Desarrollador | Frontend principal con Next.js y React: construcción de las páginas principales y los paneles, siguiendo el diseño de Figma. |
+| **José** | Desarrollador | Recolección de datos de empresas y estudiantes mediante formularios, que dieron los datos iniciales del sistema. Estudio de mercado para clasificar a las empresas en locales, regionales, nacionales y remotas. Apoyo en frontend con componentes reutilizables y el mapa. |
+
+### Organización
+
+```text
+              Product Owner · Yeremi
+                       │
+         Scrum Master · Juan (+ frontend y diseño)
+                       │
+            Líder técnico · Mijail
+                       │
+       ┌───────────────┴───────────────┐
+  Desarrollador · Antony         Desarrollador · José
+  (frontend principal)           (datos, mercado y componentes)
+```
+
+El equipo de desarrollo trabajó de forma colaborativa: sus integrantes se apoyaron entre sí en las tareas, y la responsabilidad de cada entrega fue compartida.
