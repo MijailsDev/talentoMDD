@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Briefcase, FileText, Pencil, Plus } from "lucide-react";
+import { Briefcase, FileText, Pencil, Plus, Users } from "lucide-react";
 import { requireRole } from "@/lib/auth";
 import { getCatalog } from "@/lib/data";
 import { createClient } from "@/lib/supabase/server";
@@ -16,7 +16,11 @@ export default async function MyProfilePage({ searchParams }: { searchParams: Pr
   const { profile: p, uid } = await requireRole(["estudiante", "egresado", "docente"], "/perfil");
   const catalog = await getCatalog();
   const supabase = await createClient();
-  const { data: apps } = await supabase.from("applications").select("status").eq("student_id", uid);
+  const [{ data: apps }, { count: following }, { count: followers }] = await Promise.all([
+    supabase.from("applications").select("status").eq("student_id", uid),
+    supabase.from("connections").select("to_id", { count: "exact", head: true }).eq("from_id", uid),
+    supabase.from("connections").select("from_id", { count: "exact", head: true }).eq("to_id", uid),
+  ]);
   const strength = profileStrength(p);
   const isStudent = p.role !== "docente";
 
@@ -78,6 +82,20 @@ export default async function MyProfilePage({ searchParams }: { searchParams: Pr
             <Link href="/postulaciones" className="btn-primary btn-sm mt-4 w-full"><Briefcase size={16} /> Ver mis postulaciones</Link>
           </div>
         )}
+        <div className="card p-6">
+          <p className="text-sm font-bold uppercase tracking-widest text-ink-2">Mi red</p>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            <Link href="/comunidad?vista=conexiones" className="rounded-2xl bg-surface-2 p-3 transition hover:bg-hover">
+              <span className="block font-display text-3xl font-extrabold text-primary">{following ?? 0}</span>
+              <span className="text-sm text-ink-2">Mis conexiones</span>
+            </Link>
+            <Link href="/comunidad?vista=contigo" className="rounded-2xl bg-surface-2 p-3 transition hover:bg-hover">
+              <span className="block font-display text-3xl font-extrabold text-primary">{followers ?? 0}</span>
+              <span className="text-sm text-ink-2">Conectaron contigo</span>
+            </Link>
+          </div>
+          <Link href="/comunidad" className="btn-outline btn-sm mt-4 w-full"><Users size={16} /> Ir a la comunidad</Link>
+        </div>
         <div className="card p-6 text-sm">
           <p className="font-bold">Datos de contacto</p>
           <p className="mt-2 text-ink-2">{p.email}</p>

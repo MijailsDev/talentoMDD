@@ -61,6 +61,7 @@ export async function toggleConnection(formData: FormData) {
   if (data) await supabase.from("connections").delete().eq("from_id", s.uid).eq("to_id", to);
   else await supabase.from("connections").insert({ from_id: s.uid, to_id: to });
   revalidatePath("/comunidad");
+  revalidatePath("/perfil");
 }
 
 function parseJson<T>(v: FormDataEntryValue | null, clean: (x: T) => boolean): T[] {

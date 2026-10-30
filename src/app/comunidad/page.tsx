@@ -14,19 +14,31 @@ export const metadata: Metadata = { title: "Comunidad" };
 
 type Person = { id: string; role: Role; first_name: string; last_name: string; career_id: string | null; cycle: number | null; headline: string; avatar_url: string | null; skills: string[] };
 
-export default async function CommunityPage({ searchParams }: { searchParams: Promise<{ car?: string; q?: string }> }) {
-  const { car = "all", q = "" } = await searchParams;
+const VIEWS = [
+  { key: "", label: "Todos", icon: Users },
+  { key: "conexiones", label: "Mis conexiones", icon: UserCheck },
+  { key: "contigo", label: "Conectaron contigo", icon: UserPlus },
+] as const;
+
+export default async function CommunityPage({ searchParams }: { searchParams: Promise<{ car?: string; q?: string; vista?: string }> }) {
+  const { car = "all", q = "", vista = "" } = await searchParams;
   const { uid, profile } = await requireRole(["estudiante", "egresado", "docente", "admin"], "/comunidad");
   const supabase = await createClient();
-  const [{ data: people }, { data: conns }, catalog, news] = await Promise.all([
+  const [{ data: people }, { data: conns }, { data: incoming }, catalog, news] = await Promise.all([
     supabase.rpc("community_directory"),
     supabase.from("connections").select("to_id").eq("from_id", uid),
+    supabase.from("connections").select("from_id").eq("to_id", uid),
     getCatalog(),
     getNews(5),
   ]);
   const connected = new Set((conns ?? []).map((c: { to_id: string }) => c.to_id));
+  const followers = new Set((incoming ?? []).map((c: { from_id: string }) => c.from_id));
   const all = ((people ?? []) as Person[]).filter((p) => p.id !== uid);
-  const list = all.filter((p) => (car === "all" || p.career_id === car) && (!q || norm(`${p.first_name} ${p.last_name} ${p.headline} ${p.skills.join(" ")}`).includes(norm(q))));
+  const counts: Record<string, number> = { "": all.length, conexiones: all.filter((p) => connected.has(p.id)).length, contigo: all.filter((p) => followers.has(p.id)).length };
+  const inView = (p: Person) => (vista === "conexiones" ? connected.has(p.id) : vista === "contigo" ? followers.has(p.id) : true);
+  const list = all.filter((p) => inView(p) && (car === "all" || p.career_id === car) && (!q || norm(`${p.first_name} ${p.last_name} ${p.headline} ${p.skills.join(" ")}`).includes(norm(q))));
+  const filtered = car !== "all" || !!q;
+  const emptyTitle = filtered ? "No encontramos personas con esos filtros" : vista === "conexiones" ? "Aún no conectas con nadie" : vista === "contigo" ? "Aún nadie conectó contigo" : "No encontramos personas con esos filtros";
   const suggestions = all.filter((p) => p.career_id && p.career_id === profile.career_id && !connected.has(p.id)).slice(0, 4);
 
   return (
@@ -36,7 +48,18 @@ export default async function CommunityPage({ searchParams }: { searchParams: Pr
       </PageHeader>
       <div className="container-x grid gap-8 py-8 lg:grid-cols-[1fr_320px]">
         <section>
+          <nav className="mb-5 inline-flex max-w-full flex-wrap gap-1 rounded-[22px] border border-line bg-surface p-1" aria-label="Vistas de la comunidad">
+            {VIEWS.map((v) => {
+              const on = vista === v.key || (!VIEWS.some((x) => x.key === vista) && v.key === "");
+              return (
+                <Link key={v.key} href={v.key ? `/comunidad?vista=${v.key}` : "/comunidad"} aria-current={on || undefined} className={`btn btn-sm ${on ? "bg-primary text-white" : "text-ink-2 hover:bg-hover"}`}>
+                  <v.icon size={16} /> {v.label} ({counts[v.key]})
+                </Link>
+              );
+            })}
+          </nav>
           <form className="mb-6 flex flex-wrap gap-3" role="search">
+            {vista && <input type="hidden" name="vista" value={vista} />}
             <label htmlFor="cq" className="sr-only">Buscar personas</label>
             <input id="cq" name="q" defaultValue={q} placeholder="Buscar por nombre o habilidad" className="field max-w-xs" />
             <label htmlFor="ccar" className="sr-only">Carrera</label>
@@ -47,7 +70,9 @@ export default async function CommunityPage({ searchParams }: { searchParams: Pr
             <button className="btn-primary">Filtrar</button>
           </form>
           {list.length === 0 ? (
-            <EmptyState icon={<Users />} title="No encontramos personas con esos filtros" />
+            <EmptyState icon={<Users />} title={emptyTitle}>
+              {filtered ? undefined : vista === "conexiones" ? "Pulsa «Conectar» en las personas que te interesen y aparecerán aquí." : vista === "contigo" ? "Completa tu perfil para que otros te encuentren en el directorio." : undefined}
+            </EmptyState>
           ) : (
             <ul className="grid gap-4 sm:grid-cols-2">
               {list.map((p) => {
@@ -60,6 +85,7 @@ export default async function CommunityPage({ searchParams }: { searchParams: Pr
                       <Link href={`/comunidad/${p.id}`} className="block truncate font-bold hover:text-primary">{name}</Link>
                       <p className="line-clamp-2 text-sm text-ink-2">{p.headline}</p>
                       <p className="mt-1 text-xs text-ink-2">{ROLES[p.role]}{p.career_id ? ` · ${catalog.careerName(p.career_id)}` : ""}{p.cycle ? ` · ${cycleText(p.cycle)}` : ""}</p>
+                      {followers.has(p.id) && <span className="chip mt-2 bg-primary-soft text-primary">{isConn ? "Conexión mutua" : "Conectó contigo"}</span>}
                       <form action={toggleConnection} className="mt-3">
                         <input type="hidden" name="to" value={p.id} />
                         <button className={isConn ? "btn btn-sm bg-success-soft text-success" : "btn-outline btn-sm"}>
