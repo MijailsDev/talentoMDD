@@ -2,12 +2,27 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Bookmark, Briefcase, Building2, ChevronDown, LogOut, Menu, Shield, User, X } from "lucide-react";
+import { Bell as BellIcon, Bookmark, Briefcase, Building2, ChevronDown, LogOut, Menu, Shield, User, X } from "lucide-react";
 import type { Role } from "@/lib/types";
 import { ROLES } from "@/lib/constants";
 import { Avatar } from "./ui";
+import { createClient } from "@/lib/supabase/client";
 
-type NavUser = { name: string; email: string; role: Role; avatar: string | null } | null;
+type NavUser = { name: string; email: string; role: Role; avatar: string | null; unread: number } | null;
+
+function Bell({ count, onClick }: { count: number; onClick?: () => void }) {
+  const label = count ? `Notificaciones, ${count} sin leer` : "Notificaciones";
+  return (
+    <Link href="/notificaciones" onClick={onClick} className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink transition hover:bg-hover" aria-label={label} title={label}>
+      <BellIcon size={21} />
+      {count > 0 && (
+        <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[11px] font-bold leading-none text-white ring-2 ring-bg">
+          {count > 9 ? "9+" : count}
+        </span>
+      )}
+    </Link>
+  );
+}
 
 const LINKS = [
   { href: "/", label: "Inicio" },
@@ -23,6 +38,30 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
   const [menu, setMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [unread, setUnread] = useState(user?.unread ?? 0);
+  const [serverUnread, setServerUnread] = useState(user?.unread ?? 0);
+  const signedIn = !!user;
+  // Si el servidor trae un contador nuevo (p. ej. tras marcar como leídas), manda ese
+  if ((user?.unread ?? 0) !== serverUnread) {
+    setServerUnread(user?.unread ?? 0);
+    setUnread(user?.unread ?? 0);
+  }
+
+  // El header vive en el layout y no se vuelve a renderizar al navegar: refresca el contador aquí
+  useEffect(() => {
+    if (!signedIn) return;
+    const supabase = createClient();
+    const refresh = async () => {
+      const { data } = await supabase.auth.getClaims();
+      const uid = data?.claims?.sub;
+      if (!uid) return;
+      const { count } = await supabase.from("notifications").select("id", { count: "exact", head: true }).eq("user_id", uid).is("read_at", null);
+      if (count !== null) setUnread(count);
+    };
+    refresh();
+    const t = setInterval(refresh, 60_000);
+    return () => clearInterval(t);
+  }, [signedIn, path]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -85,6 +124,7 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
         </nav>
 
         <div className="ml-auto hidden items-center gap-2 lg:flex">
+          {user && <Bell count={unread} />}
           {user ? (
             <div className="relative" ref={menuRef}>
               <button
@@ -126,7 +166,8 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
           )}
         </div>
 
-        <button type="button" className="btn-ghost ml-auto h-10 w-10 px-0 lg:hidden" onClick={() => setMobile((m) => !m)} aria-expanded={mobile} aria-label={mobile ? "Cerrar menú" : "Abrir menú"}>
+        {user && <span className="ml-auto lg:hidden"><Bell count={unread} onClick={close} /></span>}
+        <button type="button" className={`btn-ghost h-10 w-10 px-0 lg:hidden ${user ? "-ml-4" : "ml-auto"}`} onClick={() => setMobile((m) => !m)} aria-expanded={mobile} aria-label={mobile ? "Cerrar menú" : "Abrir menú"}>
           {mobile ? <X /> : <Menu />}
         </button>
       </div>

@@ -27,6 +27,16 @@ export function deadlineText(deadline: string) {
   return { text: `Postula hasta el ${fmtDate(deadline)}`, soon: false, closed: false };
 }
 
+/** «hace 5 min», «hace 3 h», «ayer» o la fecha */
+export function timeAgo(iso: string) {
+  const min = Math.floor((Date.now() - Date.parse(iso)) / 60e3);
+  if (min < 1) return "ahora";
+  if (min < 60) return `hace ${min} min`;
+  if (min < 24 * 60) return `hace ${Math.floor(min / 60)} h`;
+  if (min < 48 * 60) return "ayer";
+  return fmtDate(iso);
+}
+
 export function isNew(createdAt: string) {
   return Date.now() - Date.parse(createdAt) <= 3 * 864e5;
 }
