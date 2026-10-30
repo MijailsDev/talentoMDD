@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Banknote, CalendarClock, CalendarDays, Check, Clock, FileText, GraduationCap, Languages, MapPin, Timer, Users } from "lucide-react";
+import { BadgeCheck, Banknote, CalendarClock, CalendarDays, Check, ChevronRight, Clock, FileText, GraduationCap, Languages, MapPin, Timer, Users } from "lucide-react";
 import { getCatalog, getOffer, getOffers, getSavedIds } from "@/lib/data";
 import { getSession } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { OFFER_TYPES } from "@/lib/constants";
 import { cycleText, deadlineText, fmtDateLong, plural } from "@/lib/format";
 import { CompanyContact, VerifiedBanner } from "@/components/company-details";
-import { OfferCard, offerPlace } from "@/components/offer-card";
+import { offerPlace } from "@/components/offer-card";
 import { ApplyButton } from "@/components/apply-button";
 import { SaveButton } from "@/components/save-button";
 import { ShareButton } from "@/components/share-button";
-import { CompanyLogo, Cover, Verified } from "@/components/ui";
+import { CompanyLogo, Cover } from "@/components/ui";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="card p-6 sm:p-8">
-      <h2 className="mb-4 text-xl font-extrabold">{title}</h2>
+    <section className="card p-6 sm:p-7">
+      <h2 className="mb-4 font-sans text-[21px] font-extrabold">{title}</h2>
       {children}
     </section>
   );
@@ -79,36 +79,44 @@ export default async function OfferPage({ params }: Props) {
 
   return (
     <>
-      <div className="relative h-56 overflow-hidden sm:h-72">
-        <Cover src={c.cover_url} alt={`${c.short_name}`} className="absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark/20 to-dark/70" />
-        <div className="container-x relative pt-6">
-          <Link href="/ofertas" className="btn btn-sm bg-white/90 text-ink hover:bg-white"><ArrowLeft size={16} /> Volver a ofertas</Link>
-        </div>
-      </div>
-
-      <div className="container-x -mt-20 grid gap-8 pb-10 lg:grid-cols-[1fr_340px]">
-        <div className="space-y-6">
-          <header className="card relative p-6 sm:p-8">
-            <CompanyLogo company={c} size={76} className="-mt-16 mb-4 border-4 border-surface shadow-lg" />
-            <div className="flex flex-wrap gap-2">
-              <span className={`chip ${t.cls}`}>{t.label}</span>
-              <span className="chip bg-hover text-ink-2">{o.mode}</span>
-              {dl.soon && <span className="chip bg-warning-soft text-warning">{dl.text}</span>}
-              {!o.is_active && <span className="chip bg-error-soft text-error">Oferta inactiva</span>}
+      <section className="relative isolate overflow-hidden bg-dark text-white">
+        <Cover src={c.cover_url} alt="" className="absolute inset-0 -z-10" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-dark/15 to-dark/85" />
+        <div className="container-x flex min-h-[340px] flex-col justify-between gap-7 pb-9 pt-6">
+          <nav aria-label="Ruta" className="flex flex-wrap items-center gap-1.5 text-[13px]">
+            <Link href="/" className="rounded-full bg-black/25 px-2.5 py-1 hover:bg-black/40">Inicio</Link>
+            <ChevronRight size={15} aria-hidden />
+            <Link href="/ofertas" className="rounded-full bg-black/25 px-2.5 py-1 hover:bg-black/40">Ofertas</Link>
+            <ChevronRight size={15} aria-hidden />
+            <span className="rounded-full bg-black/25 px-2.5 py-1">{c.short_name}</span>
+          </nav>
+          <div className="flex flex-wrap items-end gap-5">
+            <CompanyLogo company={c} size={84} className="rounded-[20px] border-4 border-white shadow-[var(--shadow-pop)]" />
+            <div className="flex min-w-0 flex-[1_1_380px] flex-col gap-2">
+              <div className="flex flex-wrap gap-2">
+                <span className={`chip px-3 py-1 text-[13px] font-extrabold ${t.cls}`}>{t.label}</span>
+                <span className="chip bg-white/90 px-3 py-1 text-[13px] font-bold text-ink">{o.mode}</span>
+                {dl.soon && <span className="chip bg-warning-soft px-3 py-1 text-[13px] font-extrabold text-warning">{dl.text}</span>}
+                {!o.is_active && <span className="chip bg-error-soft px-3 py-1 text-[13px] font-extrabold text-error">Oferta inactiva</span>}
+              </div>
+              <h1 className="font-display text-[clamp(28px,3.8vw,44px)] font-extrabold leading-[1.1] tracking-[-0.02em]">{o.title}</h1>
+              <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[17px] font-semibold">
+                <Link href={`/empresas/${c.slug}`} className="flex items-center gap-1.5 hover:underline">{c.short_name} {c.status === "verificada" && <BadgeCheck size={20} className="text-[#9FE0B5]" aria-label="Empresa verificada" />}</Link>
+                <span className="flex items-center gap-1.5 text-[15px] font-medium text-white/85"><MapPin size={16} /> {offerPlace(o)}</span>
+              </p>
             </div>
-            <h1 className="mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{o.title}</h1>
-            <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-ink-2">
-              <Link href={`/empresas/${c.slug}`} className="flex items-center gap-1.5 font-semibold text-ink hover:text-primary">{c.short_name} {c.status === "verificada" && <Verified />}</Link>
-              <span className="flex items-center gap-1.5"><MapPin size={16} /> {offerPlace(o)}</span>
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3 lg:hidden">
-              <div className="min-w-48 flex-1">
+            <div className="flex w-full flex-wrap gap-2.5 sm:w-auto">
+              <div className="min-w-48 flex-1 [&_.btn-primary]:h-[50px] [&_.btn-primary]:px-6">
                 <ApplyButton offerId={o.id} title={o.title} company={c.short_name} state={applyState} cvName={s?.profile.cv_name ?? null} needsCv={o.type !== "vol"} />
               </div>
-              {isStudent && <SaveButton offerId={o.id} saved={saved.has(o.id)} variant="full" />}
+              {isStudent && <div className="[&>button]:h-[50px]"><SaveButton offerId={o.id} saved={saved.has(o.id)} variant="full" /></div>}
             </div>
-          </header>
+          </div>
+        </div>
+      </section>
+
+      <div className="container-x grid gap-7 pb-16 pt-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+        <div className="min-w-0 space-y-5">
 
           <Section title="Descripción del puesto">
             <p className="leading-relaxed text-ink-2">{o.description}</p>
@@ -172,7 +180,7 @@ export default async function OfferPage({ params }: Props) {
             </Section>
           )}
 
-          <section className="card p-6 sm:p-8">
+          <section className="card p-6 sm:p-7">
             <div className="mb-5 flex flex-wrap items-center gap-4">
               <CompanyLogo company={c} size={56} />
               <div className="flex-1">
@@ -204,11 +212,21 @@ export default async function OfferPage({ params }: Props) {
             <ShareButton title={o.title} />
           </div>
           {similar.length > 0 && (
-            <div className="space-y-4">
-              <p className="text-sm font-bold uppercase tracking-widest text-ink-2">Ofertas similares</p>
-              {similar.map((x) => (
-                <OfferCard key={x.id} offer={x} careerName={catalog.careerName} saved={saved.has(x.id)} canSave={!s || isStudent} />
-              ))}
+            <div className="card p-[22px]">
+              <h2 className="mb-3 font-sans text-[17px] font-extrabold">Ofertas similares</h2>
+              <ul className="-mx-2.5 flex flex-col gap-1">
+                {similar.map((x) => (
+                  <li key={x.id}>
+                    <Link href={`/ofertas/${x.id}`} className="flex items-start gap-3 rounded-xl p-2.5 transition hover:bg-hover">
+                      <CompanyLogo company={x.company} size={40} />
+                      <span className="min-w-0">
+                        <span className="block text-sm font-bold leading-snug">{x.title}</span>
+                        <span className="block text-[13px] text-ink-2">{x.company.short_name} · {x.mode}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
         </aside>

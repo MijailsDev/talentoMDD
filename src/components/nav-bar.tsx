@@ -105,20 +105,19 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b bg-bg/90 backdrop-blur-md transition-shadow ${scrolled ? "border-line shadow-[0_8px_24px_rgba(200,0,54,.10)]" : "border-transparent"}`}
+      className={`sticky top-0 z-40 bg-white/95 backdrop-blur-md transition-shadow ${scrolled ? "shadow-[0_8px_24px_rgba(200,0,54,.12)]" : ""}`}
     >
       <div className="container-x flex h-[72px] items-center gap-6">
         {children}
-        <nav aria-label="Principal" className="ml-4 hidden flex-1 items-center gap-1 lg:flex">
+        <nav aria-label="Principal" className="ml-3 hidden h-full flex-1 items-stretch gap-1 lg:flex">
           {LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`relative rounded-full px-3.5 py-2 text-[15px] font-semibold transition hover:bg-hover ${active(l.href) ? "text-primary" : "text-ink"}`}
+              className={`flex items-center border-b-[3px] px-3 text-[15px] font-semibold whitespace-nowrap transition hover:text-primary ${active(l.href) ? "border-primary text-primary" : "border-transparent text-ink"}`}
               aria-current={active(l.href) ? "page" : undefined}
             >
               {l.label}
-              {active(l.href) && <span className="absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded bg-primary" />}
             </Link>
           ))}
         </nav>
@@ -160,7 +159,7 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
             </div>
           ) : (
             <>
-              <Link href="/login" className="btn-ghost">Iniciar sesión</Link>
+              <Link href="/login" className="btn-line">Iniciar sesión</Link>
               <Link href="/registro" className="btn-primary">Crear cuenta</Link>
             </>
           )}
@@ -171,6 +170,7 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
           {mobile ? <X /> : <Menu />}
         </button>
       </div>
+      <div className="cinta h-2" aria-hidden />
 
       {mobile && (
         <div className="border-t border-line bg-surface lg:hidden">

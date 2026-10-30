@@ -34,6 +34,15 @@
   --shadow-pop: 0 18px 50px rgba(12, 24, 68, 0.22);
 }
 
+/* Patrones andino-amazónicos del diseño (banda textil, motivo suave, cinta y grano) */
+:root {
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  --pat-band:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'120'%20height%3D'120'%20viewBox%3D'0%200%20120%20120'%3E%3Crect%20width%3D'120'%20height%3D'120'%20fill%3D'%23F4C7B0'%2F%3E%3Crect%20width%3D'120'%20height%3D'22'%20fill%3D'%23E88A72'%2F%3E%3Cpath%20d%3D'M10%203C17%207%2017%2015%2010%2019C3%2015%203%207%2010%203Z'%20fill%3D'%23A1002C'%2F%3E%3Cpath%20d%3D'M10%205V17'%20stroke%3D'%23FFF5E1'%20stroke-width%3D'1'%2F%3E%3Cpath%20d%3D'M30%203C37%207%2037%2015%2030%2019C23%2015%2023%207%2030%203Z'%20fill%3D'%23A1002C'%2F%3E%3Cpath%20d%3D'M30%205V17'%20stroke%3D'%23FFF5E1'%20stroke-width%3D'1'%2F%3E%3Cpath%20d%3D'M50%203C57%207%2057%2015%2050%2019C43%2015%2043%207%2050%203Z'%20fill%3D'%23A1002C'%2F%3E%3Cpath%20d%3D'M50%205V17'%20stroke%3D'%23FFF5E1'%20stroke-width%3D'1'%2F%3E%3Cpath%20d%3D'M70%203C77%207%2077%2015%2070%2019C63%2015%2063%207%2070%203Z'%20fill%3D'%23A1002C'%2F%3E%3Cpath%20d%3D'M70%205V17'%20stroke%3D'%23FFF5E1'%20stroke-width%3D'1'%2F%3E%3Cpath%20d%3D'M90%203C97%207%2097%2015%2090%2019C83%2015%2083%207%2090%203Z'%20fill%3D'%23A1002C'%2F%3E%3Cpath%20d%3D'M90%205V17'%20stroke%3D'%23FFF5E1'%20stroke-width%3D'1'%2F%3E%3Cpath%20d%3D'M110%203C117%207%20117%2015%20110%2019C103%2015%20103%207%20110%203Z'%20fill%3D'%23A1002C'%2F%3E%3Cpath%20d%3D'M110%205V17'%20stroke%3D'%23FFF5E1'%20stroke-width%3D'1'%2F%3E%3Crect%20y%3D'22'%20width%3D'120'%20height%3D'3'%20fill%3D'%23A1002C'%2F%3E%3Crect%20y%3D'25'%20width%3D'120'%20height%3D'40'%20fill%3D'%23FFF5E1'%2F%3E%3Cg%20fill%3D'none'%20stroke%3D'%23A1002C'%20stroke-width%3D'3'%20stroke-linecap%3D'square'%3E%3Cpath%20d%3D'M0%2045H10V33H30V45H20V39'%2F%3E%3Cpath%20d%3D'M30%2045H40V57H60V45H50V51'%2F%3E%3Cpath%20d%3D'M60%2045H70V33H90V45H80V39'%2F%3E%3Cpath%20d%3D'M90%2045H100V57H120V45H110V51'%2F%3E%3C%2Fg%3E%3Cg%20fill%3D'%23C80036'%3E%3Crect%20x%3D'3'%20y%3D'29'%20width%3D'3'%20height%3D'3'%2F%3E%3Crect%20x%3D'44'%20y%3D'29'%20width%3D'3'%20height%3D'3'%2F%3E%3Crect%20x%3D'14'%20y%3D'55'%20width%3D'3'%20height%3D'3'%2F%3E%3Crect%20x%3D'53'%20y%3D'35'%20width%3D'3'%20height%3D'3'%2F%3E%3Crect%20x%3D'63'%20y%3D'29'%20width%3D'3'%20height%3D'3'%2F%3E%3Crect%20x%3D'104'%20y%3D'29'%20width%3D'3'%20height%3D'3'%2F%3E%3Crect%20x%3D'74'%20y%3D'55'%20width%3D'3'%20height%3D'3'%2F%3E%3Crect%20x%3D'113'%20y%3D'35'%20width%3D'3'%20height%3D'3'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'65'%20width%3D'120'%20height%3D'3'%20fill%3D'%23A1002C'%2F%3E%3Crect%20y%3D'68'%20width%3D'120'%20height%3D'20'%20fill%3D'%23E88A72'%2F%3E%3Cpath%20d%3D'M0%2078%20Q5%2070%2010%2078%20T20%2078%20Q25%2070%2030%2078%20T40%2078%20Q45%2070%2050%2078%20T60%2078%20Q65%2070%2070%2078%20T80%2078%20Q85%2070%2090%2078%20T100%2078%20Q105%2070%20110%2078%20T120%2078'%20fill%3D'none'%20stroke%3D'%23FFF5E1'%20stroke-width%3D'2.5'%2F%3E%3Crect%20y%3D'88'%20width%3D'120'%20height%3D'2'%20fill%3D'%23A1002C'%2F%3E%3Crect%20y%3D'90'%20width%3D'120'%20height%3D'30'%20fill%3D'%23F4C7B0'%2F%3E%3Ccircle%20cx%3D'15'%20cy%3D'105'%20r%3D'9'%20fill%3D'%23C80036'%2F%3E%3Cpath%20d%3D'M15%2098L20%20105L15%20112L10%20105Z'%20fill%3D'%23FFF5E1'%2F%3E%3Ccircle%20cx%3D'15'%20cy%3D'105'%20r%3D'1.8'%20fill%3D'%23A1002C'%2F%3E%3Ccircle%20cx%3D'45'%20cy%3D'105'%20r%3D'9'%20fill%3D'%23C80036'%2F%3E%3Cpath%20d%3D'M45%2098L50%20105L45%20112L40%20105Z'%20fill%3D'%23FFF5E1'%2F%3E%3Ccircle%20cx%3D'45'%20cy%3D'105'%20r%3D'1.8'%20fill%3D'%23A1002C'%2F%3E%3Ccircle%20cx%3D'75'%20cy%3D'105'%20r%3D'9'%20fill%3D'%23C80036'%2F%3E%3Cpath%20d%3D'M75%2098L80%20105L75%20112L70%20105Z'%20fill%3D'%23FFF5E1'%2F%3E%3Ccircle%20cx%3D'75'%20cy%3D'105'%20r%3D'1.8'%20fill%3D'%23A1002C'%2F%3E%3Ccircle%20cx%3D'105'%20cy%3D'105'%20r%3D'9'%20fill%3D'%23C80036'%2F%3E%3Cpath%20d%3D'M105%2098L110%20105L105%20112L100%20105Z'%20fill%3D'%23FFF5E1'%2F%3E%3Ccircle%20cx%3D'105'%20cy%3D'105'%20r%3D'1.8'%20fill%3D'%23A1002C'%2F%3E%3Ccircle%20cx%3D'0'%20cy%3D'105'%20r%3D'2'%20fill%3D'%23A1002C'%2F%3E%3Ccircle%20cx%3D'30'%20cy%3D'105'%20r%3D'2'%20fill%3D'%23A1002C'%2F%3E%3Ccircle%20cx%3D'60'%20cy%3D'105'%20r%3D'2'%20fill%3D'%23A1002C'%2F%3E%3Ccircle%20cx%3D'90'%20cy%3D'105'%20r%3D'2'%20fill%3D'%23A1002C'%2F%3E%3C%2Fsvg%3E");
+  --pat-soft:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'90'%20height%3D'90'%20viewBox%3D'0%200%2090%2090'%3E%3Cg%20fill%3D'none'%20stroke%3D'%23C80036'%20stroke-opacity%3D'.24'%20stroke-width%3D'1.5'%3E%3Cpath%20d%3D'M45%2028C55%2034%2055%2050%2045%2060C35%2050%2035%2034%2045%2028Z'%2F%3E%3Cpath%20d%3D'M45%2032V57'%2F%3E%3Cpath%20d%3D'M0%2012H8V4H16'%2F%3E%3Cpath%20d%3D'M74%2086H82V78H90'%2F%3E%3C%2Fg%3E%3Cg%20fill%3D'%23E88A72'%20fill-opacity%3D'.28'%3E%3Ccircle%20cx%3D'12'%20cy%3D'70'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'78'%20cy%3D'20'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'45'%20cy%3D'5'%20r%3D'1.6'%2F%3E%3Ccircle%20cx%3D'45'%20cy%3D'85'%20r%3D'1.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --pat-cinta:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'30'%20height%3D'10'%20viewBox%3D'0%200%2030%2010'%3E%3Crect%20width%3D'30'%20height%3D'10'%20fill%3D'%23A1002C'%2F%3E%3Cpath%20d%3D'M0%206Q7.5%201%2015%206T30%206'%20fill%3D'none'%20stroke%3D'%23F4C7B0'%20stroke-width%3D'1.6'%2F%3E%3Ccircle%20cx%3D'15'%20cy%3D'6'%20r%3D'1.2'%20fill%3D'%23E88A72'%2F%3E%3C%2Fsvg%3E");
+  --grad-brand: linear-gradient(100deg, #e0705a, #c80036 50%, #0c1844);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -61,7 +70,10 @@ h1, h2, h3 {
   @apply inline-flex items-center justify-center gap-2 rounded-full px-5 h-11 text-[15px] font-semibold transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap;
 }
 @utility btn-primary {
-  @apply btn bg-primary text-white hover:bg-primary-hover hover:-translate-y-0.5 shadow-[0_8px_20px_rgba(200,0,54,.25)];
+  @apply btn bg-primary bg-[image:var(--grad-brand)] font-bold text-white hover:brightness-110 hover:-translate-y-0.5 shadow-[0_8px_20px_rgba(200,0,54,.28)];
+}
+@utility btn-line {
+  @apply btn border-[1.5px] border-primary font-bold text-primary hover:bg-primary-soft;
 }
 @utility btn-dark {
   @apply btn bg-dark text-white hover:bg-[#16245c];
@@ -76,7 +88,7 @@ h1, h2, h3 {
   @apply h-9 px-4 text-sm;
 }
 @utility card {
-  @apply rounded-[var(--radius-card)] border border-line bg-surface;
+  @apply rounded-2xl border border-line bg-surface;
 }
 @utility field {
   @apply w-full rounded-xl border-[1.5px] border-line-strong bg-surface px-3.5 h-11 text-[15px] text-ink outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15 placeholder:text-ink-2/60;
@@ -94,7 +106,10 @@ h1, h2, h3 {
   @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
 }
 @utility eyebrow {
-  @apply text-xs font-bold uppercase tracking-[0.14em] text-primary;
+  @apply flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.14em] text-secondary before:h-0.5 before:w-7 before:shrink-0 before:bg-[image:var(--grad-brand)] before:content-[''];
+}
+@utility section-title {
+  @apply mt-1.5 font-display text-[clamp(30px,3.8vw,48px)] font-extrabold leading-[1.05] tracking-[-0.035em];
 }
 
 textarea.field {
@@ -128,11 +143,79 @@ textarea.field {
   animation-play-state: paused;
 }
 
-/* Banda decorativa inspirada en textiles amazónicos */
-.band {
-  background:
-    radial-gradient(circle at 12px 12px, var(--color-primary) 4px, transparent 5px) 0 0 / 24px 24px,
-    linear-gradient(var(--color-peach), var(--color-peach));
+/* Cinta tejida (bajo el encabezado, en el pie y en tarjetas destacadas) */
+.band,
+.cinta {
+  background-image: var(--pat-cinta);
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+}
+/* Franja roja con el textil andino (cifras, encabezados de listados) */
+.bg-textil {
+  background-color: var(--color-primary);
+  background-image: linear-gradient(100deg, rgba(224, 112, 90, 0.95), rgba(200, 0, 54, 0.92)), var(--pat-band);
+  background-size: 100% 100%, 120px 120px;
+}
+.bg-textil-dark {
+  background-image: linear-gradient(135deg, rgba(12, 24, 68, 0.96), rgba(12, 24, 68, 0.88)), var(--pat-band);
+  background-size: 100% 100%, 120px 120px;
+}
+/* Fondo del héroe del inicio */
+.bg-hero {
+  background-color: #0c1844;
+  background-image:
+    radial-gradient(60% 80% at 8% 10%, rgba(224, 112, 90, 0.75), rgba(224, 112, 90, 0) 70%),
+    radial-gradient(50% 70% at 95% 90%, rgba(200, 0, 54, 0.9), rgba(200, 0, 54, 0) 70%),
+    radial-gradient(40% 50% at 60% 0%, rgba(240, 170, 140, 0.35), rgba(240, 170, 140, 0) 70%),
+    linear-gradient(160deg, #5a1a3e, #0c1844 60%);
+}
+.pat-soft {
+  background-image: var(--pat-soft);
+  background-size: 120px 120px;
+}
+
+/* Grano fino sobre toda la página, como en el diseño */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  background-image: var(--grain);
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(3%, -4%) scale(1.08); }
+}
+.animate-rise { animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-drift { animation: drift 16s ease-in-out infinite; }
+
+/* Scroll snap: filas que se deslizan de lado en el celular (empresas, carreras, pestañas) */
+@utility snap-row {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 16px;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    scroll-snap-align: start;
+    flex: none;
+  }
 }
 
 .grad-text {

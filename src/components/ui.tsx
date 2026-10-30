@@ -51,11 +51,11 @@ export function Verified({ size = 16 }: { size?: number }) {
 
 export function PageHeader({ eyebrow, title, children }: { eyebrow?: string; title: string; children?: React.ReactNode }) {
   return (
-    <div className="relative overflow-hidden border-b border-line bg-surface-2">
-      <div className="container-x py-10 sm:py-14">
-        {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-        <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{title}</h1>
-        {children && <div className="mt-3 max-w-2xl text-ink-2">{children}</div>}
+    <div className="bg-textil relative overflow-hidden text-white">
+      <div className="container-x py-10 sm:py-12">
+        {eyebrow && <p className="eyebrow text-peach before:bg-peach before:bg-none">{eyebrow}</p>}
+        <h1 className="mt-2 font-display text-[clamp(28px,3.6vw,42px)] font-extrabold tracking-[-0.02em]">{title}</h1>
+        {children && <div className="mt-1.5 max-w-2xl text-base text-[#FBE6DA]">{children}</div>}
       </div>
     </div>
   );

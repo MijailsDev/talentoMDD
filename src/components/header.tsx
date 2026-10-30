@@ -25,10 +25,10 @@ export async function Header() {
     <NavBar user={user}>
       <Link href="/" className="flex items-center gap-2.5" aria-label={`${BRAND}, inicio`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/isotipo.svg" alt="" width={40} height={40} className="h-10 w-10 rounded-xl" />
+        <img src="/isotipo.svg" alt="" width={44} height={44} className="h-11 w-11 rounded-xl shadow-[0_6px_16px_rgba(12,24,68,.18)]" />
         <span className="leading-tight">
-          <span className="block font-display text-xl font-extrabold tracking-tight">{BRAND}</span>
-          <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-2">{UNIVERSITY}</span>
+          <span className="block font-display text-[21px] font-extrabold tracking-[-0.03em]">{BRAND}</span>
+          <span className="block text-xs text-ink-2">{UNIVERSITY}</span>
         </span>
       </Link>
     </NavBar>
