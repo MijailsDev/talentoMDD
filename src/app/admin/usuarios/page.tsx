@@ -3,9 +3,11 @@ import { createClient } from "@/lib/supabase/server";
 import { getSession } from "@/lib/auth";
 import { ROLES } from "@/lib/constants";
 import { fmtDateLong, norm } from "@/lib/format";
-import { setUserRole } from "@/app/actions/admin";
+import { Trash2 } from "lucide-react";
+import { deleteUser, setUserRole } from "@/app/actions/admin";
 import type { Profile, Role } from "@/lib/types";
 import { Avatar } from "@/components/ui";
+import { ConfirmButton } from "@/components/confirm-button";
 
 export const metadata: Metadata = { title: "Usuarios · Administración" };
 
@@ -30,10 +32,10 @@ export default async function AdminUsers({ searchParams }: { searchParams: Promi
         </select>
         <button className="btn-primary">Buscar</button>
       </form>
-      <div className="card overflow-x-auto">
+      <div className="card relative overflow-x-auto">
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="border-b border-line bg-surface-2 text-xs uppercase tracking-wider text-ink-2">
-            <tr><th className="px-5 py-3">Usuario</th><th className="px-3 py-3">Código</th><th className="px-3 py-3">Registro</th><th className="px-5 py-3">Rol</th></tr>
+            <tr><th className="px-5 py-3">Usuario</th><th className="px-3 py-3">Código</th><th className="px-3 py-3">Registro</th><th className="px-5 py-3">Rol</th><th className="px-5 py-3"><span className="sr-only">Eliminar</span></th></tr>
           </thead>
           <tbody className="divide-y divide-line">
             {users.map((u) => {
@@ -57,6 +59,19 @@ export default async function AdminUsers({ searchParams }: { searchParams: Promi
                       </select>
                       {u.id !== s?.uid && <button className="btn-ghost btn-sm">Cambiar</button>}
                     </form>
+                  </td>
+                  <td className="px-5 py-3 text-right">
+                    {u.id !== s?.uid && u.role !== "admin" && (
+                      <ConfirmButton
+                        action={deleteUser}
+                        fields={{ id: u.id }}
+                        message={`¿Eliminar la cuenta de ${name} (${u.email})? Se borrarán su perfil, CV, postulaciones y conexiones. No se puede deshacer.${u.role === "empresa" ? " Su empresa seguirá registrada; puedes eliminarla en «Empresas»." : ""}`}
+                        className="btn-ghost btn-sm text-error"
+                        title={`Eliminar a ${name}`}
+                      >
+                        <Trash2 size={16} />
+                      </ConfirmButton>
+                    )}
                   </td>
                 </tr>
               );

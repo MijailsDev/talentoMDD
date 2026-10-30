@@ -14,7 +14,7 @@ export function ListEditor({ name, fields, initial, addLabel, max = 15 }: { name
     <div className="space-y-3">
       <input type="hidden" name={name} value={JSON.stringify(rows.filter((r) => r[fields[0].key]?.trim()))} />
       {rows.map((row, i) => (
-        <div key={i} className="relative grid gap-3 rounded-2xl border border-line bg-surface-2 p-4 sm:grid-cols-2">
+        <div key={i} className="relative grid gap-3 rounded-2xl border border-line bg-surface-2 p-4 pr-12 sm:grid-cols-2">
           {fields.map((f) => (
             <div key={f.key} className={f.wide || f.textarea ? "sm:col-span-2" : ""}>
               <label className="mb-1 block text-xs font-semibold text-ink-2" htmlFor={`${name}-${i}-${f.key}`}>{f.label}</label>

@@ -35,7 +35,7 @@ export function OfferCard({ offer: o, careerName, saved, canSave }: { offer: Off
       </div>
       <CompanyLogo company={o.company} size={52} className="absolute left-6 top-[132px] z-[1] border-[3px] border-surface shadow-md" />
       <div className="flex flex-1 flex-col gap-2 px-4 pb-4 pt-8">
-        <div className="flex flex-wrap gap-1.5">
+        <div className={`flex flex-wrap gap-1.5 ${canSave ? "pr-11" : ""}`}>
           <span className={`chip ${t.cls}`}>{t.label}</span>
           <span className="chip bg-hover text-ink-2">{o.mode}</span>
         </div>

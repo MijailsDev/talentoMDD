@@ -28,7 +28,7 @@ export default async function CompanyPage({ params }: Props) {
   return (
     <>
       <div className="relative h-64 overflow-hidden sm:h-80">
-        <Cover src={c.cover_url} alt={c.short_name} />
+        <Cover src={c.cover_url} alt={c.short_name} className="absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-b from-dark/10 to-dark/70" />
         <div className="container-x relative pt-6">
           <Link href="/empresas" className="btn btn-sm bg-white/90 text-ink hover:bg-white"><ArrowLeft size={16} /> Empresas</Link>
@@ -38,7 +38,7 @@ export default async function CompanyPage({ params }: Props) {
         <header className="card relative p-6 sm:p-8">
           <div className="flex flex-wrap items-end gap-5">
             <CompanyLogo company={c} size={96} className="-mt-20 border-4 border-surface shadow-lg" />
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0 flex-1 basis-56 break-words">
               <h1 className="flex flex-wrap items-center gap-2 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{c.short_name} {c.status === "verificada" && <Verified size={26} />}</h1>
               <p className="text-ink-2">{c.legal_name} · RUC {c.ruc} · {c.sector}</p>
             </div>

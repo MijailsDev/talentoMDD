@@ -18,7 +18,7 @@ export function ProfileHeader({ p, careerName, actions, extra }: { p: PublicProf
         {p.cover_url && <img src={p.cover_url} alt="" className="h-full w-full object-cover" />}
       </div>
       <div className="px-6 pb-6 sm:px-8">
-        <div className="-mt-16 flex flex-wrap items-end justify-between gap-4">
+        <div className="relative -mt-16 flex flex-wrap items-end justify-between gap-4">
           <Avatar name={name} url={p.avatar_url} size={128} className="border-[5px] border-surface shadow-lg" />
           <div className="flex flex-wrap gap-2">{actions}</div>
         </div>

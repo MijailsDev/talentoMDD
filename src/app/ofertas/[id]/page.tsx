@@ -80,7 +80,7 @@ export default async function OfferPage({ params }: Props) {
   return (
     <>
       <div className="relative h-56 overflow-hidden sm:h-72">
-        <Cover src={c.cover_url} alt={`${c.short_name}`} />
+        <Cover src={c.cover_url} alt={`${c.short_name}`} className="absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-b from-dark/20 to-dark/70" />
         <div className="container-x relative pt-6">
           <Link href="/ofertas" className="btn btn-sm bg-white/90 text-ink hover:bg-white"><ArrowLeft size={16} /> Volver a ofertas</Link>

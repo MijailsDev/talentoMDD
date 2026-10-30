@@ -44,9 +44,9 @@ export default async function CompanyDashboard({ searchParams }: { searchParams:
       <div className="border-b border-line bg-surface-2">
         <div className="container-x flex flex-wrap items-center gap-5 py-8">
           <CompanyLogo company={company} size={72} />
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0 flex-1 basis-56">
             <p className="eyebrow">Panel de empresa</p>
-            <h1 className="font-display text-3xl font-extrabold tracking-tight">{company.short_name}</h1>
+            <h1 className="break-words font-display text-3xl font-extrabold tracking-tight">{company.short_name}</h1>
             <span className={`chip mt-1 ${st.cls}`}>{st.label}</span>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -90,7 +90,7 @@ export default async function CompanyDashboard({ searchParams }: { searchParams:
               {verified ? <Link href="/empresa/ofertas/nueva" className="font-semibold text-primary underline">Publica tu primera oferta</Link> : "Podrás publicar cuando tu empresa esté verificada."}
             </EmptyState>
           ) : (
-            <div className="card overflow-x-auto">
+            <div className="card relative overflow-x-auto">
               <table className="w-full min-w-[760px] text-left text-sm">
                 <thead className="border-b border-line bg-surface-2 text-xs uppercase tracking-wider text-ink-2">
                   <tr><th className="px-5 py-3">Oferta</th><th className="px-3 py-3">Estado</th><th className="px-3 py-3">Postulantes</th><th className="px-3 py-3">Cierre</th><th className="px-5 py-3 text-right">Acciones</th></tr>

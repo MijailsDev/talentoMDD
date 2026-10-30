@@ -13,7 +13,7 @@ export function CompanyReview({ c, ownerEmail }: { c: Company; ownerEmail?: stri
     <div className="card p-5">
       <div className="flex flex-wrap items-start gap-4">
         <CompanyLogo company={c} size={52} />
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 basis-56 break-words">
           <p className="flex flex-wrap items-center gap-2 font-bold">{c.name} <span className={`chip ${st.cls}`}>{st.label}</span></p>
           <p className="text-sm text-ink-2">{c.legal_name} · RUC <a href={`https://e-consultaruc.sunat.gob.pe/`} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">{c.ruc}</a> · {c.sector}</p>
           <p className="text-sm text-ink-2">{c.address} · {c.phone} · {c.email}</p>

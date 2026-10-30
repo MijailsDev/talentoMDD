@@ -15,7 +15,7 @@ export default async function AdminOffers() {
   const offers = (data ?? []) as (OfferWithCompany & { applications: { id: string }[] })[];
 
   return (
-    <div className="card overflow-x-auto">
+    <div className="card relative overflow-x-auto">
       <p className="border-b border-line p-4 text-sm text-ink-2">Las ofertas <strong>destacadas</strong> aparecen primero en la portada (máximo 6 visibles).</p>
       <table className="w-full min-w-[820px] text-left text-sm">
         <thead className="border-b border-line bg-surface-2 text-xs uppercase tracking-wider text-ink-2">

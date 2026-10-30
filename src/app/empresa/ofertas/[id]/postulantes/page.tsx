@@ -67,7 +67,7 @@ export default async function ApplicantsPage({ params, searchParams }: { params:
               <li key={a.id} className="card p-6">
                 <div className="flex flex-wrap items-start gap-4">
                   <Avatar name={name} url={p?.avatar_url} size={60} />
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0 flex-1 basis-56 break-words">
                     <p className="text-lg font-bold">{name}</p>
                     <p className="text-sm text-ink-2">{p?.headline}</p>
                     <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-2">

@@ -37,7 +37,7 @@ export default async function CompaniesPage({ searchParams }: { searchParams: Pr
                 <Link href={`/empresas/${c.slug}`} className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface transition hover:-translate-y-1.5 hover:shadow-[var(--shadow-card)]">
                   <div className="relative h-40 overflow-hidden"><Cover src={c.cover_url} className="transition duration-500 group-hover:scale-105" /></div>
                   <div className="flex flex-1 flex-col p-5">
-                    <div className="-mt-12 mb-3"><CompanyLogo company={c} size={60} className="border-4 border-surface shadow" /></div>
+                    <div className="relative -mt-12 mb-3"><CompanyLogo company={c} size={60} className="border-4 border-surface shadow" /></div>
                     <h2 className="flex items-center gap-1.5 font-sans text-lg font-bold">{c.short_name} <Verified /></h2>
                     <p className="text-sm text-ink-2">{c.sector}</p>
                     <p className="mt-3 line-clamp-3 flex-1 text-sm text-ink-2">{c.description}</p>

@@ -59,6 +59,20 @@ export async function setUserRole(formData: FormData) {
   revalidatePath("/admin/usuarios");
 }
 
+export async function deleteUser(formData: FormData) {
+  const { s, supabase } = await requireAdmin();
+  const id = str(formData.get("id"));
+  if (!id || id === s.uid) return;
+  // Primero sus archivos (foto, portada y CV), luego la cuenta; la base borra el resto en cascada
+  for (const bucket of ["avatars", "cvs"]) {
+    const { data } = await supabase.storage.from(bucket).list(id);
+    if (data?.length) await supabase.storage.from(bucket).remove(data.map((f) => `${id}/${f.name}`));
+  }
+  await supabase.rpc("admin_delete_user", { target: id });
+  revalidatePath("/admin/usuarios");
+  revalidatePath("/admin");
+}
+
 export async function createNews(formData: FormData) {
   const { supabase } = await requireAdmin();
   const title = str(formData.get("title"));

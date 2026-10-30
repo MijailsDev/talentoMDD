@@ -66,7 +66,7 @@ export default async function ApplicationsPage({ searchParams }: { searchParams:
                 <li key={a.id} className="card p-6">
                   <div className="flex flex-wrap items-start gap-4">
                     {o && <CompanyLogo company={o.company} size={52} />}
-                    <div className="min-w-0 flex-1">
+                    <div className="min-w-0 flex-1 basis-56 break-words">
                       {o ? <Link href={`/ofertas/${o.id}`} className="text-lg font-bold hover:text-primary">{o.title}</Link> : <p className="text-lg font-bold">Oferta no disponible</p>}
                       <p className="text-sm text-ink-2">{o?.company.short_name} · {o ? OFFER_TYPES[o.type].label : ""} · Postulaste el {fmtDateLong(a.created_at)}</p>
                     </div>

@@ -39,9 +39,9 @@ export default async function Home() {
               <p className="mt-5 max-w-xl text-lg text-ink-2">Prácticas pre-profesionales, empleos y voluntariados en empresas de Madre de Dios y de todo el Perú, pensados para estudiantes y egresados de la {UNIVERSITY}.</p>
             </Reveal>
             <Reveal delay={240}>
-              <form action="/ofertas" className="mt-8 grid gap-2 rounded-[22px] border border-line bg-surface p-2 shadow-[var(--shadow-card)] sm:grid-cols-[1.4fr_1fr_0.9fr_auto]">
+              <form action="/ofertas" className="mt-8 grid gap-2 rounded-[22px] border border-line bg-surface p-2 shadow-[var(--shadow-card)] sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
                 <label className="sr-only" htmlFor="hq">Cargo o palabra clave</label>
-                <div className="relative">
+                <div className="relative sm:col-span-3">
                   <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-2" />
                   <input id="hq" name="q" placeholder="Cargo o palabra clave" className="field border-transparent pl-10" />
                 </div>
@@ -66,7 +66,7 @@ export default async function Home() {
                 <img src={HERO_PHOTO} alt="Estudiantes trabajando en equipo" className="h-full w-full object-cover" />
               </Parallax>
             </div>
-            <div className="absolute -bottom-6 -left-4 hidden rounded-2xl border border-line bg-surface p-4 shadow-[var(--shadow-pop)] sm:block">
+            <div className="absolute -bottom-6 left-5 hidden rounded-2xl border border-line bg-surface p-4 shadow-[var(--shadow-pop)] sm:block">
               <p className="text-xs font-semibold text-ink-2">Ofertas activas hoy</p>
               <p className="font-display text-3xl font-extrabold text-primary">{stats.offers}</p>
             </div>
