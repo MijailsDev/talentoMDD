@@ -13,7 +13,8 @@ export const metadata: Metadata = { title: "Ofertas de prácticas y empleo" };
 
 type SP = Record<string, string | string[] | undefined>;
 const one = (v: string | string[] | undefined, d = "") => (Array.isArray(v) ? v[0] : v) ?? d;
-const many = (v: string | string[] | undefined) => (v === undefined ? [] : Array.isArray(v) ? v : [v]);
+// Un parámetro vacío (?modo=) significa «sin filtro», no «buscar el valor vacío»
+const many = (v: string | string[] | undefined) => (v === undefined ? [] : Array.isArray(v) ? v : [v]).filter(Boolean);
 
 export default async function OffersPage({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
