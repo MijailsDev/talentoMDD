@@ -55,12 +55,12 @@ export default async function OffersPage({ searchParams }: { searchParams: Promi
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <OfferFilters faculties={catalog.faculties} careers={catalog.careers} values={values} total={offers.length} />
         </aside>
-        <section aria-live="polite">
+        <section>
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-            <p className="font-semibold"><span className="text-primary">{offers.length}</span> {offers.length === 1 ? "oferta encontrada" : "ofertas encontradas"}</p>
+            <p aria-live="polite" className="font-semibold"><span className="text-primary">{offers.length}</span> {offers.length === 1 ? "oferta encontrada" : "ofertas encontradas"}</p>
             <div className="inline-flex rounded-full border border-line bg-surface p-1" role="group" aria-label="Vista">
-              <Link href={qs("lista")} scroll={false} aria-current={!isMap || undefined} className={`btn btn-sm ${!isMap ? "bg-primary text-white" : "text-ink-2 hover:bg-hover"}`}><List size={16} /> Lista</Link>
-              <Link href={qs("mapa")} scroll={false} aria-current={isMap || undefined} className={`btn btn-sm ${isMap ? "bg-primary text-white" : "text-ink-2 hover:bg-hover"}`}><MapIcon size={16} /> Mapa</Link>
+              <Link href={qs("lista")} scroll={false} aria-current={!isMap || undefined} className={`tap-44 btn btn-sm relative ${!isMap ? "bg-primary text-white" : "text-ink-2 hover:bg-hover"}`}><List size={16} /> Lista</Link>
+              <Link href={qs("mapa")} scroll={false} aria-current={isMap || undefined} className={`tap-44 btn btn-sm relative ${isMap ? "bg-primary text-white" : "text-ink-2 hover:bg-hover"}`}><MapIcon size={16} /> Mapa</Link>
             </div>
           </div>
           {offers.length === 0 ? (
@@ -73,11 +73,15 @@ export default async function OffersPage({ searchParams }: { searchParams: Promi
               <p className="text-sm text-ink-2">Las ofertas remotas no aparecen en el mapa.</p>
             </div>
           ) : (
-            <div className="stagger grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {offers.map((o) => (
-                <OfferCard key={o.id} offer={o} careerName={catalog.careerName} saved={saved.has(o.id)} canSave={canSave} />
-              ))}
-            </div>
+            <>
+              {/* Las tarjetas usan h3: este título evita el salto desde el h1 */}
+              <h2 className="sr-only">Lista de ofertas</h2>
+              <div className="stagger grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                {offers.map((o) => (
+                  <OfferCard key={o.id} offer={o} careerName={catalog.careerName} saved={saved.has(o.id)} canSave={canSave} />
+                ))}
+              </div>
+            </>
           )}
         </section>
       </div>

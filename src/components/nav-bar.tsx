@@ -13,7 +13,7 @@ type NavUser = { name: string; email: string; role: Role; avatar: string | null;
 function Bell({ count, onClick }: { count: number; onClick?: () => void }) {
   const label = count ? `Notificaciones, ${count} sin leer` : "Notificaciones";
   return (
-    <Link href="/notificaciones" onClick={onClick} className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink transition-[background-color,scale] duration-150 ease-out hover:bg-hover active:scale-[0.97]" aria-label={label} title={label}>
+    <Link href="/notificaciones" onClick={onClick} className="tap-44 relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink transition-[background-color,scale] duration-150 ease-out hover:bg-hover active:scale-[0.97]" aria-label={label} title={label}>
       <BellIcon size={21} />
       {count > 0 && (
         <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[11px] font-bold leading-none text-white ring-2 ring-bg">
@@ -157,7 +157,7 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
                 type="button"
                 onClick={() => setMenu((m) => !m)}
                 aria-expanded={menu}
-                aria-controls="menu-usuario"
+                aria-controls={menu ? "menu-usuario" : undefined}
                 className="flex items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3 transition-[border-color,scale] duration-150 ease-out hover:border-line-strong active:scale-[0.97]"
               >
                 <Avatar name={user.name} url={user.avatar} size={34} />

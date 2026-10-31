@@ -63,7 +63,7 @@ export default async function Home() {
               <label className="flex min-w-0 items-center gap-2 px-3 sm:col-span-3 lg:col-span-2 xl:col-span-3">
                 <Search size={20} className="shrink-0 text-ink-2" />
                 <span className="sr-only">Cargo o palabra clave</span>
-                <input name="q" placeholder="Cargo o palabra clave" className="h-12 min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-ink-2" />
+                <input name="q" placeholder="Cargo o palabra clave…" autoComplete="off" className="h-12 min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-ink-2" />
               </label>
               <label className="sr-only" htmlFor="hcar">Carrera</label>
               <select id="hcar" name="car" defaultValue="all" className="field h-[52px] border-transparent bg-surface-2">
@@ -77,10 +77,10 @@ export default async function Home() {
               </select>
               <button className="btn-primary h-[52px] rounded-2xl px-6 text-base lg:col-span-2 xl:col-span-1"><Search size={19} /> Buscar ofertas</button>
             </form>
-            <div className="animate-rise flex flex-wrap items-center gap-2 [animation-delay:320ms]">
+            <div className="animate-rise flex flex-wrap items-center gap-x-2 gap-y-3 [animation-delay:320ms]">
               <span className="text-sm text-white">Populares:</span>
               {popular.map((p) => (
-                <Link key={p.href} href={p.href} className="inline-flex h-8 items-center whitespace-nowrap rounded-full border border-white/30 bg-white/5 px-3.5 text-[13px] font-semibold text-white transition-[background-color,color,scale] duration-150 ease-out hover:bg-white hover:text-primary active:scale-[0.97]">
+                <Link key={p.href} href={p.href} className="tap-44 relative inline-flex h-8 items-center whitespace-nowrap rounded-full border border-white/30 bg-white/5 px-3.5 text-[13px] font-semibold text-white transition-[background-color,color,scale] duration-150 ease-out hover:bg-white hover:text-primary active:scale-[0.97]">
                   {p.label}
                 </Link>
               ))}
@@ -91,7 +91,7 @@ export default async function Home() {
             <div className="relative aspect-[4/4.4] overflow-hidden lg:aspect-[4/3] rounded-[200px_200px_32px_32px] bg-peach shadow-[0_40px_80px_rgba(0,0,0,.4)] outline outline-1 outline-offset-[10px] outline-white/25">
               <Parallax className="absolute -inset-y-10 inset-x-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={HERO_PHOTO} alt="Estudiantes trabajando en equipo" className="h-full w-full object-cover" />
+                <img src={HERO_PHOTO} alt="Estudiantes trabajando en equipo" width={1600} height={1067} fetchPriority="high" className="h-full w-full object-cover" />
               </Parallax>
             </div>
             {spotlight && (
@@ -122,7 +122,7 @@ export default async function Home() {
               <Reveal key={l as string} delay={i * 80} className="flex items-center gap-4">
                 <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/15 text-peach"><I size={27} /></span>
                 <div>
-                  <p className="font-display text-[clamp(34px,3.8vw,48px)] font-extrabold leading-none tracking-[-0.04em]"><CountUp value={n as number} /></p>
+                  <p className="font-display text-[clamp(34px,3.8vw,48px)] font-extrabold leading-none tracking-[-0.04em] tabular-nums"><CountUp value={n as number} /></p>
                   <p className="mt-1 text-sm text-white">{l as string}</p>
                 </div>
               </Reveal>
@@ -157,7 +157,7 @@ export default async function Home() {
                 style={{ background: `radial-gradient(120% 100% at 20% 10%, ${TILE_COLORS[i % 8]}cc, ${TILE_COLORS[i % 8]})` }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={CAREER_PHOTOS[c.id] ?? FALLBACK_COVER} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-[center_60%] transition-[scale] duration-300 ease-out motion-safe:group-hover:scale-[1.03]" />
+                <img src={CAREER_PHOTOS[c.id] ?? FALLBACK_COVER} alt="" width={1000} height={750} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-[center_60%] transition-[scale] duration-300 ease-out motion-safe:group-hover:scale-[1.03]" />
                 <span className="absolute inset-0 bg-gradient-to-b from-dark/5 to-dark/80" />
                 <span className="absolute left-4 top-4 grid h-[42px] w-[42px] place-items-center rounded-xl bg-white/95 text-primary"><CareerIcon icon={c.icon} size={23} /></span>
                 <span className="absolute inset-x-4 bottom-3.5">
@@ -187,7 +187,7 @@ export default async function Home() {
       </section>
 
       {/* Cómo funciona */}
-      <section id="como-funciona" className="mt-[clamp(56px,7vw,96px)] scroll-mt-24 bg-dark py-[clamp(56px,7vw,96px)] text-white">
+      <section id="como-funciona" className="mt-[clamp(56px,7vw,96px)] bg-dark py-[clamp(56px,7vw,96px)] text-white">
         <Reveal className="container-x">
           <h2 className="section-title mt-0">De tu perfil a tu primera práctica en cuatro pasos</h2>
         </Reveal>
@@ -225,13 +225,13 @@ export default async function Home() {
           </div>
           <div className="relative min-h-[300px] bg-[radial-gradient(120%_100%_at_30%_20%,#c80036,#a1002c)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={TEAM_PHOTO} alt="Equipo de trabajo en una oficina" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+            <img src={TEAM_PHOTO} alt="Equipo de trabajo en una oficina" width={1400} height={933} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
           </div>
         </Reveal>
       </section>
 
       {/* Preguntas frecuentes */}
-      <section id="preguntas" className="mx-auto max-w-[880px] scroll-mt-24 px-4 py-[clamp(56px,7vw,96px)] sm:px-6">
+      <section id="preguntas" className="mx-auto max-w-[880px] px-4 py-[clamp(56px,7vw,96px)] sm:px-6">
         <SectionHead center title="Resolvemos tus dudas" />
         <Reveal className="flex flex-col gap-2.5">
           {FAQS.map(([q, a], i) => (

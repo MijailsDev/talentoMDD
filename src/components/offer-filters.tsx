@@ -70,13 +70,13 @@ export function OfferFilters({ faculties, careers, values, total }: Props) {
         const name = (e.target as HTMLElement).getAttribute("name");
         if (name === "fac" && form.current) (form.current.elements.namedItem("car") as HTMLSelectElement).value = "all";
         submit(name === "q" ? 400 : 0);
-      }} className="lg:space-y-5 lg:rounded-2xl lg:border lg:border-line lg:bg-surface lg:p-5" aria-label="Filtros de ofertas">
+      }} className="lg:space-y-5 lg:rounded-2xl lg:border lg:border-line lg:bg-surface lg:p-5" aria-label="Buscar y filtrar ofertas">
       <input type="hidden" name="vista" value={values.vista} />
       <div className="flex gap-2">
         <div className="relative min-w-0 flex-1">
           <label htmlFor="q" className="sr-only">Buscar</label>
           <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-2" />
-          <input id="q" name="q" defaultValue={values.q} placeholder="Cargo, empresa o habilidad" className="field pl-10" />
+          <input id="q" name="q" defaultValue={values.q} placeholder="Cargo, empresa o habilidad…" autoComplete="off" className="field pl-10" />
         </div>
         <button type="button" onClick={() => sheet.current?.showModal()} aria-haspopup="dialog" aria-label={active ? `Filtros, ${active} activos` : "Filtros"} className="filtros-abrir btn-outline shrink-0 px-4 lg:hidden">
           {pending ? <Loader2 size={18} className="animate-spin text-primary" /> : <SlidersHorizontal size={18} />} Filtros
@@ -85,7 +85,7 @@ export function OfferFilters({ faculties, careers, values, total }: Props) {
       </div>
       <dialog
         ref={sheet}
-        aria-label="Filtros de ofertas"
+        aria-label="Filtros"
         onPointerDown={(e) => { pressedBackdrop.current = e.target === e.currentTarget; }}
         onClick={(e) => { if (pressedBackdrop.current && e.target === e.currentTarget) sheet.current?.close(); }}
         className="filtros-hoja fixed inset-x-0 bottom-0 top-auto m-0 max-h-[85dvh] w-full max-w-none flex-col rounded-t-[22px] border-0 bg-surface p-0 text-ink shadow-[var(--shadow-pop)] backdrop:bg-dark/50 open:flex lg:static lg:block lg:max-h-none lg:space-y-5 lg:rounded-none lg:bg-transparent lg:shadow-none"

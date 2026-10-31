@@ -19,10 +19,10 @@ export default async function CompaniesPage({ searchParams }: { searchParams: Pr
         Todas pasaron la verificación de la Oficina de Empleabilidad: RUC activo, convenio firmado y visita a sus instalaciones.
       </PageHeader>
       <div className="container-x py-10">
-        <nav aria-label="Filtrar por rubro" className="snap-row -mx-4 mb-8 gap-2 px-4 max-sm:snap-none sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
+        <nav aria-label="Filtrar por rubro" className="snap-row -mx-4 -mt-1 mb-7 gap-2 px-4 py-1 max-sm:snap-none sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
           {["all", ...sectors].map((s) => (
             <Link key={s} href={s === "all" ? "/empresas" : `/empresas?sector=${encodeURIComponent(s)}`} scroll={false} aria-current={sector === s || undefined}
-              className={`inline-flex h-9 items-center whitespace-nowrap rounded-full border px-3.5 text-sm font-semibold transition ${sector === s ? "border-primary bg-primary text-white" : "border-line-strong bg-surface text-ink hover:border-primary"}`}>
+              className={`tap-44 relative inline-flex h-9 items-center whitespace-nowrap rounded-full border px-3.5 text-sm font-semibold transition ${sector === s ? "border-primary bg-primary text-white" : "border-line-strong bg-surface text-ink hover:border-primary"}`}>
               {s === "all" ? "Todos los rubros" : s}
             </Link>
           ))}

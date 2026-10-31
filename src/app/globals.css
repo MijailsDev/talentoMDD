@@ -50,6 +50,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* El encabezado fijo mide 80 px: que no tape lo enfocado ni el destino de un ancla */
+  scroll-padding-top: 6rem;
 }
 
 body {
@@ -76,6 +78,17 @@ body {
 /* Una superficie clara dentro de esos fondos (el buscador del héroe) vuelve al carmesí */
 .bg-surface :focus-visible {
   outline-color: var(--color-primary);
+}
+
+/* Área táctil de 44 px sin cambiar cómo se ve el control (el elemento debe estar posicionado) */
+.tap-44::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
 }
 
 /* Sin el retardo de doble toque en el celular */
@@ -262,15 +275,17 @@ textarea.field {
   }
 }
 
-/* Aparición al hacer scroll */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
+/* Aparición al hacer scroll: solo con JavaScript; sin él, el contenido sigue visible */
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Carrusel continuo de empresas */

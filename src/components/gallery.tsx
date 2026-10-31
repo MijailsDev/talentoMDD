@@ -69,7 +69,7 @@ export function Gallery({ items, company }: { items: GalleryItem[]; company: str
         {items.map((g, i) => (
           <button key={g.url + i} type="button" onClick={() => show(i)} className="group relative aspect-[4/3] overflow-hidden rounded-2xl" aria-label={`Ampliar foto: ${g.label}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={g.url} alt={`${company}: ${g.label}`} loading="lazy" className="h-full w-full object-cover transition duration-500 motion-safe:group-hover:scale-110" />
+            <img src={g.url} alt={`${company}: ${g.label}`} width={400} height={300} loading="lazy" className="h-full w-full object-cover transition duration-500 motion-safe:group-hover:scale-110" />
             <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 to-transparent px-3 pb-2 pt-6 text-left text-xs font-semibold capitalize text-white">{g.label}</span>
           </button>
         ))}
@@ -78,7 +78,7 @@ export function Gallery({ items, company }: { items: GalleryItem[]; company: str
         {open && (
           <figure className="relative">
             {/* Primero en el DOM para recibir el foco al abrir; se ve arriba a la derecha */}
-            <button type="button" onClick={() => setIdx(null)} className="absolute right-3 top-3 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-ink" aria-label="Cerrar"><X /></button>
+            <button type="button" onClick={() => setIdx(null)} className="tap-44 absolute right-3 top-3 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-ink" aria-label="Cerrar"><X /></button>
             <div
               ref={track}
               data-track
@@ -90,15 +90,15 @@ export function Gallery({ items, company }: { items: GalleryItem[]; company: str
               {items.map((g, i) => (
                 <div key={g.url + i} className="aspect-[4/3] max-h-[82vh] w-full shrink-0 snap-center snap-always">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={g.url} alt={`${company}: ${g.label}`} className="h-full w-full object-contain" />
+                  <img src={g.url} alt={`${company}: ${g.label}`} width={1000} height={750} className="h-full w-full object-contain" />
                 </div>
               ))}
             </div>
-            <figcaption className="px-5 py-3 text-sm capitalize text-white/85">{items[idx].label} · {idx + 1} de {items.length}</figcaption>
+            <figcaption aria-live="polite" className="px-5 py-3 text-sm capitalize text-white/85">{items[idx].label} · {idx + 1} de {items.length}</figcaption>
             {items.length > 1 && (
               <>
-                <button type="button" onClick={() => move(-1)} className="absolute left-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink" aria-label="Anterior"><ChevronLeft /></button>
-                <button type="button" onClick={() => move(1)} className="absolute right-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink" aria-label="Siguiente"><ChevronRight /></button>
+                <button type="button" onClick={() => move(-1)} className="tap-44 absolute left-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink" aria-label="Anterior"><ChevronLeft /></button>
+                <button type="button" onClick={() => move(1)} className="tap-44 absolute right-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink" aria-label="Siguiente"><ChevronRight /></button>
               </>
             )}
           </figure>

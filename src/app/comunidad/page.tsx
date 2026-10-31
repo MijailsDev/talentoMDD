@@ -48,11 +48,11 @@ export default async function CommunityPage({ searchParams }: { searchParams: Pr
       </PageHeader>
       <div className="container-x grid gap-8 py-8 lg:grid-cols-[1fr_320px]">
         <section>
-          <nav className="mb-5 inline-flex max-w-full flex-wrap gap-1 rounded-[22px] border border-line bg-surface p-1" aria-label="Vistas de la comunidad">
+          <nav className="mb-5 inline-flex max-w-full flex-wrap gap-x-1 gap-y-2 rounded-[22px] border border-line bg-surface p-1" aria-label="Vistas de la comunidad">
             {VIEWS.map((v) => {
               const on = vista === v.key || (!VIEWS.some((x) => x.key === vista) && v.key === "");
               return (
-                <Link key={v.key} href={v.key ? `/comunidad?vista=${v.key}` : "/comunidad"} aria-current={on || undefined} className={`btn btn-sm ${on ? "bg-primary text-white" : "text-ink-2 hover:bg-hover"}`}>
+                <Link key={v.key} href={v.key ? `/comunidad?vista=${v.key}` : "/comunidad"} aria-current={on || undefined} className={`tap-44 btn btn-sm relative ${on ? "bg-primary text-white" : "text-ink-2 hover:bg-hover"}`}>
                   <v.icon size={16} /> {v.label} ({counts[v.key]})
                 </Link>
               );
@@ -61,7 +61,7 @@ export default async function CommunityPage({ searchParams }: { searchParams: Pr
           <form className="mb-6 flex flex-wrap gap-3" role="search">
             {vista && <input type="hidden" name="vista" value={vista} />}
             <label htmlFor="cq" className="sr-only">Buscar personas</label>
-            <input id="cq" name="q" defaultValue={q} placeholder="Buscar por nombre o habilidad" className="field max-w-xs" />
+            <input id="cq" name="q" defaultValue={q} placeholder="Buscar por nombre o habilidad…" autoComplete="off" className="field max-w-xs" />
             <label htmlFor="ccar" className="sr-only">Carrera</label>
             <select id="ccar" name="car" defaultValue={car} className="field max-w-xs">
               <option value="all">Todas las carreras</option>
@@ -88,7 +88,7 @@ export default async function CommunityPage({ searchParams }: { searchParams: Pr
                       {followers.has(p.id) && <span className="chip mt-2 bg-primary-soft text-primary">{isConn ? "Conexión mutua" : "Conectó contigo"}</span>}
                       <form action={toggleConnection} className="mt-3">
                         <input type="hidden" name="to" value={p.id} />
-                        <button className={isConn ? "btn btn-sm bg-success-soft text-success" : "btn-outline btn-sm"}>
+                        <button className={`tap-44 relative ${isConn ? "btn btn-sm bg-success-soft text-success" : "btn-outline btn-sm"}`}>
                           {isConn ? <><UserCheck size={16} /> Conectado</> : <><UserPlus size={16} /> Conectar</>}
                         </button>
                       </form>

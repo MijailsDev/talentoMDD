@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   title: { default: `${BRAND} · Portal de empleabilidad ${UNIVERSITY}`, template: `%s · ${BRAND}` },
   description: `Prácticas pre-profesionales, empleos y voluntariados para estudiantes y egresados de la ${UNIVERSITY}, con empresas verificadas de Madre de Dios.`,
 };
+
+export const viewport: Viewport = { themeColor: "#0c1844" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

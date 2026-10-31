@@ -78,7 +78,7 @@ export default async function CompanyPage({ params }: Props) {
           <CompanyContact company={c} />
         </section>
 
-        <section id="ofertas" className="scroll-mt-24">
+        <section id="ofertas">
           <h2 className="mb-5 font-sans text-[21px] font-extrabold">Ofertas activas de {c.short_name}</h2>
           {offers.length === 0 ? (
             <EmptyState icon={<Briefcase />} title="Esta empresa no tiene ofertas abiertas ahora">Vuelve pronto o explora otras empresas.</EmptyState>

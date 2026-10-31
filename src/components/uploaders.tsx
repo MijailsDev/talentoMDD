@@ -136,7 +136,7 @@ export function CvUpload({ uid, current, currentName, onSave }: { uid: string; c
   };
 
   return (
-    <div id="cv" className="scroll-mt-24">
+    <div id="cv">
       <div className={`flex flex-wrap items-center gap-4 rounded-2xl border-2 border-dashed p-4 ${current ? "border-success/40 bg-success-soft/50" : "border-line-strong bg-surface-2"}`}
         onDragOver={(e) => e.preventDefault()} onDrop={(e) => { e.preventDefault(); pick(e.dataTransfer.files[0]); }}>
         <FileText className={current ? "text-success" : "text-ink-2"} size={30} />

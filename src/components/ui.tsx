@@ -24,7 +24,7 @@ export function Avatar({ name, url, size = 40, className = "" }: { name: string;
 export function CompanyLogo({ company, size = 52, className = "" }: { company: Pick<Company, "logo_url" | "logo_text" | "color" | "short_name">; size?: number; className?: string }) {
   return company.logo_url ? (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={company.logo_url} alt={`Logo de ${company.short_name}`} className={`shrink-0 rounded-[14px_14px_14px_4px] bg-white object-contain ${className}`} style={{ width: size, height: size }} />
+    <img src={company.logo_url} alt={`Logo de ${company.short_name}`} width={size} height={size} className={`shrink-0 rounded-[14px_14px_14px_4px] bg-white object-contain ${className}`} style={{ width: size, height: size }} />
   ) : (
     <span
       aria-hidden
@@ -38,7 +38,7 @@ export function CompanyLogo({ company, size = 52, className = "" }: { company: P
 
 export function Cover({ src, alt = "", className = "" }: { src?: string | null; alt?: string; className?: string }) {
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src || FALLBACK_COVER} alt={alt} loading="lazy" className={`h-full w-full object-cover ${className}`} />;
+  return <img src={src || FALLBACK_COVER} alt={alt} width={1000} height={750} loading="lazy" className={`h-full w-full object-cover ${className}`} />;
 }
 
 export function Verified({ size = 16 }: { size?: number }) {

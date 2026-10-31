@@ -52,16 +52,19 @@ export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }:
   );
 }
 
-/** Contador que sube de 0 al valor final */
+/** Contador que sube de 0 al valor final al entrar en pantalla; si ya está a la vista al cargar, se queda quieto para no parpadear */
 export function CountUp({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [n, setN] = useState(value);
   useEffect(() => {
     const el = ref.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
-    setN(0);
     let raf = 0;
+    let first = true;
     const io = new IntersectionObserver(([e]) => {
+      const visibleOnLoad = first && e.isIntersecting;
+      first = false;
+      if (visibleOnLoad) return io.disconnect();
       if (!e.isIntersecting) return;
       io.disconnect();
       const t0 = performance.now();
@@ -92,7 +95,8 @@ export function Parallax({ children, className = "" }: { children: React.ReactNo
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const onScroll = () => {
-      if (ref.current) ref.current.style.transform = `translate3d(0, ${Math.min(window.scrollY, 700) * 0.12}px, 0)`;
+      // Tope de 40 px: es lo que sobra de la foto (-inset-y-10); más dejaría ver el fondo durazno
+      if (ref.current) ref.current.style.transform = `translate3d(0, ${Math.min(window.scrollY * 0.12, 40)}px, 0)`;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
