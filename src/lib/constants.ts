@@ -51,13 +51,13 @@ export const FAQS: [string, string][] = [
 ];
 
 // Fotos de respaldo cuando una empresa aún no sube portada
-export const FALLBACK_COVER = "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=70&auto=format&fit=crop";
-export const HERO_PHOTO = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=70&auto=format&fit=crop";
-export const AUTH_PHOTO = "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&q=70&auto=format&fit=crop";
-export const TEAM_PHOTO = "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=70&auto=format&fit=crop";
+export const FALLBACK_COVER = "/fotos/portada-default.jpg";
+export const HERO_PHOTO = "/fotos/heroe.jpg";
+export const AUTH_PHOTO = "/fotos/acceso.jpg";
+export const TEAM_PHOTO = "/fotos/empresas.jpg";
 /** Foto de cada carrera (por id); las demás usan la portada genérica */
 export const CAREER_PHOTOS: Record<string, string> = {
-  sis: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1000&q=70&auto=format&fit=crop",
-  agro: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1000&q=70&auto=format&fit=crop",
-  for: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1000&q=70&auto=format&fit=crop",
+  sis: "/fotos/carrera-sistemas.jpg",
+  agro: "/fotos/carrera-agro.jpg",
+  for: "/fotos/carrera-forestal.jpg",
 };

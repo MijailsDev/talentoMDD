@@ -157,7 +157,7 @@ export default async function Home() {
                 style={{ background: `radial-gradient(120% 100% at 20% 10%, ${TILE_COLORS[i % 8]}cc, ${TILE_COLORS[i % 8]})` }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={CAREER_PHOTOS[c.id] ?? FALLBACK_COVER} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-300 ease-out motion-safe:group-hover:scale-[1.03]" />
+                <img src={CAREER_PHOTOS[c.id] ?? FALLBACK_COVER} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-[center_60%] transition-[scale] duration-300 ease-out motion-safe:group-hover:scale-[1.03]" />
                 <span className="absolute inset-0 bg-gradient-to-b from-dark/5 to-dark/80" />
                 <span className="absolute left-4 top-4 grid h-[42px] w-[42px] place-items-center rounded-xl bg-white/95 text-primary"><CareerIcon icon={c.icon} size={23} /></span>
                 <span className="absolute inset-x-4 bottom-3.5">
