@@ -52,7 +52,7 @@ export function SubmitButton({ children, busy, pendingText = "Guardando…", cla
   const status = useFormStatus();
   const pending = busy ?? status.pending;
   return (
-    <button type="submit" disabled={pending || rest.disabled} className={className} {...rest}>
+    <button type="submit" className={className} {...rest} disabled={pending || rest.disabled}>
       {pending ? (
         <>
           <Loader2 size={18} className="animate-spin" /> {pendingText}
