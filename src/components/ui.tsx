@@ -56,7 +56,7 @@ export function PageHeader({ eyebrow, title, compact, children }: { eyebrow?: st
       <div className={`container-x ${compact ? "py-5 lg:py-12" : "py-10 sm:py-12"}`}>
         {eyebrow && <p className={`eyebrow text-peach before:bg-peach before:bg-none ${compact ? "max-lg:hidden" : ""}`}>{eyebrow}</p>}
         <h1 className={`font-display text-[clamp(28px,3.6vw,42px)] font-extrabold tracking-[-0.02em] ${compact ? "lg:mt-2" : "mt-2"}`}>{title}</h1>
-        {children && <div className={`mt-1.5 max-w-2xl text-base text-[#FBE6DA] ${compact ? "max-lg:hidden" : ""}`}>{children}</div>}
+        {children && <div className={`mt-1.5 max-w-2xl text-base text-white ${compact ? "max-lg:hidden" : ""}`}>{children}</div>}
       </div>
     </div>
   );

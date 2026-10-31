@@ -297,8 +297,9 @@ textarea.field {
 }
 /* Franja roja con el textil andino (cifras, encabezados de listados) */
 .bg-textil {
-  background-color: var(--color-primary);
-  background-image: linear-gradient(100deg, rgba(224, 112, 90, 0.95), rgba(200, 0, 54, 0.92)), var(--pat-band);
+  background-color: var(--color-secondary);
+  /* Velo rojo oscuro y plano: da 4.5:1 o más al texto en toda la franja, a donde el coral no llegaba */
+  background-image: linear-gradient(rgba(161, 0, 44, 0.92), rgba(161, 0, 44, 0.92)), var(--pat-band);
   background-size: 100% 100%, 120px 120px;
 }
 /* Encaja filas enteras del textil en el alto de la franja de cifras */

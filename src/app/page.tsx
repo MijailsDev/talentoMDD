@@ -63,7 +63,7 @@ export default async function Home() {
               <label className="flex min-w-0 items-center gap-2 px-3 sm:col-span-3 lg:col-span-2 xl:col-span-3">
                 <Search size={20} className="shrink-0 text-ink-2" />
                 <span className="sr-only">Cargo o palabra clave</span>
-                <input name="q" placeholder="Cargo o palabra clave" className="h-12 min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-ink-2/70" />
+                <input name="q" placeholder="Cargo o palabra clave" className="h-12 min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-ink-2" />
               </label>
               <label className="sr-only" htmlFor="hcar">Carrera</label>
               <select id="hcar" name="car" defaultValue="all" className="field h-[52px] border-transparent bg-surface-2">
@@ -123,7 +123,7 @@ export default async function Home() {
                 <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/15 text-peach"><I size={27} /></span>
                 <div>
                   <p className="font-display text-[clamp(34px,3.8vw,48px)] font-extrabold leading-none tracking-[-0.04em]"><CountUp value={n as number} /></p>
-                  <p className="mt-1 text-sm text-white/90">{l as string}</p>
+                  <p className="mt-1 text-sm text-white">{l as string}</p>
                 </div>
               </Reveal>
             );
