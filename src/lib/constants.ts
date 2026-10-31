@@ -42,15 +42,6 @@ export const SECTORS = [
   "Banca y finanzas", "Telecomunicaciones", "Construcción", "Salud", "Educación", "Sector público", "Universidad pública", "Otro",
 ];
 
-export const TESTIMONIALS = [
-  { photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=faces", name: "Mariela Torres Huamán", meta: "Egresada de Ingeniería Agroindustrial, 2023", role: "Jefa de calidad en Castañera Amazónica",
-    quote: "Hice mis prácticas pre-profesionales en la planta gracias a una oferta publicada aquí. A los seis meses me ofrecieron quedarme y hoy lidero el área de calidad." },
-  { photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces", name: "Renzo Chávez Medina", meta: "Egresado de Ingeniería de Sistemas e Informática, 2021", role: "Desarrollador Full Stack en Selva Digital",
-    quote: "La ficha de la empresa me ayudó a preparar la entrevista: sabía qué hacían, quién me iba a entrevistar y dónde quedaba la oficina." },
-  { photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces", name: "Daniela Ccahuana Ríos", meta: "Egresada de Ingeniería Forestal y Medio Ambiente, 2022", role: "Analista de teledetección en SatBosque Analytics",
-    quote: "Empecé como voluntaria en monitoreo de fauna y luego postulé a la práctica de SIG. Hoy trabajo de forma remota procesando imágenes satelitales del bosque." },
-];
-
 export const FAQS: [string, string][] = [
   ["¿Quiénes pueden usar la plataforma?", "Estudiantes, egresados y docentes con correo institucional, y empresas u organizaciones verificadas por la universidad."],
   ["¿Cómo sé que una empresa es confiable?", "Las empresas con la insignia «Empresa verificada» pasaron una revisión de la Oficina de Empleabilidad: RUC activo, convenio firmado y visita a sus instalaciones."],

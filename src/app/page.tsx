@@ -1,15 +1,17 @@
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Briefcase, Building2, CheckCircle2, ChevronDown, ClipboardCheck, GraduationCap, Handshake, Quote, Search } from "lucide-react";
+import { ArrowRight, BadgeCheck, Briefcase, Building2, CheckCircle2, ChevronDown, ClipboardCheck, GraduationCap, Search } from "lucide-react";
 import { getCatalog, getActiveOfferCounts, getCompanies, getOffers, getSavedIds, getStats } from "@/lib/data";
 import { getSession } from "@/lib/auth";
-import { CAREER_PHOTOS, FAQS, FALLBACK_COVER, HERO_PHOTO, OFFER_TYPES, TEAM_PHOTO, TESTIMONIALS, UNIVERSITY, WORK_MODES } from "@/lib/constants";
+import { CAREER_PHOTOS, FAQS, FALLBACK_COVER, HERO_PHOTO, OFFER_TYPES, TEAM_PHOTO, UNIVERSITY, WORK_MODES } from "@/lib/constants";
 import { plural } from "@/lib/format";
 import { OfferCard } from "@/components/offer-card";
-import { Avatar, CompanyLogo, Cover, Verified } from "@/components/ui";
+import { CompanyLogo, Cover, Verified } from "@/components/ui";
 import { CountUp, Parallax, Reveal } from "@/components/motion";
 import { CareerIcon } from "@/components/career-icon";
 
 const TILE_COLORS = ["#A1002C", "#2F5E4C", "#7A4E2A", "#3E5A2E", "#5A3A2C", "#C80036", "#3E5563", "#2E4A3A"];
+// Por debajo de este número, la cifra de miembros resta credibilidad: no se muestra
+const MIN_MEMBERS = 20;
 
 function SectionHead({ title, center, children }: { title: string; center?: boolean; children?: React.ReactNode }) {
   return (
@@ -28,6 +30,7 @@ export default async function Home() {
   const canSave = !s || s.profile.role === "estudiante" || s.profile.role === "egresado";
   const featured = [...offers.filter((o) => o.featured), ...offers.filter((o) => !o.featured)].slice(0, 6);
   const spotlight = featured[0];
+  const showMembers = stats.members >= MIN_MEMBERS;
   const tiles = catalog.careers
     .map((c) => ({ ...c, n: counts.byCareer[c.id] ?? 0 }))
     .sort((a, b) => b.n - a.n)
@@ -101,23 +104,17 @@ export default async function Home() {
                 </span>
               </Link>
             )}
-            <div className="absolute right-2 top-7 flex items-center gap-2.5 rounded-2xl bg-white px-3.5 py-2.5 text-ink shadow-[var(--shadow-pop)] sm:-right-3">
-              <Handshake size={22} className="text-dark" />
-              <span className="text-[13px] leading-tight">
-                <strong className="block font-display text-[22px] text-dark"><CountUp value={stats.hired} /></strong>prácticas concretadas
-              </span>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Cifras */}
       <section aria-label="Cifras" className="bg-textil textil-cuadrado relative mx-auto mt-[clamp(24px,3vw,40px)] w-[calc(100%-2rem)] max-w-[1180px] overflow-hidden rounded-[26px] text-white shadow-[0_30px_60px_rgba(200,0,54,.28)] sm:w-[calc(100%-3rem)]">
-        <div className="grid grid-cols-2 gap-6 px-[clamp(20px,4vw,40px)] py-10 md:grid-cols-4">
+        <div className={`grid gap-6 px-[clamp(20px,4vw,40px)] py-10 ${showMembers ? "grid-cols-2 md:grid-cols-4" : "sm:grid-cols-3"}`}>
           {[
             [stats.offers, "Ofertas activas", Briefcase],
             [stats.companies, "Empresas aliadas", Building2],
-            [stats.members, "Estudiantes y egresados", GraduationCap],
+            ...(showMembers ? [[stats.members, "Estudiantes y egresados", GraduationCap]] : []),
             [stats.hired, "Prácticas concretadas", ClipboardCheck],
           ].map(([n, l, Icon], i) => {
             const I = Icon as typeof Briefcase;
@@ -210,29 +207,6 @@ export default async function Home() {
             </Reveal>
           ))}
         </ol>
-      </section>
-
-      {/* Testimonios */}
-      <section className="container-x pt-[clamp(56px,7vw,96px)]">
-        <SectionHead title="Egresados que empezaron aquí" />
-        <div className="snap-row -mx-4 gap-4 px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0">
-          {TESTIMONIALS.map((t, i) => (
-            <Reveal key={t.name} delay={i * 60} className="w-[85%] md:w-auto">
-              <figure className="card flex h-full flex-col gap-[18px] p-7">
-                <Quote size={38} className="text-primary" />
-                <blockquote className="text-[17px] leading-relaxed">{t.quote}</blockquote>
-                <figcaption className="mt-auto flex items-center gap-3 border-t border-line pt-4">
-                  <Avatar name={t.name} url={t.photo} size={56} />
-                  <span>
-                    <span className="block font-bold">{t.name}</span>
-                    <span className="block text-[13px] text-ink-2">{t.meta}</span>
-                    <span className="block text-[13px] font-semibold text-primary">{t.role}</span>
-                  </span>
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
-        </div>
       </section>
 
       {/* Para empresas */}
