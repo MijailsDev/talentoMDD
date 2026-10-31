@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GraduationCap, MapPin } from "lucide-react";
+import { Banknote, GraduationCap, MapPin } from "lucide-react";
 import { OFFER_TYPES } from "@/lib/constants";
 import { deadlineText, isNew, plural } from "@/lib/format";
 import type { OfferWithCompany } from "@/lib/types";
@@ -50,6 +50,7 @@ export function OfferCard({ offer: o, careerName, saved, canSave }: { offer: Off
         <div className="space-y-1 text-[13px] text-ink-2">
           <p className="flex items-start gap-1.5"><MapPin size={15} className="mt-0.5 shrink-0" /> {offerPlace(o)}</p>
           <p className="flex items-start gap-1.5"><GraduationCap size={15} className="mt-0.5 shrink-0" /> {careersText(o.career_ids, careerName)}</p>
+          <p className="flex items-start gap-1.5"><Banknote size={15} className="mt-0.5 shrink-0" /> <span className="line-clamp-2">{o.pay || (o.paid ? "Remunerada" : "No remunerada")}</span></p>
         </div>
         <span className="flex-1" />
         <div className="flex items-center justify-between gap-2 border-t border-line pt-3 text-[13px]">
