@@ -1,5 +1,26 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { Pause, Play } from "lucide-react";
+
+/** Carrusel continuo con pausa visible: el movimiento automático debe poder detenerse (WCAG 2.2.2) */
+export function Marquee({ children }: { children: React.ReactNode }) {
+  const [paused, setPaused] = useState(false);
+  return (
+    <div className="hidden md:block">
+      <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)]">
+        <div className="marquee flex w-max gap-[18px] px-4 pb-4 pt-2" style={{ animationPlayState: paused ? "paused" : undefined }}>
+          {children}
+        </div>
+      </div>
+      {/* Con movimiento reducido el carrusel ya está quieto: no hace falta el botón */}
+      <div className="container-x flex justify-end motion-reduce:hidden">
+        <button type="button" onClick={() => setPaused((p) => !p)} className="btn-ghost">
+          {paused ? <Play size={16} /> : <Pause size={16} />} {paused ? "Reanudar carrusel" : "Pausar carrusel"}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 /** Aparición progresiva al entrar en pantalla */
 export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }: { children: React.ReactNode; delay?: number; className?: string; as?: "div" | "section" | "li" }) {

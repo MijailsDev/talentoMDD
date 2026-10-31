@@ -6,7 +6,7 @@ import { CAREER_PHOTOS, FAQS, FALLBACK_COVER, HERO_PHOTO, OFFER_TYPES, TEAM_PHOT
 import { plural } from "@/lib/format";
 import { OfferCard } from "@/components/offer-card";
 import { CompanyLogo, Cover, Verified } from "@/components/ui";
-import { CountUp, Parallax, Reveal } from "@/components/motion";
+import { CountUp, Marquee, Parallax, Reveal } from "@/components/motion";
 import { CareerIcon } from "@/components/career-icon";
 
 const TILE_COLORS = ["#A1002C", "#2F5E4C", "#7A4E2A", "#3E5A2E", "#5A3A2C", "#C80036", "#3E5563", "#2E4A3A"];
@@ -178,11 +178,9 @@ export default async function Home() {
           </SectionHead>
         </div>
         {/* Escritorio: carrusel continuo · Celular: fila deslizable con scroll snap */}
-        <div className="hidden overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)] md:block">
-          <div className="marquee flex w-max gap-[18px] px-4 pb-4 pt-2">
-            {[...companies, ...companies].map((c, i) => <CompanyChip key={`${c.id}-${i}`} c={c} n={counts.byCompany[c.id] ?? 0} hidden={i >= companies.length} />)}
-          </div>
-        </div>
+        <Marquee>
+          {[...companies, ...companies].map((c, i) => <CompanyChip key={`${c.id}-${i}`} c={c} n={counts.byCompany[c.id] ?? 0} hidden={i >= companies.length} />)}
+        </Marquee>
         <div className="snap-row gap-4 px-4 pb-4 pt-2 md:hidden">
           {companies.map((c) => <CompanyChip key={c.id} c={c} n={counts.byCompany[c.id] ?? 0} />)}
         </div>
