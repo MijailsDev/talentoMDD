@@ -48,12 +48,12 @@ export default async function OffersPage({ searchParams }: { searchParams: Promi
 
   return (
     <>
-      <PageHeader eyebrow="Ofertas" title="Prácticas, empleos y voluntariados">
+      <PageHeader compact eyebrow="Ofertas" title="Prácticas, empleos y voluntariados">
         Convocatorias vigentes de empresas verificadas por la universidad.
       </PageHeader>
-      <div className="container-x grid gap-8 py-10 lg:grid-cols-[300px_1fr]">
+      <div className="container-x grid gap-4 py-4 lg:grid-cols-[300px_1fr] lg:gap-8 lg:py-10">
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <OfferFilters faculties={catalog.faculties} careers={catalog.careers} values={values} />
+          <OfferFilters faculties={catalog.faculties} careers={catalog.careers} values={values} total={offers.length} />
         </aside>
         <section aria-live="polite">
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">

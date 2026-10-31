@@ -49,13 +49,14 @@ export function Verified({ size = 16 }: { size?: number }) {
   );
 }
 
-export function PageHeader({ eyebrow, title, children }: { eyebrow?: string; title: string; children?: React.ReactNode }) {
+export function PageHeader({ eyebrow, title, compact, children }: { eyebrow?: string; title: string; compact?: boolean; children?: React.ReactNode }) {
   return (
     <div className="bg-textil relative overflow-hidden text-white">
-      <div className="container-x py-10 sm:py-12">
-        {eyebrow && <p className="eyebrow text-peach before:bg-peach before:bg-none">{eyebrow}</p>}
-        <h1 className="mt-2 font-display text-[clamp(28px,3.6vw,42px)] font-extrabold tracking-[-0.02em]">{title}</h1>
-        {children && <div className="mt-1.5 max-w-2xl text-base text-[#FBE6DA]">{children}</div>}
+      {/* compact: en celular y tableta deja solo la banda y el título, para llegar antes al contenido */}
+      <div className={`container-x ${compact ? "py-5 lg:py-12" : "py-10 sm:py-12"}`}>
+        {eyebrow && <p className={`eyebrow text-peach before:bg-peach before:bg-none ${compact ? "max-lg:hidden" : ""}`}>{eyebrow}</p>}
+        <h1 className={`font-display text-[clamp(28px,3.6vw,42px)] font-extrabold tracking-[-0.02em] ${compact ? "lg:mt-2" : "mt-2"}`}>{title}</h1>
+        {children && <div className={`mt-1.5 max-w-2xl text-base text-[#FBE6DA] ${compact ? "max-lg:hidden" : ""}`}>{children}</div>}
       </div>
     </div>
   );

@@ -377,6 +377,56 @@ body::after {
   }
 }
 
+/* Hoja de filtros en celular y tableta: sube desde abajo y vuelve por el mismo camino */
+@media (width < 64rem) {
+  .filtros-hoja,
+  .filtros-hoja::backdrop {
+    transition: translate 200ms var(--ease-out), opacity 200ms var(--ease-out), display 200ms allow-discrete, overlay 200ms allow-discrete;
+  }
+  .filtros-hoja {
+    translate: 0 100%;
+  }
+  .filtros-hoja::backdrop {
+    opacity: 0;
+  }
+  .filtros-hoja[open] {
+    translate: 0 0;
+    transition-duration: 300ms;
+  }
+  .filtros-hoja[open]::backdrop {
+    opacity: 1;
+    transition-duration: 300ms;
+  }
+  @starting-style {
+    .filtros-hoja[open] {
+      translate: 0 100%;
+    }
+    .filtros-hoja[open]::backdrop {
+      opacity: 0;
+    }
+  }
+  /* Con movimiento reducido solo se funde, sin desplazarse */
+  @media (prefers-reduced-motion: reduce) {
+    .filtros-hoja,
+    .filtros-hoja::backdrop {
+      transition-duration: 150ms !important;
+    }
+    .filtros-hoja {
+      translate: 0 0;
+      opacity: 0;
+    }
+    .filtros-hoja[open] {
+      opacity: 1;
+    }
+    @starting-style {
+      .filtros-hoja[open] {
+        translate: 0 0;
+        opacity: 0;
+      }
+    }
+  }
+}
+
 /* Entrada de listados (ofertas, empresas, comunidad): breve, porque se ven muchas veces al día */
 @keyframes rise-sm {
   from { opacity: 0; transform: translateY(8px); }
