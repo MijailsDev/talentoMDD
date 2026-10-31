@@ -38,6 +38,7 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
   const [menu, setMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const [unread, setUnread] = useState(user?.unread ?? 0);
   const [serverUnread, setServerUnread] = useState(user?.unread ?? 0);
   const signedIn = !!user;
@@ -86,9 +87,28 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
 
   useEffect(() => {
     if (!mobile) return;
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && setMobile(false);
+    const esc = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setMobile(false);
+      mobileToggleRef.current?.focus();
+    };
+    // Se escucha el click, no el toque inicial: deslizar la página no cierra el menú
+    const outside = (e: MouseEvent) => {
+      const target = e.target as Element;
+      if (target.closest("#menu-movil, [aria-controls='menu-movil']")) return;
+      setMobile(false);
+      // Ese toque solo cierra el menú: no debe activar el enlace que haya debajo
+      if (!target.closest("header")) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
     document.addEventListener("keydown", esc);
-    return () => document.removeEventListener("keydown", esc);
+    document.addEventListener("click", outside, true);
+    return () => {
+      document.removeEventListener("keydown", esc);
+      document.removeEventListener("click", outside, true);
+    };
   }, [mobile]);
 
   const active = (href: string) =>
@@ -173,43 +193,42 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
         </div>
 
         {user && <span className="ml-auto lg:hidden"><Bell count={unread} onClick={close} /></span>}
-        <button type="button" className={`btn-ghost h-10 w-10 px-0 lg:hidden ${user ? "-ml-4" : "ml-auto"}`} onClick={() => setMobile((m) => !m)} aria-expanded={mobile} aria-controls="menu-movil" aria-label={mobile ? "Cerrar menú" : "Abrir menú"}>
+        <button ref={mobileToggleRef} type="button" className={`btn-ghost h-11 w-11 px-0 lg:hidden ${user ? "-ml-4" : "ml-auto"}`} onClick={() => setMobile((m) => !m)} aria-expanded={mobile} aria-controls="menu-movil" aria-label={mobile ? "Cerrar menú" : "Abrir menú"}>
           {mobile ? <X /> : <Menu />}
         </button>
       </div>
       <div className="cinta h-2" aria-hidden />
 
-      {mobile && (
-        <div id="menu-movil" className="pop-in origin-top border-t border-line bg-surface lg:hidden">
-          <nav aria-label="Principal móvil" className="container-x flex flex-col gap-1 py-3">
-            {LINKS.map((l) => (
-              <Link key={l.href} href={l.href} onClick={close} className={`rounded-xl px-3 py-2.5 font-semibold transition-colors duration-100 hover:bg-hover active:bg-hover ${active(l.href) ? "text-primary" : ""}`}>
-                {l.label}
-              </Link>
-            ))}
-            <div className="my-2 h-px bg-line" />
-            {user ? (
-              <>
-                {userLinks.map((l) => (
-                  <Link key={l.href} href={l.href} onClick={close} className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 font-medium transition-colors duration-100 hover:bg-hover active:bg-hover">
-                    <l.icon size={18} /> {l.label}
-                  </Link>
-                ))}
-                <form action="/auth/signout" method="post">
-                  <button type="submit" className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 font-medium text-error transition-colors duration-100 hover:bg-error-soft active:bg-error-soft">
-                    <LogOut size={18} /> Cerrar sesión
-                  </button>
-                </form>
-              </>
-            ) : (
-              <div className="flex gap-2">
-                <Link href="/login" onClick={close} className="btn-outline flex-1">Iniciar sesión</Link>
-                <Link href="/registro" onClick={close} className="btn-primary flex-1">Crear cuenta</Link>
-              </div>
-            )}
-          </nav>
-        </div>
-      )}
+      {/* Siempre montado para poder animar la salida y revertirla a medio camino; inert lo saca del teclado */}
+      <div id="menu-movil" inert={!mobile} className="menu-movil absolute inset-x-0 top-full max-h-[calc(100dvh-5rem)] origin-top overflow-y-auto overscroll-contain border-t border-line bg-surface shadow-[var(--shadow-pop)] lg:hidden">
+        <nav aria-label="Principal móvil" className="container-x flex flex-col gap-1 py-3">
+          {LINKS.map((l) => (
+            <Link key={l.href} href={l.href} onClick={close} className={`rounded-xl px-3 py-2.5 font-semibold transition-colors duration-100 hover:bg-hover active:bg-hover ${active(l.href) ? "text-primary" : ""}`}>
+              {l.label}
+            </Link>
+          ))}
+          <div className="my-2 h-px bg-line" />
+          {user ? (
+            <>
+              {userLinks.map((l) => (
+                <Link key={l.href} href={l.href} onClick={close} className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 font-medium transition-colors duration-100 hover:bg-hover active:bg-hover">
+                  <l.icon size={18} /> {l.label}
+                </Link>
+              ))}
+              <form action="/auth/signout" method="post">
+                <button type="submit" className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 font-medium text-error transition-colors duration-100 hover:bg-error-soft active:bg-error-soft">
+                  <LogOut size={18} /> Cerrar sesión
+                </button>
+              </form>
+            </>
+          ) : (
+            <div className="flex gap-2">
+              <Link href="/login" onClick={close} className="btn-outline flex-1">Iniciar sesión</Link>
+              <Link href="/registro" onClick={close} className="btn-primary flex-1">Crear cuenta</Link>
+            </div>
+          )}
+        </nav>
+      </div>
     </header>
   );
 }

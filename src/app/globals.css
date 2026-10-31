@@ -358,6 +358,25 @@ body::after {
   }
 }
 
+/* Menú móvil: flota sobre la página; con transiciones, abrir y cerrar se revierten a medio camino */
+.menu-movil {
+  transition: opacity 150ms var(--ease-out), scale 150ms var(--ease-out), visibility 150ms;
+}
+.menu-movil[inert] {
+  opacity: 0;
+  scale: 0.97;
+  visibility: hidden;
+}
+/* Con movimiento reducido solo se funde y no cambia de tamaño */
+@media (prefers-reduced-motion: reduce) {
+  .menu-movil {
+    transition-duration: 150ms !important;
+  }
+  .menu-movil[inert] {
+    scale: 1;
+  }
+}
+
 /* Entrada de listados (ofertas, empresas, comunidad): breve, porque se ven muchas veces al día */
 @keyframes rise-sm {
   from { opacity: 0; transform: translateY(8px); }
