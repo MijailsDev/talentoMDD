@@ -74,7 +74,7 @@ export default async function CommunityPage({ searchParams }: { searchParams: Pr
               {filtered ? undefined : vista === "conexiones" ? "Pulsa «Conectar» en las personas que te interesen y aparecerán aquí." : vista === "contigo" ? "Completa tu perfil para que otros te encuentren en el directorio." : undefined}
             </EmptyState>
           ) : (
-            <ul className="grid gap-4 sm:grid-cols-2">
+            <ul className="stagger grid gap-4 sm:grid-cols-2">
               {list.map((p) => {
                 const name = `${p.first_name} ${p.last_name}`.trim() || "Miembro";
                 const isConn = connected.has(p.id);

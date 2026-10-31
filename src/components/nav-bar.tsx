@@ -13,7 +13,7 @@ type NavUser = { name: string; email: string; role: Role; avatar: string | null;
 function Bell({ count, onClick }: { count: number; onClick?: () => void }) {
   const label = count ? `Notificaciones, ${count} sin leer` : "Notificaciones";
   return (
-    <Link href="/notificaciones" onClick={onClick} className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink transition hover:bg-hover" aria-label={label} title={label}>
+    <Link href="/notificaciones" onClick={onClick} className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink transition-[background-color,scale] duration-150 ease-out hover:bg-hover active:scale-[0.97]" aria-label={label} title={label}>
       <BellIcon size={21} />
       {count > 0 && (
         <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[11px] font-bold leading-none text-white ring-2 ring-bg">
@@ -84,6 +84,13 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
     };
   }, [menu]);
 
+  useEffect(() => {
+    if (!mobile) return;
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setMobile(false);
+    document.addEventListener("keydown", esc);
+    return () => document.removeEventListener("keydown", esc);
+  }, [mobile]);
+
   const active = (href: string) =>
     href === "/" ? path === "/" : !href.includes("#") && (path === href || path.startsWith(href + "/"));
 
@@ -114,7 +121,7 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
             <Link
               key={l.href}
               href={l.href}
-              className={`flex items-center border-b-[3px] px-3 text-[15px] font-semibold whitespace-nowrap transition hover:text-primary ${active(l.href) ? "border-primary text-primary" : "border-transparent text-ink"}`}
+              className={`flex items-center border-b-[3px] px-3 text-[15px] font-semibold whitespace-nowrap transition-colors duration-150 hover:text-primary ${active(l.href) ? "border-primary text-primary" : "border-transparent text-ink"}`}
               aria-current={active(l.href) ? "page" : undefined}
             >
               {l.label}
@@ -130,27 +137,27 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
                 type="button"
                 onClick={() => setMenu((m) => !m)}
                 aria-expanded={menu}
-                aria-haspopup="menu"
-                className="flex items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3 transition hover:border-line-strong"
+                aria-controls="menu-usuario"
+                className="flex items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3 transition-[border-color,scale] duration-150 ease-out hover:border-line-strong active:scale-[0.97]"
               >
                 <Avatar name={user.name} url={user.avatar} size={34} />
                 <span className="max-w-36 truncate text-sm font-semibold">{user.name.split(" ")[0]}</span>
-                <ChevronDown size={16} className={`transition ${menu ? "rotate-180" : ""}`} />
+                <ChevronDown size={16} className={`transition-[rotate] duration-200 ease-out ${menu ? "rotate-180" : ""}`} />
               </button>
               {menu && (
-                <div role="menu" className="absolute right-0 top-12 w-64 rounded-2xl border border-line bg-surface p-2 shadow-[var(--shadow-pop)]">
+                <div id="menu-usuario" className="pop-in absolute right-0 origin-top-right top-12 w-64 rounded-2xl border border-line bg-surface p-2 shadow-[var(--shadow-pop)]">
                   <div className="border-b border-line px-3 pb-2 pt-1">
                     <p className="truncate text-sm font-bold">{user.name}</p>
                     <p className="truncate text-xs text-ink-2">{user.email}</p>
                     <span className="chip mt-1 bg-primary-soft text-primary">{ROLES[user.role]}</span>
                   </div>
                   {userLinks.map((l) => (
-                    <Link key={l.href} href={l.href} role="menuitem" onClick={close} className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium hover:bg-hover">
+                    <Link key={l.href} href={l.href} onClick={close} className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-[background-color,scale] duration-100 ease-out hover:bg-hover active:scale-[0.98]">
                       <l.icon size={17} /> {l.label}
                     </Link>
                   ))}
                   <form action="/auth/signout" method="post">
-                    <button type="submit" role="menuitem" className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium text-error hover:bg-error-soft">
+                    <button type="submit" className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-error transition-[background-color,scale] duration-100 ease-out hover:bg-error-soft active:scale-[0.98]">
                       <LogOut size={17} /> Cerrar sesión
                     </button>
                   </form>
@@ -166,17 +173,17 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
         </div>
 
         {user && <span className="ml-auto lg:hidden"><Bell count={unread} onClick={close} /></span>}
-        <button type="button" className={`btn-ghost h-10 w-10 px-0 lg:hidden ${user ? "-ml-4" : "ml-auto"}`} onClick={() => setMobile((m) => !m)} aria-expanded={mobile} aria-label={mobile ? "Cerrar menú" : "Abrir menú"}>
+        <button type="button" className={`btn-ghost h-10 w-10 px-0 lg:hidden ${user ? "-ml-4" : "ml-auto"}`} onClick={() => setMobile((m) => !m)} aria-expanded={mobile} aria-controls="menu-movil" aria-label={mobile ? "Cerrar menú" : "Abrir menú"}>
           {mobile ? <X /> : <Menu />}
         </button>
       </div>
       <div className="cinta h-2" aria-hidden />
 
       {mobile && (
-        <div className="border-t border-line bg-surface lg:hidden">
+        <div id="menu-movil" className="pop-in origin-top border-t border-line bg-surface lg:hidden">
           <nav aria-label="Principal móvil" className="container-x flex flex-col gap-1 py-3">
             {LINKS.map((l) => (
-              <Link key={l.href} href={l.href} onClick={close} className={`rounded-xl px-3 py-2.5 font-semibold hover:bg-hover ${active(l.href) ? "text-primary" : ""}`}>
+              <Link key={l.href} href={l.href} onClick={close} className={`rounded-xl px-3 py-2.5 font-semibold transition-colors duration-100 hover:bg-hover active:bg-hover ${active(l.href) ? "text-primary" : ""}`}>
                 {l.label}
               </Link>
             ))}
@@ -184,12 +191,12 @@ export function NavBar({ user, children }: { user: NavUser; children: React.Reac
             {user ? (
               <>
                 {userLinks.map((l) => (
-                  <Link key={l.href} href={l.href} onClick={close} className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 font-medium hover:bg-hover">
+                  <Link key={l.href} href={l.href} onClick={close} className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 font-medium transition-colors duration-100 hover:bg-hover active:bg-hover">
                     <l.icon size={18} /> {l.label}
                   </Link>
                 ))}
                 <form action="/auth/signout" method="post">
-                  <button type="submit" className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 font-medium text-error hover:bg-error-soft">
+                  <button type="submit" className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 font-medium text-error transition-colors duration-100 hover:bg-error-soft active:bg-error-soft">
                     <LogOut size={18} /> Cerrar sesión
                   </button>
                 </form>

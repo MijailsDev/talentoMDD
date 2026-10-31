@@ -45,7 +45,7 @@ export function CountUp({ value, suffix = "" }: { value: number; suffix?: string
       io.disconnect();
       const t0 = performance.now();
       const step = (t: number) => {
-        const p = Math.min(1, (t - t0) / 1600);
+        const p = Math.min(1, (t - t0) / 1000);
         setN(Math.round(value * (1 - Math.pow(1 - p, 3))));
         if (p < 1) raf = requestAnimationFrame(step);
       };

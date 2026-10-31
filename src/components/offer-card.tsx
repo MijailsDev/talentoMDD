@@ -23,9 +23,9 @@ export function OfferCard({ offer: o, careerName, saved, canSave }: { offer: Off
   const dl = deadlineText(o.deadline);
   const fresh = isNew(o.created_at);
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface transition duration-300 hover:-translate-y-2 hover:border-peach hover:shadow-[0_26px_50px_rgba(200,0,54,.2)]">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface transition-[translate,scale,border-color,box-shadow] duration-200 ease-out hover:border-peach hover:shadow-[0_26px_50px_rgba(200,0,54,.2)] motion-safe:hover:-translate-y-1 active:not-has-[button:active]:scale-[0.99]">
       <div className="relative mx-2 mt-2 h-[150px] shrink-0 overflow-hidden rounded-2xl">
-        <Cover src={o.company.cover_url} className="transition duration-500 group-hover:scale-105" />
+        <Cover src={o.company.cover_url} className="transition-[scale] duration-300 ease-out motion-safe:group-hover:scale-[1.03]" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/45" />
         {(dl.soon || fresh) && (
           <span className={`chip absolute left-3 top-3 ${dl.soon ? "bg-warning-soft text-warning" : "bg-primary text-white"}`}>

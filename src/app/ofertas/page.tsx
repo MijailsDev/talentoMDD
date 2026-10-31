@@ -72,7 +72,7 @@ export default async function OffersPage({ searchParams }: { searchParams: Promi
               <p className="text-sm text-ink-2">Las ofertas remotas no aparecen en el mapa.</p>
             </div>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="stagger grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
               {offers.map((o) => (
                 <OfferCard key={o.id} offer={o} careerName={catalog.careerName} saved={saved.has(o.id)} canSave={canSave} />
               ))}
