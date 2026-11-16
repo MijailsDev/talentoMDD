@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, MessageCircle, UserCheck, UserPlus } from "lucide-react";
+import { ArrowLeft, Mail, UserCheck, UserPlus } from "lucide-react";
 import { requireRole } from "@/lib/auth";
 import { getCatalog } from "@/lib/data";
 import { createClient } from "@/lib/supabase/server";
@@ -27,6 +27,17 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
     p.career_id && p.career_id === me.career_id ? "Misma carrera" : null,
     p.career_id && me.career_id && catalog.careers.find((c) => c.id === p.career_id)?.faculty_id === catalog.careers.find((c) => c.id === me.career_id)?.faculty_id ? "Misma facultad" : null,
   ].filter(Boolean) as string[];
+  // Los correos @unamad.edu.pe son de Google: Gmail abre el mensaje ya escrito, con la cuenta institucional de quien escribe
+  const mailHref = p.email
+    ? `https://mail.google.com/mail/?${new URLSearchParams({
+        authuser: me.email,
+        view: "cm",
+        fs: "1",
+        to: p.email,
+        su: "Hola desde TalentoMDD",
+        body: `Hola, ${p.first_name}:\n\nVi tu perfil en TalentoMDD y me gustaría conversar contigo.\n\nSaludos,\n${me.first_name} ${me.last_name}`,
+      })}`
+    : null;
 
   return (
     <div className="container-x max-w-5xl space-y-6 py-8">
@@ -41,7 +52,11 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
                 <input type="hidden" name="to" value={p.id} />
                 <button className={conn ? "btn btn-sm bg-success-soft text-success" : "btn-primary btn-sm"}>{conn ? <><UserCheck size={16} /> Conectado</> : <><UserPlus size={16} /> Conectar</>}</button>
               </form>
-              <button disabled className="btn-outline btn-sm" title="Próximamente"><MessageCircle size={16} /> Mensaje · pronto</button>
+              {mailHref && (
+                <a href={mailHref} target="_blank" rel="noopener noreferrer" className="btn-outline btn-sm" title={`Escribir a ${p.email}`}>
+                  <Mail size={16} /> Enviar correo
+                </a>
+              )}
             </>
           )
         }

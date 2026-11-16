@@ -4,7 +4,7 @@ import { ROLES, UNIVERSITY } from "@/lib/constants";
 import { cycleText } from "@/lib/format";
 import { Avatar } from "./ui";
 
-export type PublicProfile = Pick<Profile, "id" | "role" | "first_name" | "last_name" | "career_id" | "cycle" | "grad_year" | "headline" | "location" | "about" | "skills" | "languages" | "experience" | "projects" | "certifications" | "avatar_url" | "cover_url">;
+export type PublicProfile = Pick<Profile, "id" | "role" | "first_name" | "last_name" | "career_id" | "cycle" | "grad_year" | "headline" | "location" | "about" | "skills" | "languages" | "experience" | "projects" | "certifications" | "avatar_url" | "cover_url"> & { email?: string };
 
 const COVER_BG = "linear-gradient(120deg,#E0705A,#C80036 45%,#0C1844)";
 
